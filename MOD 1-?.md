@@ -166,5 +166,117 @@
     - Attackers scour the internet looking for open systems with TCP port 25 open.
     - A threat actor exploits systems and installs a program such as Send-Safe that allows the attacker to turn the victim into a spam-generating system.
 
+### Protocol Dissectors
+- A dissector is simply a parser used to identify protocol fields within a network packet and filter for specific information regarding those protocols, for example, the FQDN in a DNS query.
+- Applications such as Intrusion Detection Systems (**IDS**), Intrusion Prevention Systems (**IPS**), network Application Load Balancers (**ALB**), **next-generation firewalls**, and **protocol analyzers** all employ their own set of protocol dissectors.
+- These applications use dissectors, parsing through network data to perform security, monitoring, performance, or traffic analysis tasks.
 
+### Packet Dissection at Work
+- Similar to OSI model operation, de-encapsulating a lower-layer protocol and handing the payload to a higher layer for processing, each protocol dissector decodes its part of a protocol and analyzes fields in the header to determine the next dissector, then hands off to that dissector for processing.
+- The process repeats itself until all payloads have been processed and there are no additional payloads to be analyzed.
+  - The result of this process can be seen looking at each frame analyzed by Wireshark.
+  - Every packet analyzed starts with the Frame dissector, which parses the details of the data source itself (e.g., timestamps) — a data source being a capture file or live data.
+  - The next step is to hand the data to the lowest-level data dissector; in the case of the file being sampled, the Ethernet dissector parses the Ethernet header.
+- Once processed, the payload is handed off to the next dissector; the IP dissector parses the IP header, and so on.
+- To visualize protocol dissectors at work, think about a user connected to an Ethernet network and sending an HTTP GET request to a web server from the browser.
+- To decode the HTTP request, Wireshark would parse the frame through five different dissectors. 
 
+### Frame Dissector
+<img width="889" height="311" alt="3966e7ee-d4ab-4440-804b-948d137ba780" src="https://github.com/user-attachments/assets/a3054f41-bc32-420a-bff1-ca74a513d7d2" />
+
+### Ethernet Dissector
+<img width="889" height="311" alt="b47fd729-9a0e-4006-93ee-9cb0dea668f3" src="https://github.com/user-attachments/assets/a5dc61f8-f4b0-4e64-bfb6-3679222f3ffc" />
+
+### Ipv4 Dissector
+<img width="889" height="311" alt="eb8c2380-2318-442c-8929-60542b656d01" src="https://github.com/user-attachments/assets/be02e0bf-1b0e-411f-8f3a-f1bd3ebf8d8d" />
+
+### TCP Dissector
+<img width="889" height="311" alt="bc7fd139-ec44-402a-8522-cedd1636acba" src="https://github.com/user-attachments/assets/5fa52241-eb50-421d-9738-3df657727b43" />
+
+### HTTP Dissector
+<img width="889" height="311" alt="1923f008-2eac-4801-9bd6-336b6aaacad9" src="https://github.com/user-attachments/assets/5c9fd93d-1e18-4d02-be69-96bf45ee2ade" />
+
+### Protocol Dissectors and Non-Standard Ports
+- Applications communicating on non-standard ports are always a common cause of concern.
+- As a result, they are typically flagged in alerts by security applications actively monitoring network traffic flows and require additional analysis, regardless of the application's intentional configuration to use non-standard ports or an attempt by a threat actor trying to evade detection.
+- Network and security personnel might configure applications that monitor network traffic to handle non-standard ports differently based on the environment requirements.
+- Some might allow the traffic to flow, monitoring and further investigating alerts; others might decide to drop the traffic altogether.
+- Many modern traffic analysis systems — used for security, performance monitoring, or other tasks — employ advanced and complex dissectors to decode payloads transported on non-standard ports; these dissectors are often referred to as Heuristic Dissectors.
+- These dissectors use pattern-based matching to identify which protocol or payload is being used in the communication.
+- Applications parse network data using multiple Heuristic Dissectors until a match is made and the payload is decoded.
+- If all dissectors fail, systems can be configured to only alert operators or alert and drop the packets based on environment and system requirements. 
+
+### Custom Dissectors
+- Though beyond the scope of this lesson, writing custom dissectors to extend the functionality of applications that process and analyze network traffic is a great way to adapt to changes in how applications are using networks to communicate and evolving threat actor techniques.
+- When it comes to Wireshark, there are two languages the application supports to write or import custom dissectors: C and Lua. 
+
+#### Dissectors Written in C Language
+- There are two ways to create a custom protocol dissector within Wireshark: a **plug-in** or a **built-in** standard dissector.
+- Analysts typically prefer C to create a custom dissector since C produces shorter code execution times.
+- However, it is essential to note the shortcomings of using C to create a custom dissector.
+  - First, every time a built-in dissector is added or modified, Wireshark has to recompile itself, which can be a time-consuming task.
+  - Second, adding a dissector as a plug-in requires Wireshark to configure and alter new files within the plug-in folder, along with the source file(s) of the protocol dissector. 
+
+#### Dissectors Written in Lua Language
+- Lua dissectors are very similar to those written using C.
+- Although Lua is a little more dynamic, its use refrains from recompiling Wireshark upon adding a plug-in or a built-in protocol.
+- Both Lua and C dissectors must be registered to process a payload or packet that fulfills protocol rules.
+- In this sense, Lua is ideal for rapid testing of newly created protocol dissection actors.
+- Unlike C, Lua provides automatic memory management, which causes Lua to produce fewer errors.
+- For the sake of time, Lua is used to demonstrate extending Wireshark's capabilities through custom dissectors.
+
+### Adding a Custom Dissector to Wireshark
+1. Open wireshark
+2. Review _Compiled_ section to see if it has _with Lua 4.2.4_
+3. Can be done in TShark via: `tshark -v`
+4. After verification, you can run `head -30 /ect/wireshark/init.lua` to see if Lua support is enabled.
+5. If _init.lua_ is enabled and Lua has loaded, then the submenu is available in Wireshark
+6. From a terminal window, edit the _init.lua_ file located in _/etc/wireshark_
+7. Add a new line: `dofile("/home/trainee/dissector_test.lua")` and remove the dashes that are created on the new line
+
+### Adding a Custom Protocol Dissector via TShark
+- Find the directory where TShark is loading global Lua plugins: `tshark -G folders | grep ^Global.Lua.Plugins | cut -f2`
+- Directory where TShar is loading personal lua plugins: `tshark -G folders | grep ^Personal.Lua.Plugins | cut -f2`
+
+### Detecting C2 and Exfil via DNS
+- Access is given to a Kali Linux VM as well as a vulnerable Windows client solely to analyze the network's data stemming from a C2 and exfiltration breach of a vulnerable target host within the network.
+- Since DNS is typically permitted out of corporate network environments, adversaries may use DNS tunneling to take control and exfiltrate data from a vulnerable system.
+- A tool known as **DNScat2** is used to create a communication channel between a vulnerable target host (client) and the C2 server, which enables an adversary to have access to even the most restricted traffic environments since DNS is allowed to transit the network boundaries.
+
+#### DNScat2
+- **DNScat2** creates an encrypted C2 tunnel over the DNS protocol.
+- **DNScat2**, which operates in two parts as a client and a server, can be difficult to detect because the commands used to exfiltrate data are hidden within DNS queries and responses.
+
+#### Server
+- The **DNScat2** server is designed to run on an authoritative DNS server, but requests are sent locally via **UDP/53** for this instance.
+- The server has capabilities of tunneling any data from the infected client, such as uploading and downloading files and credentials.
+- Most importantly, the server is able to spawn a shell on the client.
+
+#### Client
+- The client operates on a vulnerable host.
+- When the client is executed, a domain name is specified (server) and all requests are sent to the local DNS server.
+- For the server to receive a connection, the client has to successfully run on the target host.
+
+#### Snort 
+- Snort is an IDS that provides real-time analysis, data packet logging, and creates a signature or rule that links together a series of specific elements known as rule options.
+- These options must be true before the rule is accepted and denotes a system alert.
+- Payload rule options or primary rule options are divided into those that identify content elements and non-payload rule options or non-content-related elements.
+- Snort rules are composed of two parts:
+  - rule header
+  - rule options
+- Typically, the rule header contains the rule action (an alert), protocol, source/destination IP addresses, and source/destination ports.
+- Snort can be essentially used in the same way as a sniffer and network IDS systems to detect and monitor malicious attack vectors traversing across the network.
+
+#### Wireshark Filter Examples
+- TXT Queries: `(dns.qry.type == 16) and !(dns.txt)`
+  - TXT Responses: `dns.txt`
+- CNAME Queries: `(dns.qry.type == 5) and !(dns.cname)`
+  - CNAME Response: `dns.cname`
+- MX Queries: `(dns.qry.type == 15) and !(dns.mx.mail_exchange)`
+  - MX Response: `dns.mx.mail_exchange`
+- Additional Filters: `dns and !ip.addr == <IP>` `dns and !(ip.src ==<IP> or ip.dst == <IP>)` `udp.port == 53`
+
+### SNORT
+- Capture live traffic on a selected interface: `snort -i "Enter Interface # here" -c C:\Snort\etc\snort.conf -A console`
+- example of a snort rule: `alert udp any 53 <> any any (msg: "Possible DNScat activity" ; sid:1000001; rev:1;) `
+- Check for activity within a specific PCAP: `snort -A console -K none -q -r C:/Users/trainee/Desktop/DNS/dnscat.pcap -c C:/Snort/rules/local.rules`
