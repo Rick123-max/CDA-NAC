@@ -844,8 +844,357 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
   - Each of the requirements defined in the CIP provides information and direction for compliance, acting as a guidebook.
   - Adherence to these requirements ensures that systems are adequately prepared for issues rather than being caught off guard in the event of an incident. 
 
+## Common Industry Standards
+### Intro to Common Industry Standards
+- Common industry standards are the foundation for understanding operations for each specific industry.
+- These common standards and regulations further provide documentation and unique industry requirements that drive the way cyberspace operations are conducted within those industries.
+- Network Analysts need to understand the unique standards and regulations that impact each industry.
+- Applying this knowledge can identify areas of focus for protecting industry-specific environments and providing recommendations for mitigation strategies to meet compliance with industry standards and regulations.
+- Although many industries possess such standards and regulations, this lesson focuses on four sectors: **military**, **health**, **finance**, and **energy**.
 
+### Military Sector
+#### US Code Title 10
+- U.S. Code Title 10 outlines the U.S. Armed Forces governing bodies, oversight, and laws.
+- U.S. Code Title 10 defines the formation of the Armed Forces and their reserve components and sets forth regulations for how operations are conducted by the branches of the Armed Forces.
+- Subsections include the following:
+  - A: General Military Law
+  - B: Army
+  - C: Navy and Marine Corps
+  - D: Air Force
+  - E: Reserve Components
 
+- Chapter 19, Cyber and Information Operations Matters, is from Subsection A: General Military Law and therefore applies to all military branches.
+- It contains the following sections:
+  - § 391. Reporting on cyber incidents with respect to networks and information systems of operationally critical contractors and certain other contractors.
+  - § 392. Executive agents for cyber test and training ranges.
+  - § 393. Reporting on penetrations of networks and information systems of certain contractors.
+  - § 394. Authorities concerning military cyber operations.
+  - § 395. Notification requirements for sensitive military cyber operations.
+  - § 396. Notification requirements for cyber weapons.
+  - § 397. Principal Information Operations Advisor.
+- Simplified, Chapter 19 outlines cyber incident reporting requirements, penetration and cyber testing requirements, operational requirements, and authorities within cyber and information operations.
 
+- Attachments are provided for two areas of U.S. Code Title 10, Chapter 19, that have the greatest observable impact for Defensive Cyberspace Operations (DCO).
+- Briefly review the sections:
+  - § 394. Authorities concerning military cyber operations.
+  - § 395. Notification requirements for sensitive military cyber operations.
 
-  
+#### U.S. Code Title 50
+- U.S. Code Title 50 provides the legal enactment for U.S. national defense and the establishment of the Council of National Defense.
+- This document outlines the power enacted to coordinate industries and resources to ensure national security.
+- U.S. Code Title 50 includes 58 chapters that outline various industries, war and defense efforts, and other areas that regulate all U.S. operations in regard to war and national defense.
+
+- The original chapter in U.S. Code Title 50 discussing national security was Chapter 15.
+- The chapter "National Security" is now Chapter 44 and provides more detail and information than was present in the previous version.
+- The chapter provides sections on accessing and use of classified information as well as control of intelligence information.
+- Chapter 44 contains the following subchapters:
+  - Subchapter I: Coordination for National Security
+  - Subchapter II: Miscellaneous Provisions
+  - Subchapter III: Accountability for Intelligence Activities
+  - Subchapter IV: Protection of Certain National Security Information
+  - Subchapter V: Protection of Operational Files
+  - Subchapter VI: Access to Classified Information
+  - Subchapter VII: Application of Sanctions Laws to Intelligence Activities
+  - Subchapter VIII: Education in Support of National Intelligence
+  - Subchapter IX: Additional Miscellaneous Provisions
+- These sections provide an outline for safeguarding controlled information, which can be implemented and monitored as controls when conducting DCO.
+
+- Two attachments from U.S. Code Title 50, Chapter 44, provide key insights into areas that are the focus of DCO within military environments.
+  - Briefly review the sections:
+    - Subchapter I: Cyber Threat Intelligence Integration Center
+    - Subchapter VI § 3161: Executive Order 10865
+
+#### Military Publications
+- Military publications are internal military regulations that further define how operations must be conducted.
+- Many publications relating to cyberspace operations exist that affect analysts conducting DCO.
+- The following two publications are specific to conducting cyberspace operations.
+
+##### Joint Publication 3-12, Cyberspace Operations (JP 3-12)
+- JP 3-12 establishes the responsibilities and relationships assigned to military commands that operate within cyberspace operations.
+- US Cyber Command (**USCYBERCOM**) is defined as the entity that controls all military cyberspace operations. All Department of Defense (DoD) components that conduct cyberspace operations are commanded by USCYBERCOM.
+- Additionally, USCYBERCOM works in tandem with combatant commands to create mission-oriented tasking for cyberspace units.
+- This chain of command is illustrated in the attachment Routine Cyberspace Command and Control.
+- JP 3-12 further defines the unique missions relevant to the DoD.
+- These missions include Offensive Cyber Operations (OCO), DCO, and DoD Information Networks (DODIN) Operations.
+- Joint Publication 3-12, Figure II-1, Cyberspace Operations Missions, Actions, and Forces (attached) shows the shared functions of certain missions and the different operating spaces for each mission:
+  - Responsibilities of a Cyber Defense Analyst (CDA) fall directly within the alignment of USCYBERCOM Command and Control (C2) and act within the missions of DCO.
+  - Additionally, certain missions include collaborative efforts within OCO missions or DODIN Operations.
+- JP 3-12 also outlines the key responsibilities and functions when conducting operations within the defensive cyberspace.
+- Briefly review the sections DCO Core Activities and DCO Planning and Coordination (attached) to become acquainted with these responsibilities.
+
+##### (CUI) Cyber Warfare Publication 3-33.4, Cyber Protection Team (CPT) Organization, Functions, and Employment (CWP 3-33.4)
+- This article defines key responsibilities and the organizational hierarchy of CPT teams.
+- Although no specific requirements from this document exist, the document provides an outline to meet compliance with higher-level standards and regulations.
+  - Appendix A: CPT Operations Process (attached) outlines a recommended operations process that applies to commonly accepted practices used across cyberspace operations. 
+
+### Health Sector
+- The healthcare industry is highly regulated due to the critical nature of the functions it provides.
+- The U.S. government enacted the Health Insurance Portability and Accountability Act (HIPAA) so healthcare workers can maintain patients' health information and provide it to them in a secure and accessible manner.
+
+#### HIPAA
+- HIPAA is a federal law that lays the requirements for the protection of sensitive patient records and all electronic communications associated with sensitive patient healthcare information.
+- HIPAA comprises five sections:
+  - Title I: Healthcare access, portability, and renewability.
+  - Title II: Preventing health care fraud and abuse, administrative simplification, medical liability reform.
+  - Title III: Tax-related health provisions governing medical savings accounts.
+  - Title IV: Application and enforcement of group health insurance requirements.
+  - Title V: Revenue offset governing medical savings accounts.
+- From the perspective of cyber operations, Title II is the most relevant.
+- Title II defines ways in which healthcare information must be protected.
+- Among these protections, two established rules directly correlate to DCO: **HIPAA's Privacy Rule** and **Security Rule**.
+
+##### The Privacy Rule
+- Officially titled Standards for Privacy of Individually Identifiable Health Information, the Privacy Rule identifies what information is considered protected and the restrictions upon use and disclosure of that information.
+- All protected information under this rule is referred to as Protected Health Information (PHI).
+  - PHI is considered to be any information that can be used to identify the patient, specifically the following:
+    - Any individual's physical or mental health from past, present, or future.
+    - Any information about the provisioning of healthcare to an individual.
+    - Payment information about past, present, or future healthcare provisioning.
+    - Information that establishes reason to believe it could be used to identify the individual (for example, address, name, date of birth).
+
+###### Privacy Rule Exceptions
+- The primary principle of the Privacy Rule is that all PHI is not allowed to be used or disclosed.
+- Exceptions to this rule are defined and privacy rule protections can be avoided with written authorization from the patient.
+- The following is a list of all the reasons defined within this rule that allow PHI to be used or disclosed:
+  - Permitted Use and Disclosure.
+    - To allow individuals access to their own PHI.
+    - Treatment, payment, healthcare operations (at the entity that provides healthcare).
+  - Uses and Disclosures with Opportunity to Agree or Object.
+    - Facility directories.
+    - For notification to identified individuals or entities.
+  - Incidental Use and Disclosure (as long as reasonable safeguards are adopted).
+  - Public Interest and Benefit Activities.
+    - By law.
+    - Public health activities.
+    - Victims of abuse, neglect, or domestic violence.
+    - Judicial and administrative proceedings.
+    - Law enforcement purposes.
+    - Decedents.
+    - Cadaveric organ, eye, or tissue donation.
+    - Research.
+    - Serious threat to health or safety.
+    - Essential government functions.
+    - Workers compensation.
+- Additionally, the following are reasons an individual can grant authorization to their healthcare information:
+  - Psychotherapy Notes
+  - Marketing
+
+###### Privacy Rule Use
+- The above section defines all the allowed uses of PHI, which primarily include some form of legal requirement, healthcare necessity, or individual agreement.
+- Understanding these caveats to the rule is a primary concern for DCO, especially because these are pathways that must be allowed to access the data and need to be monitored closely.
+- Although there are many reasons this information can be used, there are also many protections to ensure personal information is not misused or disclosed without permission.
+- One protection is minimum necessary use and disclosure.
+  - Organizations must adopt policies and procedures that restrict access to PHI and allow it to be used the absolute minimum amount possible for its intended purpose.
+  - The minimum necessary protection further expands, stating that all personnel or entities with access to this information are identified and recorded.
+  - A CDA monitoring these records needs to ensure this protection is properly enforced, which can be accomplished by comparing access to a known access list.
+- Another primary protection from the DCO perspective is data safeguards.
+  - The Privacy Rule identifies the requirement that appropriate administrative, technical, and physical safeguards are used to prevent intentional or unintentional use or disclosure of PHI that would violate the Privacy Rule.
+  - Although no specifics are mentioned, this means CDAs should ensure safeguards on data are implemented, monitored, and tested to guarantee protection within these environments.
+
+##### The Security Rule
+- The Security Rule continues where the Privacy Rule leaves off by adding additional measures for the security of healthcare information.
+- Following along with the concept of safeguards mentioned in the Privacy Rule, the Security Rule requires its own data safeguards.
+- Specifically, the Security Rule states that it is required to implement appropriate administrative, physical, and technical safeguards to ensure the confidentiality, integrity, and security of electronic PHI.
+- Whereas the Privacy Rule enforced protections concerning the use and disclosure of PHI, the Security Rule focuses primarily on the security, confidentiality, and integrity of electronic information.
+- Accomplishing the Security Rule relies heavily on the use of technical controls such as encryption, access control, network segregation, and monitoring.
+- Among technical controls, there is also the requirement for risk analysis of all entities that create or use PHI.
+- Guidance has been developed to help security personnel meet compliance with the stringent requirements for this analysis, but most agencies now depend on tools developed by security agencies.
+- The two tools commonly noted are the U.S. Department of Health and Human Services (HHS) Security Risk Assessment Tool and the National Institute of Standards and Technology (NIST) HIPAA Security Rule Toolkit.
+- **NOTE**: The NIST HIPAA Security Rule Toolkit is no longer supported but is still commonly noted.
+- As an addition to the above requirements, the Security Rule outlines the requirement for notification of security data breaches.
+- This rule brings another point of accountability within the healthcare industry.
+- It falls upon the cyber enterprise within the organization to gather all the details of the security breach to properly disclose the information to federal agencies.
+- These requirements set forth numerous direct technical requirements that must be met, such as encryption, authentication, and incident response procedures.
+- Review the Security Standards Matrix (attached) developed by the Centers for Medicare and Medicaid Services (CMS) and shared as an industry standard for evaluating compliance with the HIPAA Security Rule.
+
+### Finance Sector
+- The financial industry is another highly regulated industry due to the cataclysmic events that have occurred or could occur without proper law and doctrine forcing strict balances upon the finance industry.
+- Many financial regulations have come from legal action taken against entities that have abused the system for financial gain, as pointed out in the Gramm-Leach-Bliley Act (**GLBA**) and Sarbanes-Oxley Act (**SOX**), described below.
+
+#### Gramm-Leach-Bliley Act (GLBA)
+- The GLBA is a law that requires financial institutions to outline their security measures for how consumer information is handled and shared while also ensuring measures are incorporated to safeguard sensitive information.
+- Data protection requirements are outlined within the GLBA’s Safeguards Rule, which defines organizational requirements necessary to maintain compliance with GLBA.
+- The Safeguards Rule is defined in the GLBA's Part 314, Standards for Safeguarding Customer Information.
+- The primary takeaway is the requirement to implement an information security program.
+- This program must include administrative, technical, and physical safeguards for the access, collection, distribution, processing, protection, storage, usage, transmission, handling, and disposal of customer information.
+- Further requirements include the following:
+  - Security and confidentiality of customer information.
+  - Protection measures for threats to security or integrity of customer information.
+  - Protection from unauthorized disclosure of customer information.
+
+#### Sarbanes-Oxley Act (SOX)
+- SOX is a law that mandates practices and protections in financial records and reporting requirements for all U.S. public companies.
+- The following sections of SOX outline the law's primary cybersecurity requirements that briefly include data integrity requirements, internal security control management, incident disclosure, and reporting requirements.
+  - **Section 302**: Requires accuracy, documentation, and submission of all financial reports.
+    - Safeguard Control: Data integrity requirements.
+  - **Section 404**: Requires reporting of internal controls and the formation of an internal control structure.
+    - Safeguard Control: Internal security control management.
+  - **Section 409**: Requires the near-real-time disclosure of any financial condition or operations changes.
+    - Safeguard Control: Incident disclosure.
+  - **Section 802**: Defines penalties for the alteration, concealment, falsification, or destruction of records held by financial institutions.
+    - Safeguard Control: Data integrity requirements.
+  - **Section 906**: Requires accurate and true financial reports to be submitted by financial institutions, and defines penalties for falsifying or misleading these reports.
+    - Safeguard Control: Reporting requirements and data integrity requirements.
+
+### Energy Sector
+- Critical infrastructure comprises areas whose assets, systems, and networks are so essential that destroying them would severely damage the country's security or safety.
+- The energy sector is one sector within the country's critical infrastructure.
+- The critical services in the energy sector house massive networks that need to be used to provide power to citizens throughout the countries that control them.
+- Therefore, the energy sector provides a unique service that needs to ensure protection of this vital service.
+
+#### U.S. PDD-63: Cirtical Infrastructure Protection
+- To create protections to all critical infrastructure, President Bill Clinton enacted U.S. Presidential Decision Directive 63 (PDD-63) in 1998.
+- PDD-63 highlights industries that are considered critical infrastructure and strict outlines of how to protect them.
+- The primary takeaways from this directive are the following:
+  - Assessing the vulnerabilities of the sector to cyber or physical attacks.
+  - Recommending a plan to eliminate significant vulnerabilities.
+  - Proposing a system for identifying and preventing attempted major attacks.
+  - Developing a plan for alerting, containing, and rebuffing an attack in progress and then, in coordination with the Federal Emergency Management Agency (FEMA) as appropriate, rapidly reconstituting minimum essential capabilities in the aftermath of an attack.
+
+- To meet these requirements for the energy sector, the North American Energy Reliability Corporation (**NERC**) was established.
+- **NERC** provides and enforces recommendations for the key protection measurements outlined within CIP for the energy sector.
+- Below are the areas where controls are subject to enforcement under CIP:
+  - CIP-002-5.1a: Bulk Electric System (BES) Cyber System Categorization
+  - CIP-003-8: Security Management Control
+  - CIP-004-6: Personnel and Training
+  - CIP-005-6: Electronic Security Perimeter
+  - CIP-006-6: Physical Security of BES Cyber Systems
+  - CIP-007-6: System Security Management
+  - CIP-008-6: Incident Reporting and Response Planning
+  - CIP-009-6: Recovery Plans for BES Cyber Systems
+  - CIP-010-3: Configuration Change Management and Vulnerability Assessments
+  - CIP-011-2: Information Protection
+  - CIP-013-1: Supply Chain Risk Management
+  - CIP-014-2: Physical Security
+- Each of the above sections includes numerous security controls that are requirements within the energy sector.
+- This is one of the hundreds of controls outlined within the CIP standards.
+
+### Other Standards and Regulations
+#### General Data Protection Regulation (GDPR)
+- The GDPR is a European Union (EU) regulation that requires the acknowledgment, fair use, and protection of private information collected by organizations.
+- This law is specific to the EU but incorporates any entities that may collect the information of people who live within the EU.
+- Therefore, the GDPR applies to almost any web-related resource that collects personal data because those within the EU may have access to it.
+- This regulation has international implications and should be remembered for any operations that might include members of the EU.
+
+#### U.S. Federal Privacy Act of 1974
+- The U.S. Federal Privacy Act of 1974 is a law that establishes the Code of Fair Information Practice, which governs how federal agencies must handle the collection, maintenance, use, and dissemination of personally identifiable information.
+- This law defines certain privacy rights for U.S. citizens and forces all federal agencies to be aware of their use of private information of U.S. citizens.
+- In cyber operations conducted by federal agencies, this law defines regulations for the use of any data that includes information from private U.S. citizens.
+
+#### Local Organizational Policy
+- Local organizational policy and Standard Operating Procedures (SOP) should reinforce and maintain adherence to all industry standards and regulations that apply to the field of work.
+- From the team perspective, this changes based on service and unit.
+- Not all organizations share common policies.
+- Additionally, these policies should strive to make adherence to these standards and regulations easier by creating processes that benefit compliance or reporting requirements with applicable standards and regulations.
+- Local organizational policies that impact cyberspace operations typically include, among others, one or more of the following:
+  - Incident Response Plan (IRP)
+  - Business Continuity Plan/Disaster Recovery Plan (BCP/DRP)
+  - Acceptable Use Policy
+  - Security Awareness Training
+  - Identity Management Policy
+  - Change/Configuration Management Policy
+
+#### Special Cases and Programs
+- Some systems have unique requirements outside industry standards and regulations.
+- The U.S. military has such specialized systems, called programs of record.
+- Programs of record have unique requirements that may cause difficulty enforcing certain policies, depending on how the programs are managed.
+- Generally, these systems within these programs fall under different restrictions that are laid out by the organization that administers or governs the program of record, and the providers dictate the policies that manage these programs.
+
+### Cyber Threat Intelligence for Commmon Industries
+- All industries possess unique cyber threats that should be acknowledged when working within those environments.
+- Before delving into some real-world examples, it helps to understand the primary concerns of each industry.
+- Although all industries consider each portion of the Confidentiality, Integrity, and Availability (CIA) triad to be important, mission-specific functions can cause certain functions to be prioritized.
+- The priorities of each industry discussed in this lesson are as follows:
+  - **Military**: Confidentiality and integrity of controlled information.
+  - **Finance**: Confidentiality and integrity of banking and payment card information.
+  - **Health**: Confidentiality and integrity of patient records and communications as well as intellectual property.
+  - **Energy**: Integrity and availability of infrastructure assets.
+- **NOTE**: The standards and regulations that control military, finance, and healthcare industries focus primarily on the confidentiality and integrity of controlled information, financial records, and patient records, respectively.
+  - However, the mission of the military, finance, and health sectors prioritize availability to ensure full capability to conduct their operations.
+  - Additionally, the energy sector incorporates layers of confidentiality for industry secrets and intellectual property, but confidentiality is not a focus of its regulations.
+- Many threats exist throughout these industries, such as malicious insiders, nation-state threat actors, and script kiddies.
+- The following provides a brief discussion of specific concerns impacting each industry, along with real-world examples and common threat-mitigation strategies.
+
+#### Military Concerns
+- Many nation-state threat actors and private hacker groups, among others, continue to aim to perform malicious activities against military organizations.
+- These actors primarily aim to extract classified information but may also hope to disrupt, destroy, or defame the military organizations they threaten.
+- One real-world example is Advanced Persistent Threat (APT) 2, also known as the UPS Team, a suspected Chinese group that specializes in intellectual property theft of military and defense organizations.
+- Common threat mitigation strategies for military threats include the following:
+  - Segregated networks for controlled information (e.g., physically separated networks from common internet).
+  - Stringent access control and identity management (e.g., using common access cards/tokens).
+  - High-level encryption through specialized cryptographic equipment (e.g., National Security Agency [NSA]–level encryption through devices like KG-252).
+
+#### Finance Concerns
+- Nation-state threat actors, as well as individual hackers and private hacking groups, seek to attack the financial industry to conduct cyber heists (electronically stealing money) or to collect and sell private financial information of individuals and organizations.
+- A real-world example is APT 38, a suspected North Korean group with a primary focus on cyber heists conducted against global financial institutions.
+- Common threat mitigation strategies for finance threats include the following:
+  - Strong boundary device security architecture (e.g., proxy servers, Demilitarized Zones [DMZ], firewalls, secure edge routers).
+  - Multi-factor authentication scheme (e.g., password with one-time pad or biometrics).
+  - Secure communications (e.g., encryption from external connections, internal communications that contain private information, private financial records at rest).
+
+#### Health Concerns
+- Nation-state threat actors, private hacking groups, and individual hackers attempt to exfiltrate intellectual property of healthcare developments.
+- They may also attempt to damage or disparage organizations by exposing (or threatening to expose) sensitive patient information or through ransomware attacks meant to extort the company for financial gain.
+- A real-world example is APT 24, also known as PittyTiger, a suspected Chinese group that focuses on data theft of many common private industries, including healthcare. Common threat mitigation strategies for health threats include the following:
+  - Minimized authorized access to information (e.g., strict group policies, least privileges for users, access control lists).
+  - Strong security controls on systems that hold or use PHI (e.g., host-based security systems, firewalls, Intrusion Prevention Systems [IPS]).
+  - Data security controls (e.g., encryption on all PHI data at rest as well as all communications that contain PHI).
+
+#### Energy Concerns
+- Primarily nation-state threat actors, but also such groups as hacktivists, perform actions to defame, disrupt, or destroy energy infrastructure environments, resulting in damage to organizations and national security.
+- Additionally, nation-state threat actors may try to exfiltrate intellectual data for their home states.
+- A real-world example is APT 34, a suspected Iranian group that focuses on reconnaissance activities associated with long-term cyber espionage, with a primary focus on energy and defense.
+- Common threat mitigation strategies for energy threats include the following:
+  - Strict network segregation with minimum necessary access to Operational Technology (OT) network (e.g., one-way communications from OT to Information Technology [IT] network).
+  - Strong security architecture controlling OT network communications (e.g., firewall and segregated network Virtual Local Area Network [VLAN] communications for internal networks).
+  - 24/7 monitoring and alerting for anomalous activity (e.g., Security Information and Event Management [SIEM] or IPS systems).
+
+### Assessing Industry-Standard Network Traffic
+- Industry standards and regulations may be further explained through evaluation of industry-specific network traffic.
+- Review the four attached network topology examples for the military, health, finance, and energy industries.
+
+#### Military Network Topology
+- The military network topology example provided is for a secret classified network, requiring encryption on all communications.
+- A crypto device is used to incorporate cryptographic keys from the NSA to encrypt communications leaving the network.
+- Tactical systems are isolated and behind their own firewall to ensure the devices have increased security and are less accessible.
+- Program-of-record systems are isolated in the same way and may require their own firewall.
+- Data storage solutions and servers are shared but require additional security controls to restrict to minimum access.
+- Various work groups are divided by subnets to ensure traffic is secure and separate.
+- CDAs ensure the security controls are functioning and monitor to verify that only authorized accesses are occurring throughout the network.
+- This ensures compliance with the standards and regulations set forth for the military sector.
+
+#### Health Network Topology
+- The healthcare network topology example is for a small healthcare facility network.
+- There is a separation of the switch that houses the guest, reception, and security camera subnets and the switch that houses the healthcare-specific subnets.
+- This is a required separation of the common services from the health subnet to ensure the privacy and security of health records and electronic communications.
+- In fact, the firewall is in place to prevent any unauthorized communications to the devices behind it.
+- The firewall and DMZ on the initial network provide a layer of security over the network from external attacks.
+- This is a huge concern with healthcare networks because penetration from outside entities can result in massive penalties.
+
+#### Finance Network Topology
+- The finance network topology example is for a network from a singular branch of a bank.
+- Initial firewalls exist between the forward servers.
+- Forward servers are primarily such items as proxy and web servers for base web pages not related to e-banking.
+- The two firewalls divide the networks.
+- The first firewall secures the forward servers, and the second firewall ensures the banking network is secure.
+- The primary operations of the bank are divided, ensuring secure and separate traffic.
+- These operations include tellers, loans, auditing/Human Resources, and management and also include the typical printer and external connection to other branches.
+- Within the loan network, there are many additional securities around the loan server repository, which houses private financial information of loan applicants.
+- The e-banking solution and core processing server cluster represents another set of primary concerns.
+- These two areas house much of the essential data and processing of all customer financial information.
+- The security controls for these areas are heavily mandated by financial standards and regulations.
+- However, there is also the need to allow customers access to the e-banking network.
+- This means the e-banking network is heavily used but must be monitored with the utmost care.
+
+#### Energy Network Topology
+- The energy network topology example is for a power plant network based on the Purdue model.
+- The Purdue model is a representative model of an OT network and is used to represent the application of commonly accepted industry practices.
+- The mission of the energy network model is the availability of its service to the electrical network.
+- Segregation of this mission network must be the primary security focus when dealing with the energy sector and shows how availability is the primary concern in this sector.
+- The division between the IT network and the OT network is apparent in this topology.
+- The OT network is the mission of the energy sector and is the network that needs to continually provide connectivity to the power network to distribute power.
+- However, energy companies in this example also need to have an IT network for operations and to house their online presence.
+- As many securities as possible should be in place to ensure no unauthorized access to the OT network from the IT network or internet beyond.
+- Typically, this is done through one-way connections using a tool like a digital diode.
+- In this example, however, it is done through a firewall that houses routes from the switches using inter-VLAN routing.
+- The devices are secured and separated through this technique, and the firewall most likely denies all traffic attempting to communicate back toward the OT network unless explicitly allowed.
