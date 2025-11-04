@@ -631,7 +631,9 @@
 2. Export the data into a PCAP: `tshark -q -r ~/pcap/bigFlows.pcap -Y 'ip.addr == 172.16.133.27' -w host01.pcap`
 3. copy the pcap to your system: `scp trainee@199.63.64.110:~/host01.pcap .`
 4. Open in Wireshark and use the following filter to isolate the POP3 traffic from the IP address in question: `ip.addr==172.16.133.27 && tcp.port == 110`
-5. 
+
+<img width="822" height="595" alt="image" src="https://github.com/user-attachments/assets/3dbf4ad8-fe19-4ca9-a797-7dc9013a3155" />
+
 
 
   
