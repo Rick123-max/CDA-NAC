@@ -619,10 +619,15 @@
   - These tasks benefit from the use of tools with extended capabilities.
     - Some command-line tools might still complete tasks like the ones described, but such applications as **Wireshark**, **Suricata**, and **Zeek** are better suited.
   
+### Triaging Packet Captures | Layers 6 and 7
+1. Open Wireshark and use the following filter: `ip.addr==209.17.73.30 && ip.addr==192.168.3.131`
+2. Expand the info to display info about the TCP/IP Application Layer
+<img width="768" height="541" alt="image" src="https://github.com/user-attachments/assets/233cd1fa-72f1-4da6-9db9-9ec088eeeda4" />
 
+<img width="826" height="595" alt="image" src="https://github.com/user-attachments/assets/0d527de1-bb58-4367-8c24-243df5b046f1" />
 
-
-
+### Mapping Suspicious Activity
+1. 
 
 
   
