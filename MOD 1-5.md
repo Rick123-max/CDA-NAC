@@ -823,6 +823,26 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
 - Any deviation from the baseline should trigger further investigation to identify operational errors or malicious intent.
 - This can be done by additional traffic monitoring and analyzing the packet payloads of the anomalous traffic.
 
+# MOD 2
+## Operational Standards
+### Standards overview and Applications
+#### Information Technology Best Practices
+- The Information Technology (IT) industry has standards and best practices that function similarly to the ones in our daily lives.
+- For example, using comments and avoiding the usage of hard-coded variables in programming are widely accepted best practices.
+- There are also reference documents called enterprise architecture frameworks.
+  - These frameworks bring standardization and organization to large and extremely complex IT networks.
+  - Not only do standardized networks allow newcomers to learn the systems with greater ease, but they also simplify maintenance and expansion.
+  - One example of a standards framework is The Open Group Architecture Framework (**TOGAF**), a common framework used today that provides a method for **designing**, **planning**, **implementing**, and **governing** an enterprise IT architecture.
+
+- The Health Insurance Portability and Accountability Act (**HIPAA**) of 1996 is a law that created a national framework that aims to protect a patient’s health information from being disclosed without their knowledge.
+  - By conforming to HIPAA, medical organizations (and those who process patient information) can protect patients’ privacy more effectively.
+  - A simple example of a provision created by HIPAA is the requirement for a HIPAA release form, which must be signed by patients before any of their protected health information can be disclosed to a third party.
+  - The form contains several components, including, but not limited to, a description of the information being disclosed, the purpose of disclosing the information, the entities to whom the information is disclosed, the expiration date/event that causes the patient’s information to be withdrawn, and the signature of the patient. 
+
+- The North American Electric Reliability Corporation (**NERC**) Critical Infrastructure Protection (**CIP**) framework deals with aspects of the Bulk Electrical System (power grid).
+  - NERC CIP defines a framework for planning, operating, and protecting the electrical system.
+  - Each of the requirements defined in the CIP provides information and direction for compliance, acting as a guidebook.
+  - Adherence to these requirements ensures that systems are adequately prepared for issues rather than being caught off guard in the event of an incident. 
 
 
 
