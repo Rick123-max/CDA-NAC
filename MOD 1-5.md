@@ -627,7 +627,11 @@
 <img width="826" height="595" alt="image" src="https://github.com/user-attachments/assets/0d527de1-bb58-4367-8c24-243df5b046f1" />
 
 ### Mapping Suspicious Activity
-1. 
+1. run the following to see applications on a specific IP: `tshark -nn -r ~/pcap/bigFlows.pcap -Y 'ip.addr==172.16.133.27' -q -z io,phs`
+2. Export the data into a PCAP: `tshark -q -r ~/pcap/bigFlows.pcap -Y 'ip.addr == 172.16.133.27' -w host01.pcap`
+3. copy the pcap to your system: `scp trainee@199.63.64.110:~/host01.pcap .`
+4. Open in Wireshark and use the following filter to isolate the POP3 traffic from the IP address in question: `ip.addr==172.16.133.27 && tcp.port == 110`
+5. 
 
 
   
