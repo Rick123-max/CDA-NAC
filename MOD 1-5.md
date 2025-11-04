@@ -634,6 +634,198 @@
 
 <img width="822" height="595" alt="image" src="https://github.com/user-attachments/assets/3dbf4ad8-fe19-4ca9-a797-7dc9013a3155" />
 
+## Traffic Analysis
+### Network Traffic Analysis
+- Monitoring, baselining, triaging, and assessing network communications occurring on partner networks are critical tasks required for practical Network Traffic Analysis (NTA).
+- NTA aims to identify baseline deviations, classify the anomaly source as operational or malicious, and further triage and investigate any hostile activity.
+- Any engagement on a partner network most likely requires analyzing network traffic.
+- Some use cases are as follows:
+  - Establishing a baseline of regular communications if one does not exist.
+  - Comparing real-time traffic against an established baseline.
+  - Capturing network traffic for offline analysis.
+  - Identifying anomalies that can present themselves as an increase in chatter from a host, the use of uncommon ports, protocols or ciphers.
+  - Identifying the use of protocols with known vulnerabilities.
+  - Unauthorized communications, for example, an Industrial Control System (ICS) Programmable Logic Controller (PLC) opening a connection to the internet (this could be an operational requirement, but it is unlikely).
+- With the network providing the highway for all data communications, the network becomes a broad attack surface.
+- A critical step for practical NTA is identifying key cyber elements of an organization and collecting data at the correct intersections of the data highway.
+- Network data can also be collected in different formats for analysis.
+- Flow data provides a practical insight into high-level communications: where the packets originate from, where they are going, and the traffic volume.
+- Even though this level of information would be helpful to detect some unauthorized or malicious activity, it would lack the details of packet data.
+- Packet data can provide insight into how threat actors are leveraging authorized communications to achieve their objectives.
+
+- Effective NTA can be a daunting task. Understanding how hosts process traffic on a network and their relation to the Open Systems Interconnection (OSI) model with their capabilities can expedite and facilitate meeting task objectives.
+- When assessing a network for NTA, consider the following:
+  - **Network Assets**: What are the asset capabilities to support NTA? Do the assets on the network have packet capture capabilities? Do the assets support flow data?
+  - **Data Source**: Use filters to capture relevant data and strategically identify where to collect the data, such as gateways or switches connecting critical assets or crown jewels.
+  - **Collection Source**: Not all assets can collect data compatible with the toolset being used for analysis. Ensure that compatibility exists with tools being used.
+  - **Collection Time**: Historical data is key to building baselines and analyzing past events, though some tools lack the compute resources to store large amounts of data. Real-time collection can be used to identify anomalies. It is more effective if a reliable baseline exists.
+  - **Full Packet Captures**: Full packet captures are resource intensive and demand ample storage space if a mission requires analysis for an extended period of time. Applying filters and prioritizing data sources are key to minimizing storage impact.
+- The task of NTA falls under the Discover and Counter Infiltration function of a Cyber Protection Team (CPT) operation, as described in the United States Cyber Command (USCYBERCOM) Cyber Warfare Publication (CWP) 3-33.4:
+Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeating discovered or previously unknown threats within a secured network or system.
+
+#### OSI Model Layers 3 and 4
+- The OSI Network and Transport Layers, at a high level, are responsible for routing data between different networks (Network Layer) and providing reliable end-to-end data delivery (Transport Layer).
+- The Network Layer provides the logical addressing to route data packets across wide-area networks such as the internet.
+- Similar to a frame switched to a Media Access Control (MAC) address at the Data Link Layer, a packet is routed from a source Internet Protocol (IP) address to a destination IP address.
+- Finally, the Transport Layer, also at a high level, is responsible for how data is transferred from point A to point B.
+- The Transport Layer manages splitting data into smaller segments when necessary, transfer rates, and error control using checksum, acknowledgments, and retransmissions. 
+  ![a4b6104c-346d-40bd-8b1f-71b36f201574](https://github.com/user-attachments/assets/cfd01ee2-fb8c-423a-803b-46217cab652c)
+
+### Layer 3: Network
+- The OSI model's Network Layer uses logical addressing to transmit data from one host to another located on a remote network.
+- The two primary functions of the Network Layer of the OSI model are as follows:
+  - **Routing**: The Network Layer protocols determine which route is suitable from source to destination.
+  - **Logical Addressing**: Logical addressing is used to uniquely identify hosts across networks. The Network Layer defines a logical addressing scheme. 
+![362b6f3e-6981-4eaf-8b23-59c0f9f09a26](https://github.com/user-attachments/assets/25819b75-1930-4fa9-96e5-061ca1cf3da2)
+
+#### IP Header Fields
+- Version Number
+  - These four bits specify the IP version of the datagram.
+  - By looking at the version number, the router can determine how to interpret the remainder of the IP datagram.
+  - Different IP versions use different datagram formats.
+  - The datagram format for the current version of IP, IPv4, is shown in Figure 1.4-2 above.
+  - The datagram format for the new version of IP, IPv6, will be discussed later.
+- Header Length
+  - Because an IPv4 datagram can contain a variable number of options (which are included in the IPv4 datagram header), these four bits are needed to determine where in the IP datagram the data actually begins.
+  - Most IP datagrams do not contain options, so the typical IP datagram has a 20-byte header.
+- Type of Service
+  - The Type of Service (TOS) bits were included in the IPv4 header to allow different types of IP datagrams (e.g., datagrams particularly requiring low delay, high throughput, or reliability) to be distinguished from each other.
+  - For example, it might be useful to distinguish real-time datagrams (such as those used by an IP telephony application) from non-real-time traffic (e.g., File Transfer Protocol [FTP]).
+  - The specific level of service to be provided is a policy issue determined by the network administrator.
+- Datagram Length
+  - The datagram length is the total length of the IP datagram (header plus data), measured in bytes.
+  - Because this field is 16 bits long, the theoretical maximum size of the IP datagram is 65,535 bytes.
+  - However, in practice, datagrams are rarely larger than 1,500 bytes due to 1,500 being a common default Maximum Transmission Unit (MTU) value, which governs the maximum size of a single packet traversing that network.
+- Identifier, Flags, Fragmentation Offset
+  - These three fields have to do with so-called IP fragmentation, which allows a single packet sent by a host to be split up into multiple, smaller packets.
+  - This allows Layer 3 devices to transmit to networks with smaller MTU values.
+  - IPv6 does not allow fragmentation during routing, and all IPv6 networks must support a minimum MTU of 1,280.
+- Time-to-Live
+  - The Time-to-Live (TTL) field is included to ensure that datagrams do not circulate forever (due to, for example, a long-lived routing loop) in the network.
+  - This field is decremented by 1 each time the datagram is processed by a router.
+  - If the TTL field reaches 0, the datagram must be dropped.
+- Protocol
+  - This field is used only when an IP datagram reaches its final destination.
+  - The value of this field indicates the specific Transport Layer protocol to which the data portion of this IP datagram should be passed.
+  - For example, a value of 6 indicates that the data portion is passed to Transmission Control Protocol (TCP), and a value of 17 indicates that the data is passed to User Datagram Protocol (UDP).
+  - The protocol number in the IP datagram has a role that is analogous to the role of the port number filed in the Transport Layer segment.
+  - The protocol number is the glue that binds the Network and Transport and Application Layers together.
+- Header Checksum
+  - The header checksum aids a router in detecting bit errors in a received IP datagram.
+  - The header checksum is computed by treating every two bytes in the header as a number and summing these numbers using 1s and complement arithmetic.
+- Source and Destination IP Addresses
+  - When a source creates a datagram, it inserts its IP address into the source IP address field and inserts the address of the ultimate destination into the destination IP address field.
+  - Often, the source host determines the destination address via a Domain Name Service (DNS) lookup.
+- Options
+  - Options extend the IP protocol functionality to support features not commonly used, such as timestamp, record route, and strict route mode.
+  - For security reasons, network devices will generally be configured from the factory to ignore or drop packets with these fields set.
+  - In addition, packets transmitted with these options should be further investigated because threat actors can use them to manipulate how packets route through a network or collect network intelligence. 
+- Data (Payload)
+  - Arguably the most important field in most circumstances, the data field of the IP datagram contains the Transport Layer segment (TCP) or UDP to be delivered to the destination.
+  - However, the data field can carry other types of data, such as Internet Control Message Protocol (ICMP) messages.
+  - Note that an IP datagram has a total of 20 bytes of header (assuming no options).
+  - If the datagram carries a TCP segment, then each (non-fragmented) datagram carries a total of 40 bytes of header (20 bytes of IP header plus 20 bytes of TCP header) along with the Application Layer message.
+
+### Layer 4: Transport
+#### Overview
+- Several implementations of the OSI model exist that handle Layer 4, the most common of which is the TCP/IP model.
+- The TCP/IP model has two primary protocols that are carried over it: TCP and UDP.
+- As discussed in previous lessons as well as in Joint Cyber Analysis Course (JCAC) materials, UDP is a stateless protocol, whereas TCP maintains connection states.
+
+#### TCP Metadata
+- TCP sessions are established by using a three-way handshake: Synchronize (SYN), SYN-ACK, and Acknowledge (ACK).
+- The client sends a SYN packet to the server, receives a SYN-ACK response, and then sends an ACK response back to the server.
+- Once a session is established, the metadata available in a TCP payload can be used to track the session.
+- Routers performing Network Address Translation (NAT) track open sessions to determine which IP address to forward traffic to.
+- Figure 1.4-3 illustrates a typical TCP segment header:
+  ![4ebbb460-fbf1-45e3-acf4-d9970321dbf3](https://github.com/user-attachments/assets/78b5a086-5ad0-4745-877e-7ff365f96b09)
+
+- From Figure 1.4-3, the following segments can be used to track a TCP session:
+  - Source IP (from IP Header)
+  - Destination IP (from IP Header)
+  - Source Port
+  - Destination Port
+  - Sequence Number
+
+##### TCP Header Fields
+- The TCP header is 20 bytes long 
+  - Source Port: The source port is a 16-bit number.
+  - Destination Port: The destination port is a 16-bit number.
+  - Sequence Number: The sequence number is a 32-bit number used by hosts on each end of a TCP session to track segments of how much data has been transmitted.
+    - The sequence number is added to each transmitted packet.
+    - When a host initiates a TCP session, the initial sequence number is a random value between 0 and 4,294,967,295.
+    - However, to facilitate keeping track of sequence and acknowledgment numbers, Wireshark and other protocol analyzers display sequence numbers relative to the initial sequence of that stream.
+    - At each packet transmission, the sequence number will be incremented by the size of the data field plus 1.
+    - TCP packets with a SYN, FIN, or RST flag are only incremented by +1 because they do not carry payloads.  
+  - Acknowledgment Number: The acknowledgment number is a 32-bit number field indicating the next sequence number that the sending device is expecting from the other device.
+  - Header Length: The header length is also referred to as the Data Offset field, a four-bit field showing the number of 32-bit words in the header.
+    - The minimum-size header is five words (and the binary pattern is 0101).
+  - Reserved: The Reserved field is always set to 0 (size 6 bits).
+  - Control Bit Flags: TCP is a connection-oriented protocol.
+    - Before any data can be transmitted, a reliable connection must be initiated and acknowledged.
+    - Control bits govern the entire process of connection establishment, data transmissions, and connection termination.
+    - The following control bits are assigned to the TCP header:
+      - **URG**: Urgent Pointer.
+      - **ACK**: Acknowledgment.
+      - **PSH**: This flag means Push function. Using this flag, TCP allows a sending application to specify that the data must be pushed immediately.
+        - When an application requests the TCP to push data, the TCP should send the data that has accumulated without waiting to fill the segment.
+      - **RST**: Reset the connection. The RST bit is used to RESET the TCP connection due to unrecoverable errors.
+        - When an RST is received in a TCP segment, the receiver must respond by immediately terminating the connection.
+        - A RESET causes both sides immediately to release the connection and all its resources.
+        - As a result, transfer of data ceases in both directions, which can result in loss of data that is in transit.
+        - A TCP RST indicates a connection that was terminated for an unknown reason.
+      - **SYN**: This flag means synchronize sequence numbers. The source is beginning a new counting sequence. In other words, the TCP segment contains the sequence number of the first sent byte (ISN).
+      - **FIN**: This flag means no more data from the sender.
+        - Receiving a TCP segment with the FIN flag does not mean that transferring data in the opposite direction is not possible.
+        - Because TCP is a fully duplex connection, the FIN flag will cause the closing of connection only in one direction.
+        - To close a TCP connection gracefully, applications use the FIN flag.
+  - Window Size: This field indicates the size of the receive window, which specifies the number of bytes beyond the sequence number in the acknowledgment field that the receiver is currently willing to receive.
+  - Checksum: The 16-bit checksum field is used for error-checking of the header and data.
+  - Urgent Pointer: The urgent pointer shows the end of the urgent data so that interrupted data streams can continue.
+    - When the URG bit is set, the data is given priority over other data streams (size 16 bits).
+
+#### UDP Metadata
+- UDP, being stateless, does not have sessions implemented at the Transport Layer (although applications can, and often do, implement their own logic).
+- However, routers performing NAT can be configured to allow for return traffic whenever a device behind the NAT sends a packet for a specific amount of time.
+- The metadata available in UDP is similar to what is found in TCP, as shown in Figure 1.4-4:
+  ![e491f228-1c79-403d-980b-384172e8dd6e](https://github.com/user-attachments/assets/3627ed02-01ce-4ba0-83cd-c2eed6c872fa)
+
+##### UDP Header Fields
+- Source Port Number: The first 16 bits of the UDP header contain the port number of the sending application.
+- Destination Port Number: The next 16 bits contain the port number of the receiving application.
+- Length: The next 16 bits identify the datagram size in bits.
+- Checksum: The checksum field of the UDP header contains a checksum value.
+  - This pseudo header helps to find transfer bit errors and also to protect against other types of network errors like the possibility of the IP datagram reaching a wrong destination.
+- Example protocols that are built upon UDP include Trivial File Transfer Protocol (**TFTP**), DNS, Remote Procedure Call (**RPC**) used by the Network File System (**NFS**), Simple Network Management Protocol (**SNMP**), and Lightweight Directory Access Protocol (**LDAP**).
+
+### Traffic Flow
+- When analyzing traffic flow, following the metadata available in packets is a good place to start to map out which hosts are communicating with each other and to determine what services appear to be active and reachable on the network.
+- This can be combined with existing documentation or with previous mapping efforts to give a clearer picture of actual traffic that occurs on a network.
+- Although this cannot encompass all possible network traffic typical to a network without having extensive logs over an extended period of time, this traffic flow analysis is still useful for enhancing maps and determining normal vs. abnormal traffic flow patterns.
+- Sensor placement or tap points can greatly affect the usefulness of metadata when determining traffic flow patterns.
+- Taps placed at network edges do not receive internal traffic, but they can be useful for determining traffic flow between networks.
+
+#### Tools
+- Although some tools can perform some traffic flow analysis automatically, other tools can provide a more methodical or programmatic analysis of a network.
+- These tools may not replace automated tools but can provide additional useful information during the course of a mission.
+  - **Wireshark** has tools and analyzers that can help, such as the **Endpoint analyzer**, available via menus.
+    - Analysis using Wireshark typically involves getting a list of endpoints and then performing analysis on each endpoint to determine traffic flowing to and from that endpoint.
+    - Combined with other tools, Wireshark can be used to give more granular views to the underlying data.
+  - **Security Onion** and other solutions using Kibana as the presentation layer can be queried via the search bar or via predeveloped dashboards and visualizations.
+    - When using **Kibana** in a methodical manner, query to determine active hosts, and then perform queries for each host, and document the services these machines communicate to.
+- Manual, methodical methods might require summarization of traffic to generate a consumable, usable report if exporting data from queries is not an option.
+
+### Baselining
+- Baselining is critical to establishing the pattern of acceptable and normal communications on a network.
+- From an operational standpoint, baselining is conducted to confirm that the applications, systems, and hosts connected to the network are operating and behaving per configuration requirements.
+- For example, the baseline will validate that the volume of data transmitted on the network is within the expected and acceptable range, that the protocols and ports used for communications are aligned with documentation and best practices, and that only authorized hosts are communicated as expected.
+- In addition, working with a certified baseline allows security analysts to identify anomalies by comparing real-time traffic to that of the baseline.
+- Any deviation from the baseline should trigger further investigation to identify operational errors or malicious intent.
+- This can be done by additional traffic monitoring and analyzing the packet payloads of the anomalous traffic.
+
+
+
+
 
 
   
