@@ -280,3 +280,260 @@
 - Capture live traffic on a selected interface: `snort -i "Enter Interface # here" -c C:\Snort\etc\snort.conf -A console`
 - example of a snort rule: `alert udp any 53 <> any any (msg: "Possible DNScat activity" ; sid:1000001; rev:1;) `
 - Check for activity within a specific PCAP: `snort -A console -K none -q -r C:/Users/trainee/Desktop/DNS/dnscat.pcap -c C:/Snort/rules/local.rules`
+
+## Common Enterprise Services
+### Introduction
+- Table 1.2-1 describes seven of the most commonly used application layer protocols (Layer 7) in an enterprise network.
+- Although they are not the only protocols used in enterprise networks, they are the staple services used in nearly all networks.
+  ![b23a4d8a-c127-484c-aa95-129d1855495b](https://github.com/user-attachments/assets/9605c301-052f-4221-acc2-d8d67e2e647c)
+
+### HTTP Overview
+- HTTP is an application-layer protocol used for relaying Internet services, such as handling communications and requests with web servers and resources.
+- In its most basic form, HTTP is viewed as a file-sharing protocol. A client requests a resource from the server via HTTP. The server responds with the requested resource, signaling a successful HTTP transaction.
+  ![f8b34d19-8b6a-4613-9d6a-d26c1abc64cf](https://github.com/user-attachments/assets/e65ddf7d-ce3a-4d41-a7c6-34dc39846a18)
+
+#### Methods
+- The form in which HTTP requests and responses are labeled is through their HTTP methods.
+- Common HTTP methods and descriptions of their functions are as follows:
+  - **GET**: HTTP request for a resource or copy of a resource, e.g., request index.html file for a specified webpage.
+  - **HEAD**: HTTP request for only the header message, with no message body, e.g., request header information about a specified web resource to learn more details without loading the full page.
+  - **POST**: HTTP method for submitting an item into a specified resource, e.g., create new user within the website.
+  - **PUT**: HTTP method to replace all currently existing specified resources, e.g., update user information of an already created user on the website.
+- NOTE: General advice is to use POST when you need the server to be in control of URL generation of your resources.
+  - Preferred method is to use PUT over POST in most instances.
+  - PUT and POST differ in that PUT is idempotent, meaning no matter how many times you run the command, it always produces the same results.
+  - POST would yield different results for each time you run the command.
+- HTTP transactions are dictated by status codes, which provide further information on the outcome of each transaction.
+- HTTP includes a variety of status codes, which fall into the following groups:
+  ![6b18666e-b619-43a2-87bb-ec55996b2b98](https://github.com/user-attachments/assets/1d29deb9-20e5-4a8c-b3eb-6fc9d38c720f)
+
+#### Securing HTTP
+- HTTP is powerful and provides many functions. However, HTTP data is transferred in the clear, making it susceptible to sniffing and Man-in-the-Middle (MitM) attacks.
+- To combat such susceptibility to attacks, Hypertext Transfer Protocol Secure (HTTPS) was developed as an extension of the base protocol.
+- HTTPS allows for secure encryption transmission using Transport Layer Security (TLS).
+- Previous versions used Secure Sockets Layer (SSL), but documented vulnerabilities have forced the transition to TLS.
+- The base protocol changes to TCP port 443 by default when HTTPS is used. HTTPS also allows for authentication to be handled by the protocol when used in conjunction with digital certificates.
+- HTTPS is now commonly accepted as best practice when using HTTP services and is often a requirement of regulations or local policy on organizational networks.
+
+### HTTP Packet Analysis
+- Key details in this HTTP stream are provided below. Also, notice how Wireshark differentiates the requests and responses.
+  - **RED** (Request): HTTP request GET method is used to request access to the HTTP web resource (/Websidan/index.html).
+  - **Host**: 10.1.1.1 (In most cases, there should be a fully qualified domain name or hostname in the Host field. Direct connections to Internet Protocol [IP] addresses are abnormal for legitimate HTTP traffic.)
+  - **User-Agent**: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0) Opera 7.11 [en].
+  - **BLUE** (Response): HTTP Status Code 200 OK returned, meaning the HTTP request was successful and the requested web resources were properly handed over to the user-agent.
+  - **Server**: Apache/2.0.40 (Red Hat Linux).
+  - Content of the index.html file at the requested location, which includes the Hypertext Markup Language (HTML) code that designs the layout and content of the webpage.
+-
+- Using the functions discussed above in Wireshark shows the many important aspects of analyzing HTTP packets in future defensive cyber operations.
+- Understanding how to view data in Wireshark and the tool's power to easily view HTTP streams is especially important.
+- A wide range of network statistics, such as information about the loaded capture file or specific protocols, may be accessed via the Statistics menu.
+- HTTP Statistics contains four analysis windows:
+  - **Packet Counter**: Provides statistics for HTTP request types and response codes.
+  - **Requests**: Provides HTTP statistics based on the host and URI.
+  - **Load Distribution**: Provides HTTP request and response statistics based on the server address and host.
+  - **Request Sequences**: Uses HTTP’s Referer and Location headers to sequence a capture's HTTP requests as a tree, which enables viewing of how one HTTP request leads to the next.
+<img width="802" height="479" alt="d28e4f8e-37a0-47f9-8977-c6545900d95d" src="https://github.com/user-attachments/assets/1aa199e9-0ef1-4721-ad20-253184271957" />
+  - Each field in the table provides valuable insights into different aspects of the network traffic:
+    - **Topic/Item**: The type of HTTP packets or specific status codes related to the HTTP responses and requests.
+    - **Count**: Number of packets for the HTTP requests or code.
+    - **Rate**: Packet frequency over time.
+    - **Percent**: Percentage that the particular category of packets constitutes of the total HTTP packets captured.
+    - **Burst Rate**: Maximum capacity of transmitting data in a specified time span.
+    - **Burst Start**: Time point when a burst starts to identify traffic spikes.
+
+### DNS Overview
+- The DNS protocol is responsible for the translation of IP addresses to human-readable Uniform Resource Locators (URL).
+- DNS consists of three standard types: DNS queries on User Datagram Protocol (UDP) port 53, DNS responses on UDP port 53, and zone transfers on Transmission Control Protocol (TCP) port 53.
+- Learning about the key portions of DNS queries and responses is critical to understanding DNS network communications.
+- Zone transfers are a function of DNS servers and can be identified when DNS data is seen traveling across TCP rather than UDP.
+
+#### DNS Queries
+- DNS queries — also known as lookups — initiate DNS protocol.
+- Reverse lookups provide an IP address to hostname translation, and forward lookups provide a hostname to IP address translation.
+- The following DNS query types provide a more specific breakdown of how DNS requests are handled.
+  - **Recursive Query**: The DNS client provides a hostname, and the DNS resolver must provide an answer; it responds with either a relevant resource record or, if such a record cannot be found, an error message.
+    - The resolver starts a recursive query process, starting from the DNS root server, until it finds the authoritative name server that holds the IP address and other information for the requested hostname.
+  - **Iterative Query**: The DNS client provides a hostname, and the DNS resolver returns the best answer it can.
+    - If the DNS resolver has the relevant DNS records in its cache, it returns them.
+    - If not, it refers the DNS client to the root server or another authoritative name server nearest the required DNS zone.
+    - The DNS client must then repeat the query directly against the DNS server to which it was referred.
+  - **Non-Recursive Query**: The DNS resolver already knows the answer and either immediately returns a DNS record because the resolver already stores it in a local cache or queries a DNS name server that is authoritative for the record.
+    - In either case, there is no need for additional rounds of queries (as in recursive or iterative queries). Rather, a response is immediately returned to the client.
+
+### DNS Record Types
+- DNS records are the instructions that authoritative DNS servers provide about a domain.
+- Many DNS record types exist, and they all serve a different purpose.
+- Some of the most common DNS records and their functions are listed below.
+  - **A Record**: Record holding the IP address of a specified host within a domain.
+  - **AAAA Record**: Record holding the IPv6 address for a specified host within a domain.
+  - **CNAME Record**: Forwarding one domain or subdomain to another domain (no IP provided).
+  - **MX Record**: Record that directs mail to an email server.
+  - **TXT Record**: Record for keeping administrative notes.
+  - **NS Record**: Record holding the name and IP address of the name servers for the requested domain.
+  - **SOA Record**: Record holding administrative information for a domain.
+  - **SRV Record**: Record showing ports for services.
+  - **PTR Record**: Record holding domain name in reverse lookups.
+- NOTE: For a full list of DNS records, see the Internet Assigned Numbers Authority (IANA) DNS parameters web page.
+
+#### Additional DNS Functions
+- DNS provides a necessary function across the internet as well as within organizational intranets.
+- However, these primary functions alone do not encompass all the services provided by DNS.
+- Additional functions include:
+  - **load balancing** (primarily for global data centers)
+  - **multi-path routing** for content delivery networks
+  - **physical locations** based on **best match**, **data center/cloud migration**, and **internet traffic management** (congestion avoidance).
+- These functions make DNS an extremely powerful and useful tool in all environments, but proper implementation is the key to keeping it secure.
+
+### SMB Overview
+- SMB is a staple protocol that allows interconnected and trusted devices to communicate and share resources with one another.
+- SMB is the backbone of any Windows Active Directory (AD)–centered enterprise network; it is used when logging into a machine as well as when accessing a Network File Share.
+- In addition to internal networks, SMB is sometimes used in larger websites, controlling what certain users can access and view based on settings.
+- To summarize, SMB is a file- and resource-sharing protocol.
+- SMB uses TCP port 445 to communicate; legacy versions used TCP port 139 (Network Basic Input/Output System [NetBIOS]).
+  ![0413a209-fa41-42b7-98ea-a18dad370415](https://github.com/user-attachments/assets/34d96152-43c7-4114-9bc9-394ce255373f)
+
+- SMB uses client-to-server communication, in which, like HTTP, a client makes a specific request and the server responds.
+- However, with SMB, not only can files and folders be requested and accessed, but inter-process communication can also occur.
+- On a Windows device, there is a default virtual share named ipc$ that handles the inter-process communications within the network, provided the machines are authenticated properly.
+- In the context of SMB, a server does not have to be an actual server but, instead, is any responding host in an SMB transaction.
+- SMB has different versions called dialects. An SMB dialect is the specific implementation of the protocol that enables the devices to communicate and share resources.
+- Some of the most common dialects used in network environments today are listed below.
+  - **Common Internet File System**: Provides shared access to such networked resources like files and printers.
+    - When using this dialect, an authenticated client can potentially have full access to the responding server. This is mainly found in older Windows networks.
+  - **Samba**: The open-source suite of programs that allow non-Windows devices to integrate with Windows Active Directory environments.
+  - **SMBv2**: The default lowest version standard in Windows networks, replacing SMBv1. Although SMBv2 offers no form of encryption, it is slightly more secure than SMBv1.
+  - **SMBv3**: The newest standard of SMB, shipped by default with Windows 10 and Windows Server 2016; offers default encryption in the form of Advanced Encryption Standard-Galois/Counter Mode (AES-GCM).
+- Many different kinds of SMB requests and responses exist, and they vary, depending on the OS and software suite using the protocol as well as the clients.
+
+#### Securing SMB
+- As stated earlier, SMBv1, the original version of SMB, is considered a legacy protocol and is not found within modern OSs and software.
+- SMBv2 is the minimum accepted version of SMB to be used.
+- However, even SMBv2 is not secure by today's standards, and, where possible, SMBv3 should be used throughout any Windows network environment.
+
+### FTP Overview
+- File Transfer Protocol (FTP) is a simple yet powerful protocol for transferring files between hosts.
+- FTP is used as an internal protocol for resource sharing inside an enterprise network as well as for publicly accessible resources.
+- FTP allows the use of access controls and monitoring and can even support anonymous logins.
+- Like SMB and HTTP, FTP is another protocol that relies on a client-to-server communication module, and the user (client) typically uses some sort of software, or FTP client, to interact with the FTP server.
+- The Control Connection is the connection that is initially established between the FTP client and the FTP server and is used for negotiating the connection, credentials, etc.
+- Port **21** is used for the C**ontrol Connection**.
+  - Once the Control Connection is established, it is then used to establish the Data Connection.
+  - This connection is used to actually transfer files between the client and server.
+  - Port 20 is used for the Data Connection.
+![d6afe70b-5dfe-4a6c-9759-94fffa95ba49](https://github.com/user-attachments/assets/0e3700a7-b5ea-4236-9330-8f1522425126)
+
+- FTP supports two ways of configuring the connection between client and server:
+  - Active Mode: A connection is made both from the client to the server and from the server to the client.
+    - First, the FTP client attempts to initiate the connection to the FTP server over port 21 while supplying the server with an ephemeral port (PORT command) to connect back to the client.
+    - The server then sends a connection back to the client over the designed ephemeral port.
+    - To use this mode, the client needs to be able to accept inbound connections.
+    - For obvious security reasons, this is not always possible, which is why Passive Mode exists.
+  - Passive Mode: Two outbound connections from the client to the server are made.
+    - First, the FTP client attempts to initiate the connection to the FTP server over port 21.
+    - Instead of sending a PORT command, it sends a PASV command, which prompts the server to supply an ephemeral port, which the client then uses to connect back to the server to establish the data connection.
+    - This is used when the FTP client is unable to accept inbound connections.
+- Much like HTTP response codes, FTP uses its own set of response codes called return codes.
+- Below is a list of some of the more commonly seen return codes:
+  - Return Code **200**: The server accepted the command, and it ran successfully.
+  - Return Code **212**: The message attached is referring to the status of the directory.
+  - Return Code **213**: The message attached is referring to the status of the file.
+  - Return Code **214**: This is a help message for the user interacting with the server.
+  - Return Code **221**: This is sent when the server is closing the control connection.
+  - Return Code **226**: This is sent when the server is closing the data connection.
+  - Return Code **331**: This is sent when the server accepts the supplied user name from the FTP client.
+
+#### Securing FTP
+- FTP is susceptible to attacks in its standard form, as authentication and data are sent completely unencrypted.
+- This leaves all data vulnerable to theft or alteration during transmission.
+- To secure this format, FTP makes use of the Secure Shell (SSH) protocol.
+- SSH allows for secure authentication and creates encryption over the FTP protocol, and it is therefore called SSH File Transfer Protocol (SFTP).
+- SFTP alters the standard port usage from 20/21 to 22 (SSH).
+- However, an even more secure version, File Transfer Protocol Secure (FTPS), is used far more widely.
+- FTPS is the process of using TLS (formerly SSL, which is now considered insecure) to secure the transfer of files.
+- Using TLS for encryption allows for the use of strong cryptographic ciphers (such as AES) and provides additional options for securing authentication and commanding.
+
+### SMTP Overview
+- The widely used SMTP protocol helps to transmit emails across the web.
+- SMTP, in modern applications, is primarily only used for sending email messages — but capable of both sending and receiving as illustrated in the traffic flow shown in Figure 1.2-42:
+![ab9fa2a2-6cf9-4dbf-a7b6-0855838906e5](https://github.com/user-attachments/assets/ca673186-fe4b-4f05-8d29-3091e34b0f9f)
+
+- A user's message is sent from their email user agent directly to a Message Transfer Agent (MTA) server.
+  - Then SMTP is used between MTAs, starting by establishing a three-way handshake over TCP port 25.
+  - The MTAs transfer the message to ensure the email message flows to the proper mail transfer agent of the recipient.
+  - Often this must jump through far more than two servers, as Figure 1.2-42 suggests.
+  - After the message reaches the final MTA, the recipient can access the message through the use of an email user agent.
+
+- An additional device used in SMTP is called an **edge transport server**.
+  - **Edge transport servers** reside on the **edge** of a local network, often associated with an organization.
+  - These servers are responsible for coordinating any email that travels into or out of the local network.
+  - Edge servers provide a means of securing email traffic by providing layers of protection in filters and message flow.
+  - Edge servers are commonly responsible for filtering out spam or malicious email traffic.
+- Another SMTP device is an **SMTP Open Mail Relay**.
+  - These devices are meant to work in forwarding traffic to proper MTAs, or basically routing the mail on to reach its proper destination.
+  - These devices used to be a common implementation of SMTP, but are no longer used regularly due to malicious activity like spam being easily sent through them or worms replicating through their services.
+
+- SMTP has become outdated in numerous ways and has been replaced by Extended SMTP (**ESMTP**).
+  - ESMTP provides numerous improvements by adding such features as audio, video, images, and multiple languages within the message formats.
+  - As mentioned above, **SMTP/ESMTP** are also commonly only used in modern networks only for sending mail (**outgoing**).
+  - Protocols such as **POP3** and **IMAP** are primarily used for retrieving mail from mail servers (**incoming**).
+
+#### SMTP Status Codes
+![e0be2153-0943-4006-ad44-57c4d02c7b89](https://github.com/user-attachments/assets/7ed7ac04-437c-425f-a12e-2044562e4e98)
+
+#### SMTP Status Subcodes
+![f5f87294-ba6f-43b1-8fa2-a090dce5fe43](https://github.com/user-attachments/assets/6fd7caff-7ab6-4adb-b6ff-58f5034451f6)
+
+#### Securing SMTP
+- Like many other older protocols, SMTP was not built with many inherent securities.
+- However, like many other protocols, the use of TLS can be used to add much-needed encryption to the communications of SMTP.
+- Unlike the other protocols, however, SMTP does not get a new protocol for this added security but simply works by ensuring TLS is enabled between all agents and servers using SMTP.
+
+### OT Overview
+#### Operational Technology Network Use
+- Operational Technology (OT) networks communicate over specialized and often proprietary protocols.
+- These networks, while operating by their own standards, are usually closed off and carefully monitored, with any changes in the environment carefully and precisely implemented.
+- This is due to the volatile nature of the interoperability between devices.
+- Additionally, these networks typically house critical machinery and instruments, such as fuel pumps, valves, and other specialized tools in various environments.
+- OT networks are often found in such locations as **power plants**, **water treatment plants**, and **refineries**.
+- Each of these networks houses its own unique array of devices and its own communication protocols.
+- When analyzing traffic within an OT network, reading the different proprietary protocols and how they interact with one another can be challenging.
+
+#### Common OT Devices
+- Various devices are used to **monitor**, **report**, and **control** these systems **remotely**.
+- Programmable Logic Controllers (**PLC**) and Remote Terminal Units (**RTU**) serve the same purpose.
+  - This purpose is to **remotely communicate** with the physical devices that are being controlled and monitored.
+  - This can include such items as valves or pumps. Human Machine Interfaces (**HMI**) are what plant operators interact with.
+    - Various devices that are collecting and interfacing with physical devices report back to the HMI as a central location that operations can interact with to operate and monitor the machine.
+
+#### Common Protocols in OT Networks
+- Although many proprietary protocols are used in OT networks, some protocols exist to attempt to standardize the communications between these devices.
+- Table 1.2-5 provides a brief overview of the commonly shared protocols among OT networks, along with links to more details for each.
+  ![f7c52056-1db6-46d4-a923-5ea90d20da28](https://github.com/user-attachments/assets/ee4dfd09-855c-4cc4-850d-ca162754e042)
+
+#### Additional Protocols in OT
+- Many OT protocols besides those in the table above exist, and proprietary protocols are still commonly used within OT networks.
+- Many of these protocols are unique to the device manufacturer and are created that way to keep the protocol unique, obscure, and capable of safely and securely transmitting data.
+- Some standard IT network protocols, such as DNS, are now being used in OT networks.
+  - Such IT protocols provide the same unique functions while used on these networks and provide key functions for OT network expansion.
+  - However, these protocols are still altered in scope to not provide services outside of the OT network environment.
+  - Due to the nature of these protocols being widely used and commonly the focus of cyber attacks, many OT implementations avoid them if possible.
+  - Securing OT networks is a challenge, in that many of the systems are built without security in mind or have very outdated implementations.
+  - This insecurity is combatted by ensuring most OT networks are completely closed or have strictly limited and controlled access to external networks or devices.
+  - Access to the network is protected through logical and often physical separation (air gap) with physical security controls.
+
+#### Overview of Differences between OT and IT Networks
+- OT and IT networks differ in protocols and devices.
+- In addition, OT networks are generally in a static state.
+  - This means even the smallest variations and deviations from the baseline should be considered threats and require investigation.
+  - IT networks tend to be more malleable, allowing for more variations and the network’s ability to compensate for those variations without cause for alarm.
+- Many protocols and unique devices of an OT network are provided in Figure 1.2-50.
+- The network is segmented by device types, and a modbus-gateway handles the routing of traffic from each of these unique network segments.
+- Modbus is used as the protocol which is capable of handling the different types of network traffic from each segment.
+- The Master Terminal Unit network houses all the HMI devices which are the primary access point for interaction within the OT network.
+- The PLC network is home to the PLCs, which operate much of the industrial equipment.
+- This segment makes use of the Profinet protocol to communicate with the other devices.
+- Finally, the OT-Services network has backend services and Industry Control System (ICS) data and also houses the administration devices for providing maintenance on the other segments.
+- This example is a great highlight of the unique nature of OT networks.
+  ![74e39f9b-b9f7-4d6b-8e13-d7c2432d1313](https://github.com/user-attachments/assets/16211444-a6df-4026-8627-2e619d4e454a)
+
+
