@@ -536,4 +536,93 @@
 - This example is a great highlight of the unique nature of OT networks.
   ![74e39f9b-b9f7-4d6b-8e13-d7c2432d1313](https://github.com/user-attachments/assets/16211444-a6df-4026-8627-2e619d4e454a)
 
+## Split OSI Model
+### Communications Reference Models
+- Two primary reference models are used today to provide a framework for network communications:
+  - Transmission Control Protocol/Internet Protocol (**TCP/IP**) model
+    - The TCP/IP reference model (referred to as the TCP/IP suite, known as the [DoD] model when it was under development) was conceptualized and brought to life by the United States DoD Advanced Research Projects Agency (**DARPA**) in the early 1970s.
+    - DARPA used the knowledge acquired in researching reliable data communications over packet radio networks, as well as lessons learned from the Networking Control Protocol (NCP), to develop the TCP/IP model and protocol.
+    - In 1983, the TCP/IP suite became the standard protocol for the Advanced Research Projects Agency Network (**ARPANET**).
+  - Open Systems Interconnection (**OSI**) model.
+    - The OSI reference model was also born in **1983** with the combination of two competing projects that started in the late 1970s.
+    - The International Organization for Standards (**ISO**) directed one project, and the French organization International Telegraph and Telephone Consultative Committee (**CCITT**; later renamed the International Telecommunication Union Telecommunication Standardization Sector [**ITU-T**]) directed the other.
+    - The two projects' merged documents created The Basic Reference Model for Open Systems Interconnection standard, commonly referred to as the **OSI** model. This standard was published in **1984**. 
 
+#### Suite, Stack, and Model
+- As described in Walter Goralksi's The Illustrated Network: _How TCP/IP Works in a Modern Network, the term protocol stack is often used synonymously with protocol suite as an implementation of a reference model_.
+- However, protocol suite actually refers to a collection of all the protocols that can make up a layer in the reference model.
+- The IP suite is an example of the internet or TCP/IP reference model protocol, and a TCP/IP protocol stack implements one or more of these protocols at each layer.
+
+#### OSI Model
+- The most referenced and used model today is the OSI model, a technology- and vendor-agnostic model that divides communications processing into seven different and distinct entities, or layers.
+- Each layer provides a critical function to the communications process while supporting the existing layer directly above or below it.
+- Table 1.3-1 provides a description of each layer of the OSI model, along with its associated Protocol Data Unit (PDU), common malicious activity, and mitigating control samples.
+  ![876bdb63-7465-4cd2-81c3-84f9f224d1c8](https://github.com/user-attachments/assets/c6489329-c08b-49a6-a359-aeb68e85e576)
+
+- *The Session layer is implemented explicitly in environments that use remote procedure calls. Therefore, Remote Procedure Call (RPC)–based attacks are directly related to the operations of the OSI model's Session layer. 
+- Figure 1.3-1 provides an analogy of how data progresses through the OSI model by demonstrating communication between two Chief Executive Officers (CEO).
+  ![bb4d260f-9f17-467f-954a-259fd2a97314](https://github.com/user-attachments/assets/39d801f8-1b26-41e4-975f-60bab4570f0a)
+
+#### TCP/IP Model
+- The original TCP/IP model (also called the TCP/IP suite) was named by combining its two main protocols, TCP and IP.
+- The original TCP/IP model specified four distinct layers, and, like the OSI model that followed, each TCP/IP layer provided a critical function to the communications process, supporting the existing layer directly above or below it.
+- After the OSI model was published, several authors (including James F. Kurose, Behrouz A. Forouzan, and Andrew S. Tanenbaum) introduced OSI Layers 1 and 2 into the TCP/IP model in their publications.
+- The result was an updated TCP/IP model that was more aligned with the OSI model by splitting the original Network Interface layer into two layers — the Physical and Data Link layers — and renaming the Internet layer the Network layer.
+- Table 1.3-2 provides a representation of the original and updated TCP/IP models in comparison to the OSI model and displays how the TCP/IP model consolidates OSI model Layers 5, 6, and 7 into the Application layer.
+  ![4c261645-629d-4071-89ce-066e9ee79f31](https://github.com/user-attachments/assets/4e3ee0cd-2850-4350-9d36-9d4b663646c5)
+
+#### Differences and Similarities
+- Figure 1.3-2 compares the individual layers of the TCP/IP model and OSI model.
+- Each model separates specific functions of preparing and processing data for transmission and reception into layers.
+- The OSI model provides a conceptual framework, whereas the TCP/IP model is aligned with real-world applications.
+- Notice that services or protocols are not used to name or describe layers of the OSI model.
+- This is to ensure that the model is completely agnostic and can be applied to any network with any combination of services, protocols, and hardware vendors.
+  ![4f002032-173b-4491-9a0f-fe1c6b4733cc](https://github.com/user-attachments/assets/80f99186-d3df-4b94-bd31-ae2cac40b452)
+
+#### Network Analyst Data Domain
+- Figure 1.3-3 highlights the data domain of a Network Analyst.
+- The lower layers of the OSI model — Layers 1 through 4 — make up the dataset that Network Analysts spend the most time analyzing, identifying malicious activity, and advising on mitigating controls.
+- Datasets associated with the upper layers of the OSI model — Layers 5 through 7 — are more the domain of Host Analysts.
+- This does not mean that Network or Host Analysts do not venture into analyzing all layers of the OSI model.
+- However, understanding the interactions and delineation between the layers of the OSI model provides opportunities for Network Analysts and Host Analysts to collaborate and identify MCA occurring on a network. 
+  ![31457f43-fa82-4bdb-b257-f28447a18ed6](https://github.com/user-attachments/assets/514fd3e6-cc23-4f40-a3d9-e2a535131d95)
+
+### Lower Layers of the OSI Model
+![f42a4941-f4f6-47a3-93d1-2156f3827493](https://github.com/user-attachments/assets/74992d2d-ab85-4ae2-832b-b980948ec104)
+
+- Understanding key elements of these layers can assist a Network Analyst in supporting a team configuring the network for packet captures, determining the optimal tools to analyze the data collected, and extracting interesting artifacts for further analysis.
+- Command-line tools such as **tcpdump** and **TShark** are efficient tools for quickly triaging packet capture files.
+- The ability to assess statistical information without having to transfer files across a network when data is captured and stored on a remote system or open the files with more computer-intensive programs can expedite identifying interesting data. To display **statistical** information, **TShark provides the -z parameter**. 
+
+### Triaging Packet Captures | Layer 2
+- From CLI, run the following to analyze Layer 2 statistics from a packet capture: `tshark -nn -r ~/pcap/smallFlows.pcap -q -z conv,eth.addr`
+  <img width="751" height="612" alt="image" src="https://github.com/user-attachments/assets/30f5c31f-ab61-451e-ae63-04c4d567ee24" />
+
+### Triaging Packet Captures | Layer 3
+- From CLI, run following to analyze Layer 3 Statistics: `tshark -nn -r ~/pcap/smallFlows.pcap -q -z conv,ip`
+  <img width="759" height="239" alt="image" src="https://github.com/user-attachments/assets/8e4b3d5a-554a-4473-89b0-739a81b0bfd2" />
+
+### Triaging Packet Captures | Layer 4
+- From CLi, rin following to analyze Layer 4 Statistics: `tshark -r ~/pcap/smallFlows.pcap -q -z io,phs`
+  <img width="752" height="255" alt="image" src="https://github.com/user-attachments/assets/3610befc-11af-40b2-a17b-5c7ff69a9dc5" />
+
+### Upper Layers of the OSI Model
+- Network Analysts can quickly create a raw picture of communications occurring on a network with the initial triage of packet captures using command-line tools and pivot to more feature-rich applications for deeper packet analysis once interesting traffic or anomalies have been identified.
+- Host Analysts can then leverage the IP addresses and port information acquired, which, paired with additional payload analysis, can potentially tie the communication back to services running on client computers or servers.
+- Ultimately, this is used in attempting to pinpoint active malicious code.
+- In the OSI model's Layers 5, 6, and 7 or the TCP/IP model's Application layer, payloads can be reassembled from TCP or UDP streams back into files.
+- No encryption should have taken place at Layer 6 of the OSI model for this process to be successful.
+- If encryption were applied at Layer 6, the analyst would need the encryption keys to process the payload. 
+  ![a9f127e3-9b97-4723-9f20-b3b28bbcd49e](https://github.com/user-attachments/assets/97208d31-f0e9-492a-a2cf-9e57789a4279)
+
+- Everyday tasks when analyzing the upper layers of the OSI model include determining applications being used for communications, identifying encryption, and payload reassembly.
+  - These tasks benefit from the use of tools with extended capabilities.
+    - Some command-line tools might still complete tasks like the ones described, but such applications as **Wireshark**, **Suricata**, and **Zeek** are better suited.
+  
+
+
+
+
+
+
+  
