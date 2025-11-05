@@ -1659,6 +1659,26 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
 - Compromise of such assets or information makes the organization subject to **exceptionally grave damage and prevents critical business processes**.
 - Examples of Tier 1 key terrain include any asset whose data **compromise**, **corruption**, or **destruction** has a **devastating impact on the organization’s applications, critical network infrastructure, or data systems**.
 
+### Terrain Identification and Prioritization
+- Terrain identification and prioritization for a CPT define the mission scope as it pertains to **initial objectives**, **intended effects**, and **commander's guidance**.
+- Analysts must have an understanding of the detailed network terrain. A prerequisite to successful missions is the ability to verify mission owners' identification, enumeration, and characterization of the protected networks, systems, or assets to ensure an accurate OS and identify specific key terrain in cyberspace.
+- A site survey is the close examination and analysis of a given location or customer site in order to obtain mission-relevant data or requirements.
+  - The information obtained during a site survey helps determine the mission terrain, gathers critical data, and defines the network owner’s needs.
+  - Information that can be collected during a site survey includes access to the site and necessary equipment, network topology, OSs, and critical onsite personnel to assist with the operation (such as security and IT personnel).
+  - During the site survey, a DCO team supporting threat hunting develops relationships with the network owner, finalizes the Operation Order (OPORD), develops the tactical plan, and collects the crucial mission data necessary to build a hunt plan.
+  - The site survey allows for time to come to an agreement with the network owner and Operational Control (OPCON) chain in regard to tactical plan execution. During this time a team arrives, requests a work location, gains access to personnel/systems, and integrates its equipment and tools into the network.
+  - Site surveys may not be required for each operation (for example, if the mission is returning to a previously visited site), but when they are conducted, site surveys should be at the network administrator's or local defender's location of the designated terrain.
+
+- To develop the fundamental understanding of the terrain, a DCO team must collect data before the site survey occurs.
+  - Data to collect prior to the site survey includes, but is not limited to, **policy documents**, **briefings**, **log samples**, **network maps**, and **vulnerability scans**.
+  - Collecting required data is mission and team dependent and often requires connecting equipment to the mission partners' network.
+  - Once KT-C assets are identified and optimal points to collect data are selected, proper authorization by the mission partner must be in place for the process to proceed.
+  - This should be precoordinated with the OPCON chain and the network owner before the onsite portion of the survey.
+  - Collaborate with the assigned DCO team to obtain the latest site survey.
+  - Discuss fundamentals of the network with the DCO team personnel and local defenders to identify all relevant information about the network.
+
+
+
 ### Threat Hunting Methodologies
 - Cyberspace Threat Hunting (CTH) is the process of actively searching information systems to identify and stop malicious cyberspace activity.
 - CTH can be carried out at all network tiers to meet DCO requirements.
