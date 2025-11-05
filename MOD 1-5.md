@@ -1280,3 +1280,233 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
 #### Timeline Reconstruction
 - Each CPT member must be able to describe a timeline of actions taken during a mission.
 - The ability to reconstruct tasks executed can help accurately portray the CPT member's activities and be used during After-Action Reports (AAR), also known as post-mortem reports, or analysis to help improve the abilities of CPT teams.
+
+## Reporting
+### Reporting Chain
+- CPTs must have a high degree of technical understanding in order to find anomalies and potentially Malicious Cyber Activity (MCA) within a network.
+- It is very likely the leadership does not have an in-depth understanding or working knowledge, which requires changes in reporting details.
+- Upon receiving orders for a mission, the team leadership obtains guidance on the reporting requirements for the specific mission, which should include the audience, periodicity, and intended format.
+- As a basic rule, as reporting moves higher up the chain of command, the detail decreases because the amount of time for ingestion and understanding is limited.
+- Reporting is tasked from higher headquarters and must be returned through those same chains.
+- The flow of tasking from leadership is diagrammed in Figure 2.4-1, which can be used to assess the return path.
+  ![cb31f577-707a-4abc-99f9-4df774982729](https://github.com/user-attachments/assets/beec0c86-9d5a-4c67-892d-41d97f0951a7)
+
+### Report Overview
+- Throughout a mission, many different types of reports are required from leadership.
+- It is vital to document every action as thoroughly as possible during research and event analysis in order to make report creation as smooth as possible.
+- Remembering the specific details surrounding an event, the requested changes, or the Requests for Information (RFI) is very difficult days or even weeks after the analysis.
+- Incidents from a mission are even more difficult during mission wrap-up or after returning to home stations.
+- High-traffic networks often only have enough storage for a certain number of days' worth of logs, which can hamper further research on an incident.
+- Cyber Warfare Publication (CWP) 3-33.4 states:
+  - _"[US Cyber Command] USCYBERCOM and [Joint Force Headquarters – Department of Defense Information Network] JFHQ-DODIN will maintain situational awareness of all DODIN cyberspace defense actions. CPTs should report defensive cyberspace actions through their [operational control] OPCON chain of command, and organizations delegated [tactical control] TACON of CPTs should in turn report CPT status and defensive cyberspace actions taken to USCYBERCOM, JFHQ-DODIN, and the network-owning commander or director."_
+
+- Reporting types vary based on mission type, but CWP 3-33.4 dictates all reporting should include the following (as applicable):
+  - Root cause of the issue.
+  - Indicators of Compromise (IOC).
+  - Malware observed, identified, or discovered.
+  - Detection techniques.
+  - Actions taken.
+  - Impact to supported mission.
+- The following reports have been categorized into Internal and Intelligence and Collaborative to help highlight the similarities. 
+
+#### Internal Reports
+- Internal reports are generally used within the mission element — or team — or to provide an update to a chain of command for the task at hand.
+- These reports have varying amounts of details associated with them, which is directly linked to the understanding of the intended audience.
+  ![63cc2cb6-dde4-43e9-bda5-a346541e7acf](https://github.com/user-attachments/assets/5b62f4c0-7ee7-43f1-bec4-28191ec9abc1)
+
+##### Shift Changeover
+- The normal shift changeover procedures are usually in the form of a meeting or a document.
+- These changeovers are a way to pass information from one shift to another.
+- The meeting or document may not be detailed, but there should be a link to all the analyst's notes for the oncoming shift.
+- Details are immensely important here to minimize the amount of time the ongoing shift needs to use to get spun up on the event.
+- These may not be considered official reports, but they highlight the need for very detailed notes.
+- **Example**: _Continue investigation of User Datagram Protocol (UDP) traffic destined for 104.53.222[.]95 port 34323 from multiple hosts within the network 172.16.4.0/24 subnet. Notes are under the 10152021-anom-udp-outbound directory on the team share. The notes contain what prompted the investigation, timestamps of connections, snippets of payloads, and as much information as possible for follow-up research. It is possible that logs rotate or turnover and data could be lost if not fully documented._
+
+##### Daily Situation Reports
+- Daily Situation Reports (**SITREP**) are end-of-day reports that leads send up the chain on current mission status.
+- These reports may be informal from the analyst's point of view but should give a high level of what is being worked on.
+- **Example**: _Investigating high-bandwidth UDP traffic from security subnet destined for 104.53.222[.]95._
+  - **NOTE**: This level of report often gives a generalized summary of what is being investigated but may not give any specifics. This report is for leadership that does not have time to read notes on an investigation (unless they ask, of course).
+
+##### Weekly Activity Reports
+- Weekly Activity Reports (**WAR**) include the previous week's accomplishments.
+- These reports are often requested from leadership to help keep them apprised of the team's progress and ongoing actions.
+- These reports are often at a high level similar to SITREPs but combine linked events across the team.
+- **Example**: _Three shifts researched anomalous UDP traffic destined for a North American Internet Protocol (IP) address from multiple IP cameras throughout the security subnets. The IP address is associated with the Consolidated Operations and Utilization Plan (COUP) site, which had not been listed on the network diagram. The mission partner is aware of the traffic but thought it was within an IP Security (IPsec) tunnel. The team provided further guidance about properly securing traffic leaving the network._
+  - **NOTE**: This update is important because multiple shift personnel spent a lot of time on it and found an underlying security issue for the mission partner. If the traffic was within an IPsec tunnel, the information is important enough to discuss adding to the WAR.
+
+##### Lessons Learned and After Action Reports
+- Lessons learned and After Action Reports (AAR) allow recent events, investigations, troubleshooting, etc. to feed back into internal processes and methodologies.
+- Finding a new way to complete an action that saves time is a great addition to the processes employed by the team.
+- These lessons learned do not have to be specific to a mission.
+- They could be as simple as a new website that provides information about IP addresses on the internet.
+- **Example 1**: _The camera UDP traffic was investigated for three shifts before coordinating with the mission partner. The lesson learned would be to reach out to the mission partner with indications of large outbound unencrypted traffic before the end of a shift or follow-on shift._
+- **Example 2**: _UDP traffic with a prefix of 0x7100e0000100f800 followed by 10 digits is likely a camera stream from an IP camera designed by Imaging Development Systems._
+
+#### Intelligence and Collaboration Report
+- The following reports are used for collaboration and for requesting support from other agencies or higher headquarters.
+- These reports have varying amounts of detail that are defined within each section.
+- These reports may be authored by the intelligence members in the support cell or by the mission partner.
+- As a CPT member, there may be no requirement to create these reports, but there are many occasions where the input from CPT members is the primary source for reporting.
+
+##### USCYBERCOM Cyber 9-Line
+- USCYBERCOM's Cyber 9-Line is a template of nine questions that helps communicate cyber incidents to USCYBERCOM.
+- Even if the incident is not reported to USCYBERCOM, the questions are excellent for conveying high-level details.
+  - Incident date/time
+  - Classification
+  - Critical Infrastructure and Key Resources (CI/KR) sector
+  - State of origin
+  - State severity rating
+  - Narrative
+  - Request for support/escalation
+  - Associated reporting
+  - IOCs
+- **Example**: _A real-world example of a Cyber 9-Line in use occurred in June 2020 when the Dorchester County government in Maryland was hit by a ransomware attack. Dorchester County reported the incident to USCYBERCOM via a Cyber 9-Line in order to request support. Within 48 hours, the Maryland Air National Guard arrived at county offices ready to assist. The data within the report also provided USCYBERCOM's Cyber National Mission Force (CNMF) with the necessary information to diagnose and assist where appropriate._
+
+##### Joint Incident Management System Records
+- Joint Incident Management System (**JIMS**) records are defined in **Chairman of the Joint Chief of Staff Manual (CJCSM) 6510.01B** as _"a timely technical summary of an event supplemented with intelligence analysis that is entered into the JIMS."_
+- Technical specificity in initial JIMS reports is vital to establishing and ruling out correlations between events during follow-on analysis.
+- Mission element members may not directly create JIMS records, but supporting intel analysts or mission partners may require input. 
+  - **Example**: _A report about an IP address from Malaysia continuously scanning internet-accessible IP addresses on the network. Intel sources have seen the IP address associated with various cyber attacks over the past three months. The report contains specific times, protocols, ports, IP addresses, and application layer information about connections after the scanning (like User Agent Strings when scanning web servers), which could help develop IOCs._
+
+##### Network Intelligence Report
+- A Network Intelligence Report (NIR) is an all-source intelligence report focused on an activity or event — a composition of JIMS records — reporting on a person or organization.
+- As with JIMS, these may not be directly created by the element or team, but supporting intelligence analysts may need input provided from team members on the ground.
+- When authoring NIRs, an analyst may request additional information associated with a JIMS — the detail associated with these reports is less specific to a single event but more specific to the linking of multiple events.
+  - **Example**: _A report discussing Advanced Persistent Threat (APT) 29 traffic from a specific mission partner. These incidents are a combination of multiple JIMS records, which may or may not be within a mission execution or across multiple months._ 
+
+##### Strategic Intelligence Report
+- Strategic Intelligence Reports (SIR) are similar to NIRs but developed from a broader point of view. As noted in the CJCSM 6510.01B, these reports should attempt to capture the full military and/or political significance of network activity.
+- SIRs are normally generated in response to intelligence consumer production requirements based on organization production priorities and focus.
+- They likely cover multiple JIMS records and NIRs.
+- Again, these reports generally do not need additional details, but it is good to have an understanding of where an event found by a CPT may be referenced in the broader picture of the intelligence community.
+  - **Example**: _A report discussing recent cyber attacks across the Central Command Area of Responsibility (AOR). The report speaks at a high level about documented cyber attacks, which may include events like spear-phishing, attacks by APTs, and other cyber events._
+
+##### Joint Malware Catalog
+- In the event malware is found or suspected within a mission partner network, it is important to research the Joint Malware Catalog (JMC) for other instances of the malware across the DoD.
+- The repository provides malware that can be viewed, analyzed, correlated, and further shared with DoD organizations.
+  - **NOTE**: _The JMC is currently under active development under USCYBERCOM's purview._
+
+![1e786762-5837-4f08-b0e9-ec235788eb0a](https://github.com/user-attachments/assets/db23c8f1-3e05-486a-9d70-147c6eb85cc2)
+
+#### Report Routing
+- Automated messaging systems allow entities across dispersed areas and systems to have a centralized reporting mechanism.
+- The following are a few of the larger systems within DoD.
+  - Automated Message Handling System (**AMHS**) is used across the DoD and external agencies to route messages.
+    - This capability is **available on** Joint Worldwide Intelligence Communication System (**JWICS**) and Secure Internet Protocol Router (**SIPR**) networks.
+    - **AMHS** provides a way to **route messages securely between users** with a rapid search and retrieval capability.
+    - **AMHS** messages can be in **free form and cover endless subjects** to include all **NIRs** and **strategic-level reports** created during a mission.
+  - **JIMS** is the mandated (**CJCSM 6510.01B**) **incident-handling program** for all **USCYBERCOM** and **Tier 2** Computer Network Defense Service Providers (**CNDSP**).
+    - JIMS must be used to report all Information Assurance/Computer Network Defense (IA/CND) incidents across the DoD.
+    - The system is **only accessible on SIPRNet**.
+    - **JIMS** provides users with the ability to **create**, **edit**, **search**, **move**, **assign**, **link**, **comment**, **add/delete attachments**, **subscribe**, and **close tickets**.
+    - The search capability is **helpful in finding actionable information** from **completed** or **ongoing missions**.
+
+### Final Reporting
+- During a mission, a litany of reports and documentation is completed, but the final summation of a mission execution often requires a Risk Mitigation Plan (RMP).
+- The RMP provides the mission partner with documentation on what was found during the mission execution as well as any guidance to help further secure the network.
+- The RMP is broken down into the following structure:
+  - Introduction
+    - Mission Description
+    - System Description
+    - Mission Relevant Terrain (MRT)
+  - Mission Survey Results
+    - Threat Assessment
+    - Events/Anomalies
+    - Risk Mitigations
+      - Top 3
+  - Defensive Assessment
+  - Risk Determination
+  - Vulnerability Assessment Summary
+  - Overall Recommendations
+  - Conclusion
+- The RMP should highlight the most important events and findings, which is where the analyst comes in.
+- The leads combine inputs from the analysts to create the report, but analysts must be cognizant that their input is prioritized.
+- All events, anomalies, findings, and corrective actions are part of the report, but only the most important are summed up in the main verbiage of the report at a higher level.
+- Higher-fidelity information on the most important events, anomalies, findings, and corrective actions are documented within the appendices.
+- All less important items should also be documented within the appendices in order to provide a full picture of the mission. 
+
+### Prioritizing Events, Anomalies, Findings, and Corrective Actions
+#### Mission Background
+- The team was requested to provide security analysis and RMP for an air-gapped development network in order to receive certification for sensitive development work.
+- The mission partner has a network with a VMware ESXi deployment that hosts multiple Virtual Machines (VM) to administer the network as well as monitor for external linkages.
+  - The VMs include Security Onion for Network Intrusion Detection Systems (NIDS), Windows Server for Active Directory (AD) services, Rocket Chat for internal messaging, and GitLab for a code repository.
+  - VMs for Windows XP, 7, 10, and 11 are available for code testing.Security also authorized a Kali VM for testing and development.
+- The users' workstations are all Windows 10 systems that are fully patched monthly via a Digital Video Disk-Recordable (DVD-R) update process.
+- The DVD-R update process uses Windows Server Update Services (WSUS) Offline Update tool to download the most recent updates and write them to a DVD or multiple DVDs, as needed.
+- The air-gapped network is physically disconnected from any other network, and all Bluetooth and Wireless Fidelity (Wi-Fi) adapters are disabled/removed.
+
+#### Mission Time Frame Events and Anomalies
+- While using the on-premises NIDS, analysts noted the traffic was minimal.
+- Because the Security Onion sensors were misconfigured, there are no historical logs for a baseline.
+- Patches on the ESXi VMs are a gradient from completely unpatched to fully patched for unit testing.
+- Windows 10 hosts were utilizing Server Message Block version 1 (SMBv1) for backward compatibility to the Windows XP hosts for testing.
+- Microsoft strongly recommends disabling SMBv1 because of known vulnerabilities.
+- Traffic during the mission time frame showed users:
+  - Connecting with VMs using vSphere web client over Hypertext Transfer Protocol Secure (HTTPS).
+  - Transferring files over SMBv1 using ad hoc file shares — workstations sharing folders with other workstations.
+  - Connecting with GitLab for code pushes/pulls using HTTPS.
+  - Connecting with the Domain Controller (DC) for user authentication.
+  - Using separate laptops with a Wi-Fi hotspot for internet research — outside the scope of the mission.
+- Universal Serial Bus (USB) adapters are often used for development and testing with Internet of Things (IoT) devices.
+
+#### Findings and Corrective Actions
+- After further review, the analysts working with the mission partner realized the sensor was connected to a normal port on the switch using a physical Network Interface Card (NIC).
+  - The mirror interface had inadvertently been configured on the wrong interface.
+- Host Analysts noticed a few USB drives around the office, which spawned a check to see if the Windows event logging was configured to log USB devices.
+  - Logging had not been enabled, and the analyst worked with the mission partner to create a Group Policy Object (GPO) to apply to the entire domain
+  - Develop a baseline for the network.
+- When prioritizing Events and Anomalies, it is important to properly calculate impact.
+  - CJCSM 6510.01B says to "consider the current and potential impact of the incident or event on the confidentiality, availability, and integrity of the organizational operations, organizational assets, or individuals."
+  - Confidentiality, integrity, and availability are often referred to as the CIA triad (or AIC triad in order to avoid confusion with the Central Intelligence Agency).
+    - Confidentiality is a measure of how damaging the loss of data is.
+      - Example: Username and password of a bank account are highly confidential.
+    - Integrity refers to the consistency or trustworthiness of the data.
+      - Example: It is highly important that the data presented to bank customers matches their accounts. If they lack trust, customers may close accounts and tell their friends.
+    - Availability refers to the accessibility of data when it is necessary.
+      - Example: If a bank account is not accessible for some reason, availability suffers and customers leave.
+
+#### Prioritize
+- The highest-priority corrective action has already been completed but should be noted in reporting.
+- Finding the NIDS was improperly configured is a two-fold issue.
+- The first issue is that it was not tested after implementation in order to confirm adequate visibility.
+- The second — and likely more important issue — is the amount of time the NIDS was online and not attracting attention because an analyst should have noticed the error very quickly.
+- A **NIDS** is a window into the network that provides insight into the entire CIA triad.
+- Having vulnerable Windows XP hosts and utilizing SMBv1 on Windows 10 hosts for compatibility is a risk, but the mission partner has deemed that risk acceptable since the network is completely air gapped and the SMBv1 is needed for communication testing.
+- The lack of USB device logging is paramount in this network because USB devices could be used to take data in and out of the network or introduce malware, which causes concern for the confidentiality of the data within the network.
+- The mission partner has worked tirelessly to acquire well-vetted employees to increase the integrity level and decrease the possible loss of availability based on a worm.
+- This network's priorities are very specific — any two networks typically have different priorities.
+- It is important to look at the whole picture and make sure the priorities match with the specific mission partner's needs.
+- There may be priorities required by higher headquarters that need adherence by the mission partners, so it is important to research the requirements prior to the mission execution, if at all possible.
+
+### Prioritizing Mitigation Plans
+- For each finding found during mission execution, there should be an RMP developed for the mission partner.
+- Working with the mission partner to develop RMPs is a great option, which enhances the working relationship with the mission partner and the CPT.
+- During the final report, it is important to prioritize based on the assessed risk.
+- Risk is based on two factors: likelihood and impact.
+  - Likelihood relates to the adversary's perceived capability (knowledge, tools, infrastructure, etc.) to exploit a vulnerability.
+  - Impact deals with the issues that may arise from a successful exploitation.
+
+- Look back at the development network in the previous task.
+- While the SMBv1 vulnerability is common knowledge and the tools are open source, there is not a direct connection to the network from the outside, which breaks the accessibility/infrastructure portion of likelihood.
+- The impact is still high because an SMBv1 exploit within this network would give access to just about everything as the users are sharing files ad hoc.
+- The impact for this vulnerability is high but the opportunity is low, which makes the likelihood low.
+- Because of the ease of exploitation of this vulnerability and the impact, this vulnerability may still be medium or high; however, the mitigation strategy cannot be to patch the systems because of the mission requirements.
+- The best option, in this case, would be to work with the mission partner to find a way to minimize the impact of a potential exploitation, which could entail moving shared files from workstations to a file server that does not support SMBv1 and minimizing the use of SMBv1 wherever possible. 
+
+### Concept Sketch
+- Producing an image to depict a chain of events can be much more impactful than a written report.
+- A concept sketch can also provide an excellent way to show a linear progression of events if a timeline is required. 
+- In the Traffic Analysis lesson, an attack originated from a USB thumb drive being plugged into the system.
+  - The user, Janine Ross, inserted the USB removable media, navigated to the drive, and opened invoice.docx.exe.
+  - The executable opened a reverse shell to the attacker's machine 103.28.93.102 on port 80.
+  - Janine's workstation bp-wkstn-3 began sending TCP Synchronize (SYN) packets to ports 80, 443, 445, 139, 22, and 21 on the entire 172.16.2.0/24 subnet.
+  - Janine's host connected to 445 with SMB tree connect requests for the IPC$ share, but none of the connections were successful.
+
+- Adding a timeline can also help relay the information much easier.
+- Tools like draw.io or Microsoft Visio are often used to accurately depict an incident, but something as simple as a whiteboard may be sufficient in a pinch.
+- Whiteboards are a great option for quick meetings like SITREPs, shift changeovers, or AARs, where a quick illustration is needed to convey an idea.
+  ![5de152ac-6d38-44e1-8df8-d2125dbbeeec](https://github.com/user-attachments/assets/709a6a26-e6d9-45e6-9e9c-6a8208a9d1ed)
+
+
+
