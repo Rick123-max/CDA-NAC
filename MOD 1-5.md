@@ -1728,3 +1728,143 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
   - Deactivate unnecessary interfaces.
   - Construct a functional honeypot.
 
+## Identifying Unknown Assets
+### Network Documentation Overview
+- Network documentation is a broad term used to describe the documents and other information that support an IT network.
+- Whether in paper or electronic format, network documentation keeps and maintains records of the key aspects of the network for use by users and managers.
+- Although each network has different documentation based on its relevant information, the following elements commonly appear.
+  - Network topology map/diagram; specifically, an Open Systems Interconnection (OSI) Model Layer 1 and 2 diagram for physical systems and connections and a separate Layer 3 diagram that depicts Internet Protocol (IP) segments, such as subnets and Virtual Local Area Network (VLAN) numbers.
+  - Documentation of the **names**, **roles**, **IP addresses**, and **pertinent information** for network and security **equipment**, **servers**, **hosts**, and other relevant IT assets.
+  - Circuit information, such as circuit type. ID, bandwidth, and carrier.
+  - IP address allocation.
+  - Network and general IT hardware (manufacturers, models, serial numbers, locations, components, configurations, firmware version, end-of-support, and end-of-life dates).
+  - Software installations (approved application list, versions, licensing, support, end-of-support, and end-of-life dates).
+  - Vendors and service agreements.
+  - Change logs.
+  - Backup information and procedures.
+  - Disaster recovery procedures.  
+
+- What makes a good set of network documentation? When documents contain clear and concise wording and layouts, the reader can more effectively understand the material, including detailed diagrams.
+- Additionally, when an organization adheres to a standardized format for documentation, the process is simplified and easier to communicate between teams. 
+- The benefits of proper network documentation to users and organizations are numerous and include the following:
+  - Increased comprehension of network among users.
+  - Preparation for future incidents.
+  - Easier upgrade planning.
+  - Simplified cost planning.
+  - Effective and expeditious recovery in the event of a catastrophic system failure.  
+
+- Unclear, inconsistent, or incorrect documentation may have a negative impact on the quality of services, the network, and the personnel who maintain operational status.
+- Poor-quality documentation adds unnecessary difficulty to tasks involving the network, which slows operations progress.
+- Factors that negatively impact the quality of network documentation include the following:
+  - Incomplete diagrams (for example, missing systems, connections, names).
+  - Descriptions lacking detail (for example, missing IP addresses, names, functions, dates, times, version numbers).
+  - Irrelevant information (unnecessary information that drowns out the critical parts).
+  - Inconsistent formatting (differing fonts, oversized or undersized images, low-contrast fonts).
+- Having high-quality documentation is critical for keeping a network functioning to its fullest.
+- In addition, when documentation supports the network, the people who work on, and with, the network are better equipped.
+
+### Enterprise Visibility Gaps
+- The modern IT organization faces a variety of challenges, especially in security.
+- Traditional security measures address most internal vulnerabilities and threats, but areas may be overlooked.
+- These fringe operational areas with their associated vulnerabilities are known as enterprise visibility gaps.
+- Some of the most common enterprise visibility gaps facing organizations today include the following:
+  - Supply chain attacks
+  - Shadow IT
+  - Mobile applications
+  - Social engineering
+
+- The vast majority of organizations use devices manufactured by other companies.
+- For example, a technology company may use several different manufacturers for routers, switches, laptops, and servers.
+- Despite thorough planning and execution of security measures to protect the network, the supply chain that produces the network devices may create a gap if not held to the same security standards as the network.
+- This issue is especially challenging due to the reliance on the security practices of manufacturers, which is out of the control of end users.
+- A recent notorious attack, known commonly as the SolarWinds hack, exemplifies the damage that can occur from a supply chain attack.
+  - Orion, which is an IT monitoring system, is a SolarWinds product.
+  - Orion uses privileged access to monitor performance data and logs on hosts.
+  - However, in September 2019, threat actors gained access to the SolarWinds network, avoiding detection.
+  - Then, through the use of malicious code injection, the attackers distributed their malware via updates to Orion.
+  - This distribution affected over 18,000 customers using Orion.
+  - As a result, the malware allowed the threat actors to gain access to systems and networks that had the malicious update. 
+- This attack is a perfect example of the threat posed by a supply chain attack.
+- By leveraging the trust between the supplier (SolarWinds) and the customers (users of Orion), the attacker can utilize the privileges that exist between them.
+- Events similar to the SolarWinds breach highlight the critical damage that can result from the trust relationship between client and supplier.
+- Even if a client has perfect security on its own networks, a slight vulnerability in the supplier may undermine the security efforts entirely.
+
+#### Shadow IT
+- Shadow IT is the use of devices in an organization’s network without the knowledge or consent of the IT department.
+- Examples include connection of a personal smartphone to a workplace network without permission or the installation and use of a software application not explicitly permitted by the IT department.
+- The most common reason for employee use of shadow IT is convenience.
+- By nature, most (but not all) security controls reduce the speed of tasks because they add more steps and increase the complexity of operations.
+- However, such security controls have the benefit of protecting the organization from security incidents, which carry a substantially higher time and monetary burden.
+
+- Adhering to security controls outweighs the drawbacks, but human nature tends to seek the path of least resistance.
+- For example, an employee at a company that handles sensitive Personal Health Information (PHI) may need to reduce the file size of a batch of Electronic Medical Records (EMR).
+  - Rather than use the company’s approved but time-consuming method of file compression that processes one file at a time, the employee downloads an open-source file compressor from GitHub that is not compliant with the HIPAA. The software may make the work easier but also subjects the organization to security issues.
+- Shadow IT is a common visibility gap in organizations due to the inconvenient nature of security protocols.
+- However, by circumventing the rules, unauthorized devices and software can create unexpected vulnerabilities in a network.
+
+#### Mobile Applications
+- Applications for mobile devices are another example of an enterprise visibility gap.
+- Whereas desktop security is widely accepted and prolific, mobile security is generally less understood.
+- App stores, such as Google Play, GetJar, and Aptoide, have millions of available applications.
+- However, like desktop software, they may contain malicious code.
+- By placing too much trust in the legitimacy of applications from app stores, users may inadvertently infect their device with malware. 
+- The enterprise visibility gaps of shadow IT and mobile applications may combine to cause issues if, for example, an employee connects a compromised mobile device to a work network, allowing mobile malware to infect other devices in the network.
+- Malicious mobile applications create enterprise visibility gaps due to reliance on employees' knowledge of mobile device security. 
+
+#### Social Engineering
+- Social engineering is a blanket term for the practice of manipulating people into performing unwanted actions.
+- As security methods, technologies, and standards become stronger and more complex, the human component of security becomes a greater threat.
+- For example, if a system uses an advanced antivirus, is up to date on patches, employs advanced encryption, and is hardened to security standards, an attacker may be thwarted from gaining access to the system.
+- However, if the attacker can coax an employee to disclose credentials via a scam email, all these security measures may be bypassed.
+
+- The following are common examples of social engineering attacks:
+  - **Phishing**: This is the most prolific type of social engineering attack, in which an attacker uses email or another messaging method to obtain personal or other sensitive information.
+    - The attacker often poses as a reputable or legitimate company.
+    - Through use of clever wording or enticing rewards, the attacker tricks the victim into disclosing information, clicking on a malicious link, or downloading a malicious attachment.
+  - **Spear-phishing**: Spear-phishing attacks are highly customized phishing attacks, using information obtained from social media, public records, or other sources to target specific individuals.
+  - **Shoulder-surfing**: This is a physical act of an unauthorized user peeking over a victim’s shoulder to see passwords being typed or read sensitive information.
+  - **Tailgating/piggybacking**: This is the act of an unauthorized user following an authorized employee into a restricted area.
+    - An example of tailgating is when an employee scans a badge to enter a restricted office space and holds the door open for a stranger.
+  - **Dumpster diving**: If attackers cannot access an area physically, they may resort to sifting through the trash for documents. Any information not shredded or otherwise properly disposed of may be subject to theft. 
+- While social engineering is not a traditional visibility gap, it is an often-overlooked vulnerability, as it takes advantage of the human element of security. 
+
+#### Network and Log Visibility Gaps
+- In addition to the enterprise visibility gaps mentioned, network visibility gaps may exist.
+- Properly placed sensors in a network are critical to collecting logs and other information.
+- For example, having a firewall without a sensor behind it may lead to incidents not being properly captured for analysis.
+  - To solve this, certain considerations are needed to strategically place network Test Access Points (TAP) or configure Switched Port Analyzers (SPAN, which is also known as port mirroring) to most effectively capture information. 
+- The intended purpose of a sensor determines where it will be placed.
+- For example, if a sensor is needed to gather general traffic on the network, it will be placed at a major network intersection, such as a core router or switch.
+  - If an administrator wants to ensure that a firewall is functioning properly, a sensor may be placed before (facing external traffic) and after (facing the internal network) the firewall.
+  - Additionally, some networks may not allow placement of sensors in certain sections, such as Operational Environments (OE) of power plants or water treatment facilities.
+  - To provide visibility of traffic, sensors may be placed at the gateway of the network instead of inside it.  
+- Finally, log gaps are another type of enterprise visibility gap. Logs are critical in determining the past activity of a system.
+- When (or after) an attack takes place, a threat actor may manipulate the system’s logs to cover their tracks.
+- The intruder may wipe logs completely, or perform more stealthy actions such as inserting or removing specific sections of the log that documents their actions. 
+
+### Shadow IT
+- As discussed in the previous section, shadow IT is one of multiple enterprise visibility gaps in a modern IT network.
+- Shadow IT constitutes the unauthorized use of hardware or software in an environment to evade the scrutiny of the IT department.
+- Typically, the use of shadow IT is not malicious but, instead, for the sake of convenience.
+- Instead of dealing with information systems that are in place but inconvenient in the organization, employees may choose to bring their own devices or software that accomplish tasks more rapidly or easily.
+- Examples of shadow IT include the following:
+  - An employee uses an online Portable Document Format (PDF) editor to modify work documents.
+  - A department purchases a printer from a retail store and then connects it to the network to print documents.
+  - An employee connects a personal smartphone to the internal Wi-Fi network without approval.
+  - An accountant downloads an Excel macro from an online forum post and uses it in a spreadsheet.
+- Although the use of shadow IT usually alleviates some difficulty or inconvenience, it also creates security risks.
+- By introducing devices and software not properly vetted for vulnerabilities, shadow IT can create unexpected challenges.
+
+### Undocumented Assets
+- Undocumented assets are a common issue in larger and older networks.
+- As a network is used for projects, personnel who work on it may change over time.
+- For example, a Linux system might be used as a small web server for a year, then repurposed into a File Transfer Protocol (FTP) server for 2 years, and then repurposed as an email server.
+- The machine will likely contain many artifacts and old software installations (such as web server and FTP server) from its previous jobs.
+- When this situation is scaled to include many machines in a network, a larger problem develops.
+- Aside from undocumented software, the systems and devices themselves may become lost or undocumented.
+- The term system sprawl refers to when devices and networks expand over time but the documentation and understanding of them do not keep up at the same pace.
+- This can slowly become an issue, as these unaccounted systems use resources in the network.
+- Additionally, the lack of maintenance and usage of these older systems can make them outdated (missing patches, using outdated virus definitions), which creates vulnerabilities.
+- If attackers can leverage these vulnerabilities, they can compromise the network. 
+
+## Establish Analysis Priorities
