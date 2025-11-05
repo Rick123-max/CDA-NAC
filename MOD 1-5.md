@@ -1509,4 +1509,202 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
   ![5de152ac-6d38-44e1-8df8-d2125dbbeeec](https://github.com/user-attachments/assets/709a6a26-e6d9-45e6-9e9c-6a8208a9d1ed)
 
 
+# MOD 3
+## Key Terrain in Cyberspace (KT-C)
+### Cyberspace
+#### Overview
+- Referred to as Intelligence Preparation of the Operational Environment (IPOE), any military operation requires an analysis of the enemy's capabilities and possible courses of action, which, in turn, includes a detailed analysis of key terrain — physical locations that can be easily pointed to on a map that may provide an advantage to an adversary.
+- Identifying key terrain provides valuable information on where to focus efforts to defend or attack a physical location.
+- Cyberspace is defined as a _"global domain within the information environment consisting of the interdependent network of Information Technology (IT) infrastructures, including the Internet, telecommunications networks, computer systems, and embedded processors and controllers,"_ per Joint Publication 3-12, Cyberspace Operations.
+- Cyber terrain is not always directly in relation to a physical location.
+  - Instead, cyber terrain may include logical mediums such as software, OSs, network protocols, virtual personas, and other computing devices.
+- A KT-C is considered a physical node or data that is essential for mission accomplishment.
+- Adversaries may attempt to exploit, compromise, damage, or destroy various elements of KT-C.
+- KT-C falls into three tiered categories based on levels of impact to the OE, described later in this lesson.
+- If an adversary inflicted damage to a particular area of the network or a particular infrastructure component, the consequences of the damage to the mission execution that the KT-C enables or supports would be dependent upon the function of the network area or component.
+- Terrain, which covers all of cyberspace, includes the logical and physical components.
+- When defining terrain, DCO team members should use KT-C, Mission Relevant Terrain in Cyberspace (MRT-C), Task Critical Asset (TCA), and Defense Critical Asset (DCA), as outlined in USCYBERCOM Operational Guidance, Identification of Mission Relevant Terrain in Cyberspace.  
+  - **KT-C** is any locality or area — physical or logical — where seizure, retention, or other specified degree of control provides a marked advantage in cyberspace to any combatant.
+  - **MRT-C** is described as (but is not limited to) all devices, internal/external links, OSs, services, applications, ports, protocols, hardware, and software on servers required to enable the function of a critical asset.
+  - **TCA** is an asset that is of such extraordinary importance that its incapacitation or destruction would have a serious, debilitating effect on the ability of one or more Department of Defense (DoD) or Office of the Secretary of Defense (OSD) components to execute the capability or mission-essential task it supports. TCAs are used to identify DCAs.
+  - **DCA** is an asset of such extraordinary importance to operations in peace, crisis, and war that its incapacitation or destruction would have a serious, debilitating effect on the ability of the DoD to fulfill its missions.  
+
+- Identifying terrain has a direct impact on a CPT’s mission.
+- Once the CPT has an assigned terrain in which to hunt and operate, the threat hunter can filter data based on the types of systems and datasets available.
+- Data requirements are driven by the analysis of potential threat actors that can target the mission partners' networks and the Tactics, Techniques, and Procedures (TTP) they employ.
+- Identifying terrain, in turn, reduces the number of analytics necessary for the team to execute the mission objectives.
+- The threat hunter can also filter for data on the identified MRT-C and KT-C to prioritize the required data collection.
+- Understanding KT-C provides a distinct advantage over the adversary by allowing the analyst to focus on defenses for the network.
+- For example, a Network Analyst knowledgeable of KT-C would be able to foil an adversary from further penetrating the vulnerable network by providing mitigating controls for identified weak security postures resulting from identified vulnerabilities supporting KT-C.
+- CPTs are continually required to adjust and adapt to new adversaries or TTPs as KT-C constantly remains at risk. 
+
+### Tactical and Operational KT-C
+- Identifying tactical KT-C provides CPTs, whether assessing or defending a network, a physical location to focus their efforts.
+- In reference to tactical KT-C, this is relevant to physical links that allow communications at the local level, firewalls that control incoming and outgoing traffic, or local administrative privileges that can be leveraged to compromise a vulnerable network.
+- Knowledge of operational KT-C could provide advantages to an adversary within a specific campaign or operation.
+- An Operational Environment (**OE**) is a composite of the **conditions**, **circumstances**, and **influences** that **affect the employment of capabilities** and **bear on the decisions of the commander**.
+- Such components as the type of **equipment**, the **size of the network**, **OSs**, **key personnel**, and the **condition of the terrain** all play critical roles in decision-making. These components help to define the OE.
+- Defining the OE results in identification of the following:
+  - Significant characteristics that can affect friendly and threat operations.
+  - Gaps in current intelligence.
+
+- Cyber Threat Hunting (CTH) analysts identify significant relevant characteristics related to the mission variables pertaining to the enemy and terrain.
+- The threat operator evaluates significant characteristics to identify gaps and initiate information collection.
+- Failure to identify or misidentification of the effect these variables have on the mission at a given time and place can hinder decision-making and result in mission failure.
+- The sum of the characteristics identified represents the current OE.
+- Defining the OE in an operation is the foundation that enables mission decision-making and guides strategy.
+  ![661243cd-64ad-4d5a-a3b6-eed54d65200a](https://github.com/user-attachments/assets/25b34af4-38ee-4cc8-944a-070b7c72977a)
+
+### Cyberspace Planes
+- Cyberspace terrain differs from actual physical terrain because the latter is used to describe physical locations instead of logical or virtual locations.
+- In cyberspace, there is no physical proximity, and devices can be compromised remotely.
+- A router that connects a network to an Internet Service Provider (ISP) is an example of key cyber terrain.
+- Even though the router and its administrator are located in the same building, the administrator could be unaware that a threat actor located anywhere in the world has compromised and gained administrative access to the router.
+- Additional examples are provided below to better convey how cyberspace terrain traverses the cyberspace planes at various levels while highlighting three important layers that are essential when evaluating the OE for a DCO mission.
+  ![c30d9d85-8555-47b5-885c-985165874d15](https://github.com/user-attachments/assets/cf2cdf49-50bf-4949-aaad-5f578eada16a)
+
+#### Supervisory Plane
+- The Supervisory Plane consists of cyberspace elements that perform such supervisory functions as start, stop, modify, or redirect. This plane provides a channel for Command and Control (C2).
+  - An example of the Supervisory Plane is a botnet C2 attack in which the botnet C2 servers act as key cyber terrain. 
+
+#### Cyber Persona Plane
+- The Cyber Persona Plane describes identities in the cyber domain.
+- The Cyber Persona Plane consists of user accounts or credentials, whether associated with a human or with an automated process (e.g., service accounts), and their relationship to one another.
+- Cyber personas may directly relate to an actual individual or entity, incorporating personal or organizational data (e.g., email and IP addresses, web pages, phone numbers, web forum logins, or financial account passwords).
+- Permissions to access physical and logical aspects of the OE are also included. When analyzing the cyber persona layer, identify key characteristics by considering the following:
+  - Data and information consumed in the terrain.
+  - How local users interrelate with the physical network and logical network layers.
+  - Usernames, permission levels, email addresses, chat names, etc.
+- An example of the Cyber Persona Plane is a user account in the network that can be used to compromise access to other areas of the network.
+  - In this case, the account would be deemed as KT-C because it is a user's account with credentials that is providing access to valuable resources within the network. 
+
+#### Logical Plane
+- The Logical Plane comprises a wide range of systems, services, and protocols that maintain the network's availability.
+- The Logical Plane consists of all the data, whether resting, in transit, or being used in the physical network layer.
+- The logical network layer is based on programming or software that derives network communications, interactions, and connectivity.
+- A logical network map is used to close information gaps and enrich data from other cyberspace layers. 
+
+- According to **Joint Publication 3-12**, Cyberspace Operations, **individual links and nodes** are represented in the **logical network layer**, along with various distributed elements of cyberspace, including **data**, **applications**, and **network processes** not tied to a single node.
+- When analyzing the logical network layer, identify key characteristics by considering the following:
+  - Websites or web pages that influence or have a social impact on the network.
+  - Mission partner logical network configurations and vulnerabilities.
+  - Mission partner physical network configurations.
+  - Software that handles and shares mission partner data.
+  - Virtual Private Networks (VPN) or subnets that cross physical boundaries.
+- An example of the Logical Plane is the Domain Name System (DNS) that provides logical mappings between domain names and IP addresses.
+
+#### Physical Plane
+- The Physical Plane within a cybersecurity context is often described as directly mapping to Layer 1 of the Open Systems Interconnection (OSI) model.
+- However, the Physical Plane cannot be constrained within the OSI model layers.
+- The Physical Plane consists of the tactile IT devices and infrastructure that provide storage, transport, and processing of information within cyberspace.
+- Depicting the Physical Plane within the OE allows analysts to inspect the plane as it relates to friendly and threat operations.
+- Analysts derive the Physical Plane depiction from products developed by the network owner and their network validation.
+- When analyzing the physical network layer, identify key characteristics by considering the following:
+  - Threat C2 systems — physical devices adversaries use to leverage to execute their operations — that traverse the cyberspace domain.
+  - Critical nodes that a threat actor can use as a jump point to gain additional access in the OE.
+  - Physical network infrastructure in the terrain (additional examples are fiber optic cables, wireless access points, firewalls, and storage arrays).
+  - Assets with the ability to access data and information residing on and moving through the network, such as packet capture devices.
+  - Physical storage locations with the most critical information and accessibility to that information.
+  - Implemented measures that prevent threat actors from accessing the networks.
+- An example of a Physical Plane asset is a device that is configured with an obsolete protocol that allows easy access to the network for adversaries.
+
+#### Geographic Plane
+- The Geographical Plane defines the physical location of infrastructure supporting cyber operations.
+- Some examples of the Geographical Plane are:
+  - Physical location of Virtual Private Network (VPN) capable devices connecting two secure facilities over the internet.
+  - Power substation servicing power to a high value asset (military base, hospital, government building).
+  - Forward operating base conducting intelligence collection. 
+
+### Impact Levels
+- When prioritizing procedures and tools, proper calculation of impact is important.
+- The Chairman of the Joint Chiefs of Staff Manual, CJCSM 6510.01B, says to "consider the current and potential impact of the incident or event on the confidentiality, availability, and integrity of organizational operations, organizational assets, or individuals."
+- Confidentiality, integrity, and availability are often referred to as the CIA triad.
+- A network lacking one of these aspects is deemed to have a deficiency in its security posture.
+
+#### Confidentiality
+- Confidentiality is a measure of how damaging the loss of data is.
+- Classify and encrypt data to ensure confidentiality.
+- As an example, the username and password of a bank account are highly confidential.
+
+#### Integrity
+- Integrity refers to the consistency or trustworthiness of the data.
+- To ensure integrity of valuable data, use hashing, encryption, or digital certificates.
+- As an example, it is essential that data presented to bank customers match their accounts.
+- If customers lack trust, they may close accounts and spread the word that the bank is not to be trusted.
+- **Non-repudiation**: the inability to dispute or deny something is a concept associated with Integrity.
+- To enforce secure email transactions, digital signatures ensure the sender can not deny having sent the email and the recipient can not assert receipt from a different user, thus ensuring integrity in the transaction.
+
+#### Availability
+- Availability ensures that authorized personnel are granted access to data or system resources in a timely and consistent matter.
+- For availability to be enforced and maintained systems must be designed with redundancies, processes and controls that ensure authorized access to data and systems is provided at acceptable performance levels (i.e. accurately sizing compute resources), that the system can automatically absorb minor outages while maintaining uptime (i.e. redundant network link) and that larger outages are quickly mitigated through manual processes (i.e. restore data from backups).
+
+### Terrain Tiers
+- A network, its supporting infrastructure, and the various integrated applications can be prioritized into three tiers of KT-C, with respect to potential loss or damage severity.
+- If an adversary inflicted damage to a particular area of the network or a particular infrastructure component, the consequences of the damage to the mission execution that the KT-C enables or supports would be dependent upon the function of the network area or component.
+- Adversaries attempt to compromise various elements of KT-C to exploit, compromise, damage, or destroy.
+  ![58e975b5-1c5e-468f-a85a-8e55ca08b19d](https://github.com/user-attachments/assets/12e31780-6c14-4992-9eb5-ea589d61e0e7)
+
+#### Tier 3
+- Tier 3 key terrain covers **general data and applications**.
+- Compromise of such assets or information makes the organization subject to periods of **degraded performance**, but it **does not destroy or corrupt data** or **halt business processes**.
+- Examples of Tier 3 key terrain include data or services that, if **lost**, **corrupted**, or **destroyed**, can be **recovered or restored with minimal impact** on business processes.
+
+#### Tier 2
+- Tier 2 key terrain covers **important data and applications**.
+- Compromise of such assets or information makes the organization subject to **serious damage** and **interrupts** or **degrades** business processes.
+- Examples of Tier 2 key terrain include data that, if **lost**, **corrupted**, or **destroyed**, would have a **serious impact on the organization** or the **essential applications or servers critical** to those data.
+
+#### Tier 1
+- Tier 1 key terrain covers **top value, critical and essential data**, **applications**, **network services**, and **information processing**.
+- Compromise of such assets or information makes the organization subject to **exceptionally grave damage and prevents critical business processes**.
+- Examples of Tier 1 key terrain include any asset whose data **compromise**, **corruption**, or **destruction** has a **devastating impact on the organization’s applications, critical network infrastructure, or data systems**.
+
+### Threat Hunting Methodologies
+- Cyberspace Threat Hunting (CTH) is the process of actively searching information systems to identify and stop malicious cyberspace activity.
+- CTH can be carried out at all network tiers to meet DCO requirements.
+- Three unique core CTH methodologies exist: **driven by analytics**, **situational awareness**, and **intelligence**.
+
+#### Analytics-Driven CTH Methodology
+- Analytics-driven methodology leverages **data** and **analytics**.
+- This methodology uses **complex queries and algorithms** to apply to data sets.
+- Often the queries are applied using automation in software.
+- A key distinction with the analytics methodology is that **no physical access to local machines, networks, or systems is required**.
+- **Data artifacts** consisting of **sensor alerts**, **system logs**, and **network traffic** are **vital** to the analytics-driven methodology.
+- CTH analysts **combine knowledge of data artifacts** with **knowledge of automated analysis capabilities** to develop a **picture** of the **network** terrain.
+
+#### Situational Awareness–Driven CTH Methodology
+- Situational awareness–driven methodology leverages an **advanced understanding of a particular cyberspace terrain** in order to detect anomalous activity.
+- Much like analytics-driven CTH, situational awareness–driven methodology **does not require physical access** to local systems.
+- **Data artifacts** pertaining to the **Operating Environment (OE) are critical** to this methodology.
+- CTH analysts examine **data artifacts over time** in order to understand **system normality** and **detect outliers** in behavior, which often lead to discovering potentially Malicious Cyberspace Activity (MCA).
+
+#### Intelligence-Driven CTH Methodology
+- The intelligence-driven methodology leverages **timely**, **accurate**, and **mature Cyberspace Threat Intelligence (CTI)** to detect advanced cyberspace threats.
+- While employing the intelligence-driven method, cyber defense analysts utilize **mission-strategic**, **actionable insights** provided by CTI on adversaries and malicious activities, allowing CPT teams to make highly informed decisions when creating and executing developed hunt hypotheses.
+
+### Leveraging KT-C
+- KT-C must be identified and analyzed in the context of what is believed to be "**successful**" defense architecture and identify key assets that provide advantages over a potential attacker of the network environment.
+- A general framework for identifying KT-C as a defender is provided in the subsections below.
+- Similar to identifying actual physical terrain, the approach is altered to mirror terrain in cyberspace. 
+
+#### Identify Potentially Targeted Assets
+- Analysts should identify different threat actors and their **motivations**, **capabilities**, and **tactics** to identify the **assets they may target** in a breach of the network environment.
+- What may be key terrain for the organization may not be key terrain for the adversary.
+- An essential question is "**What may motivate the adversary to attack the network?**" 
+
+#### Enumerate Avenues of Approach
+- Analysts should associate vectors that may be used to access a potentially targeted asset. All interfaces that can be leveraged should be considered. 
+
+#### Consider Observation and Vantage Points
+- Analysts should observe and map key terrain that can be leveraged from vantage points within the network environment.
+- Such infrastructure components as **core firewalls**, **network backup systems**, **identity and access management systems**, and **endpoint management systems** may provide an adversary with **deeper access** into the network.
+- **Avoid limiting key terrain to only controlled territory**, as an adversary **may target a secondary organization** to gain an avenue of approach. 
+
+#### Concealment
+- Analysts should engage in the **constant reassessment** process of key terrain adversaries take to progress deeper into a network environment to limit avenues of approach to the network environment.
+- Known vulnerabilities must be patched, and weak passwords must be identified and optimized.
+- The following are basic steps to take in this regard:
+  - Apply network access controls.
+  - Deactivate unnecessary interfaces.
+  - Construct a functional honeypot.
 
