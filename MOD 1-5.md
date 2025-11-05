@@ -1868,3 +1868,64 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
 - If attackers can leverage these vulnerabilities, they can compromise the network. 
 
 ## Establish Analysis Priorities
+### Priority Assets
+- Networks have relatively standard hardware and software configured for each entity's specific needs.
+- These systems are configured based on organizationally assessed risk and priority calculations.
+- Therefore, working with mission partners to understand their internal priorities, and then directly influencing and prioritizing analysis and logging, is essential.
+- The CDA-N lesson Key Terrain in Cyberspace (KT-C) discussed collecting and addressing the mission partner’s high-priority assets to prioritize collection and analysis posture.
+- Working directly with the mission partner enables the CDA to better understand assessed priority assets, as an asset may have been improperly categorized or updates to the documentation provided prior to the mission execution might exist.
+- Priority assets may be buried deep within a network, but they may also exist within the Demilitarized Zone (DMZ).
+- It is important to review the mission partner's assessed priority assets to provide input to possible changes and understand what is deemed important on the network.
+- Mission partners may document how assets in their environments are prioritized using different formats.
+- In Figure 3.3-1, the mission partner City Power Plant has elected to use a network diagram to record and prioritize KT-C assets.
+- Other mission partners might provide a document in a spreadsheet format.
+- In some cases, mission partners might lack documentation altogether.
+- In such a case, it is important to engage the mission partner to understand the Operational Environment (OE) and define the KT-C and its priorities together.
+  <img width="2383" height="1957" alt="ff9d2a78-ff21-40de-b7af-0257659ba3d5" src="https://github.com/user-attachments/assets/032fb545-45b7-4076-b7bb-b30c1bbeb5cc" />
+
+### Prioritized Log Collection and Vulnerable Locations
+- Aside from priority adjustments for reporting, factoring in priorities when configuring log collection, especially in identified vulnerable locations, is pertinent.
+- A host or area of a network may be classified as vulnerable based on numerous aspects, including, but not limited to, external access or unpatched areas of the network.
+- Any access from the external networks or users should be prioritized because this is the easiest entry point for an attacker.
+- Such areas may be a subnet, such as a DMZ, or a physical space like a cyber café, kiosk, or Bring Your Own Device (BYOD) area of a network.
+- Physical access to a network may also be a key entry point if such technologies as port security have not been enabled to lock out unused ports.
+- Network segments may not allow immediate patching, placing them in the vulnerable area category as well.
+- Additionally, all devices along the external perimeter should be prioritized to see any attempted access from external sources.
+- If a priority host exists within the DMZ, it should be monitored more aggressively than a priority host that is four routers deep into the network.
+- Review of logs that can be collected from each host in the network, especially the priority ones, is also important.
+- As an example, if a database server is hosting the customer data for a company within the DMZ, the analyst should address the reason the host was located within the DMZ subnet and then find all possible ways to log the interactions with this server.
+- It may be that only the web server has access to the database server for customer login, which would decrease the overall threat landscape.
+- However, if an attacker were able to gain access to the web server, the database server would be the next likely target.
+- Logging all interactions with the database may be resource intensive, but having a way to investigate any attacks on the database server is key to determining the depth of a breach.
+- Relying on the log files on the database server is also counterproductive because attackers would likely prioritize cleaning their tracks after a compromise.
+- Offloading logs to a remote server like Remote Syslog or a Security Information and Event Management (SIEM) system decreases the likelihood that attackers would be able to clean their tracks, which would allow the analyst a way to quickly assess the overall impact of a breach.
+- In this example, it is important to review the rationale for putting a database server within the DMZ, prioritize database log collection, and find a way to offload the database server logs onto another host for analysis.
+- CDAs should consider the following during prioritization of log collection and vulnerable locations:
+  - What applications create logs on the asset?
+  - Where does the application save the logs?
+  - Can the logs be forwarded to another host within the application? Does another application (for example, Filebeat or Splunk Universal Forwarder) need to be installed to push the logs?
+  - Are the logs in a format that are easily ingested in the mission partner's security architecture?
+  - Who will be dealing with the asset: a customer-facing web portal, lobby kiosk, or developer workstations?
+
+### Prioritized Log Retention
+- Once priority assets are realized and logs are collected, addressing log retention issues should occur.
+- It is never good when a hard drive fills up with logs because someone forgot to purge logs on a reoccurring basis, causing unscheduled down time.
+- Even greater headaches are likely when someone misconfigures log rotation on a sensor platform like Security Onion, crippling the entire team until the device can be cleaned.
+- Keep the following in mind with regard to prioritizing log retention:
+  - Logs eventually fill up a storage device if not kept in check.
+  - If at all possible, write logs to a drive that is not required for boot in case the log rotation breaks.
+  - Save logs on a host without general user access (for example, a syslog server or Security Onion).
+  - If an application is writing its own logs, ensure no disconnect exists with multiple applications writing logs to the same disk and filling up storage inadvertently.
+
+- Because intrusions are often hidden for multiple months, logs should be saved for as long as possible.
+- However, data storage is a finite resource and at some point can reach capacity, and prioritization must be considered for cleanup.
+- Keeping full packet captures for 6 months at a time may not be an option, but keeping NetFlow or Zeek connection logs may be an acceptable alternative.
+- If packet captures are absolutely necessary, offsite cloud storage may be an option.
+- However, securing that storage would be essential, and a ledger of the files that were offloaded would be needed for adequate record-keeping.
+- Filtering out the traversal of such packet capture transfers to the cloud is also necessary.
+- Otherwise, there would be a problematic inception issue in which the encrypted file transfer of the pcap file to cloud storage would be included in the pcap file scheduled for upload from the network at a later time, increasing the requirements on local and cloud storage.
+- Log retention policies and regulations may be imposed on the mission partner by different organizational bodies.
+- For example, (HIPAA) requires that activity associated with health information be logged for at least 6 years, and the Sarbanes-Oxley (SOX) Act specifies retention up to 7 years, depending on the document type.
+- The HIPAA Administrative Simplification Regulation Text provides additional details regarding data retention.
+- The Sarbanes-Oxley Act, Section 802, describes retention policies for data that can be audited, which includes access logs to relevant digital information.  
+
