@@ -1198,3 +1198,85 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
 - Typically, this is done through one-way connections using a tool like a digital diode.
 - In this example, however, it is done through a firewall that houses routes from the switches using inter-VLAN routing.
 - The devices are secured and separated through this technique, and the firewall most likely denies all traffic attempting to communicate back toward the OT network unless explicitly allowed.
+
+## Documentation Process
+### Overview
+- CPT members' duties include many reporting requirements.
+- These reporting requirements may be mandated by the Department of Defense (DoD), CPT teams, and mission partners.
+- Although the timing of exact requirements differs from team to team and mission to mission, there are commonalities in the types of data required to be reported on.
+
+#### Common Mission Documentation Requirements
+- (CUI) Per Cyber Warfare Publication 3-33.4, Cyber Protection Team (CPT) Organization, Functions, and Employment:
+  - (CUI) “All vulnerabilities identified during threat mitigation are documented in the risk mitigation plan, and include recommendations for internal and external mitigation actions to reduce the overall risk to secured networks.”
+  - (CUI) “[...] CPT receipt and analysis of the supported organization’s network diagrams, terrain information, and configuration documents [...] If these documents do not exist, basic network maps and terrain information will be gathered in conjunction with the mission partner [...]”
+  - (CUI) In addition to being able to reconstruct timelines, CPT members must also document derived information, such as identified vulnerabilities, identified adversarial tactics, techniques, and procedures (TTPs).
+    - Additionally, if documentation required to execute a mission, such as network maps, inventory lists, etc. do not exist, CPT members may be required to work with mission partners to generate this documentation.
+
+- Actions must be logged during the execution of some mission tasks.
+- The granularity of each log entry can be tricky, but if the activity can potentially impact the team or mission partner in any way, it should be logged in detail.
+- However, in some cases where there is minimal risk, the nature of that logging may not need to be exceptionally verbose.
+- Take the task of changing a router configuration as an example: depending on the level of risk, logging this activity could just include the requirements for the configuration change, any required approvals, the time the administrator executed the router change, and before and after router configuration files (in case the router needs to be rolled back).
+- Non-standard configurations or otherwise out-of-the-ordinary actions or observations should be specifically called out.
+- Notable observations, such as identified Tactics, Techniques, and Procedures (TTP), found Indicators of Compromise (IOC), vulnerabilities, and similar observations, must likewise be documented.
+- These observations should be recorded in the working log for the mission or in a separate observations log.
+- The logged entries are used to create various reports and outputs, such as risk mitigation plans or vulnerability reports.
+- In addition to documents for logging each action taken, documents such as network maps, inventory lists, and device configurations may be generated to support missions.
+- These documents, often crucial to the execution of a mission, are a mixture of reporting output and documentation and should be preserved in accordance with team and mission partner requirements.
+- Any additional documents generated during the course of a mission generally needs to be attached to, or referenced in, the working log for the mission.
+
+### Documentation Standards
+#### Overview
+- The following output standards illustrate the importance of selecting the correct information to be documented.
+- These standards also demonstrate the utility of documentation by showing various outputs.
+- Two types of output are demonstrated, including the relatively new Cyber 9-Lines format and an open-source format known as Structured Threat Information eXpression (STIX™).
+
+#### Cyber 9-Lines
+- The Cyber 9-Lines format is provided for illustration only and may not represent a format that is used by any particular team in the field.
+- The Army National Guard uses the format at time of writing to provide initial reports to US Cyber Command (USCYBERCOM).
+- Efforts to ramp up training of this format preceded the 2020 elections to help ensure their security.
+  ![4d4c0392-1d08-438f-aaf6-2e28b8a79697](https://github.com/user-attachments/assets/efd992fd-7781-4c6a-89a1-bae83d7dccfe)
+
+- As seen in Figure 2.3-1, the Cyber 9-Lines format gathers intelligence into an easily consumable format for USCYBERCOM.
+- Although some of this information comes from higher up the chain than analyst roles, this format is useful to demonstrate how documentation during a mission feeds into intelligence and reporting up to USCYBERCOM.
+
+- Breakdown of each of the nine lines, as well as a description of each line and how it relates to field-gathered information, is as follows:
+  - **Incident Date/Time**: This is driven by processing early intelligence and documentation of Malicious Threat Actor (MTA) actions.
+  - **Classification (DoD and TLP)**: This is driven by classification requirements that are outside the scope of this lesson.
+  - **CI/KR Sector**: Per previous lessons, this refers to critical sectors and infrastructure across various industries.
+  - **State of Origin (optional)**: If identifiable, this may be hard to discern, especially early in a mission, and is optional for good reason.
+    - Examples of sources of this include determining likely Advanced Persistent Threats (**APT**) involved, **traffic origin**, and **deconstruction of malicious payloads**.
+  - **State Severity Rating**: This reflects the expected impact of this incident, based upon several factors, such as impact to business and critical infrastructure. As such, this is a fairly derived value.
+  - **Narrative**: This is a description of the event, as perceived by the team generating this report, which requires documentation and reporting, such as timeline reconstruction of MTA actions and TTP mapping.
+  - **Request for Support/Escalation**: This is determined by leadership and/or mission partner needs.
+  - **Associated Reporting**: This is derived directly from documentation and generated documents. Documentation generated during a mission is the primary source of information here.
+  - **IOCs**: These are derived from findings by analysts and directly driven by documentation generated during missions.
+
+#### STIX Reports
+- This section covers small portions of the STIX 2.1 format, another example of documentation output.
+- The STIX Frequently Asked Questions (FAQ) web page describes STIX as follows:
+  - "STIX — the Structured Threat Information eXpression — is a language and serialization format used to exchange cyber threat intelligence (CTI).
+  - STIX enables organizations to share CTI with one another in a consistent and machine-readable manner, allowing security communities to better understand what computer-based attacks they are likely to see and to better prepare for and/or respond to those attacks faster and more effectively.
+  - STIX is designed to improve many different capabilities, such as collaborative threat analysis, automated threat exchange, automated detection and response, and more."
+
+### Key Information
+#### Overview
+- Filtering through available information and triaging important data are crucial to the execution of missions.
+- Some key areas of information, such as **network assets**, **intelligence sources**, **TTPs**, and **timeline reconstruction** represent **critical pieces of information** that need to be documented whenever that information is available.
+
+#### Network Assets
+- Network assets, or inventories of all devices connected to mission partner networks, may require documentation.
+- Although initial documentation is typically received early during a mission's lifecycle, such assets may require further enrichment or validation during the execution of a mission.
+
+#### Intelligence Sources
+- Any intelligence sources used to generate hunt hypotheses during the execution of a mission should be documented.
+- In addition, any derived information from these sources, such as discovered IOCs, must be documented.
+- Various agencies may use newly documented IOCs to create new or updated intelligence reports.
+
+#### TTPs
+- During the course of a hunt, describing MTA actions may require mapping TTPs.
+- These must be documented as pieces of derived information directly relating to reconstructing the timeline of MTA actions.
+- In addition, these TTPs may be used to help generate more documentation that feeds into risk mitigation plans, as they are a helpful starting point for research.
+
+#### Timeline Reconstruction
+- Each CPT member must be able to describe a timeline of actions taken during a mission.
+- The ability to reconstruct tasks executed can help accurately portray the CPT member's activities and be used during After-Action Reports (AAR), also known as post-mortem reports, or analysis to help improve the abilities of CPT teams.
