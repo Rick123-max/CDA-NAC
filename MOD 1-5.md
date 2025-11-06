@@ -2289,9 +2289,191 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
 
 
 ## Vulnerability Based Hunts
+### Threat Hunting Refresher
+- Threat hunting is a proactive process to detect and separate threats that navigate past existing security functions.
+- During the introduction to threat hunting, the concept of the four-phase Threat Hunting Loop was also discussed. The Threat Hunting Loop phases, in order, are as follows:
+1. Creating a hypothesis.
+2. Investigating the idea.
+3. Uncovering new patterns and Tactics, Techniques, and Procedures (TTP).
+4. Informing and enriching analytics and detection capabilities.
 
+- Vulnerability-based hunts use vulnerabilities identified within an organization to drive the hypothesis for planning an approach to seeking threats.
+- The core hypothesis is that vulnerable systems are more likely to be attacked at some point, so investigating those systems provides a greater opportunity for the analyst to uncover evidence of an attack at some point in its lifecycle.
+- Once an indicator has been found, analysts are able to inform and enrich an organization’s detection and defensive capabilities through detection signatures and intelligence.
 
+#### Added Benefits
+- Although vulnerability-based threat hunting is the immediate focus of this lesson, the following are a few added benefits that apply to each role of a CPT.
 
+#### Discovery and Counter Infiltration (D&CI)
+- An understanding of what an adversary is likely to leverage in an attack aids in the ability to efficiently detect, locate, and defeat both known and unknown threats.
+
+#### Cyber Threat Emulation (CTE)
+- Understanding the process of vulnerability-based hunts provides insight into the risk-and-reward decision-making that real-world adversaries make.
+- Additionally, an understanding of defensive capabilities and skills is needed to evaluate defenders and defenses.
+
+#### Threat Mitigation
+- The effect of identifying which items are most likely to be targeted assists in deciding priority areas for patching or applying other mitigating controls if a patch is unavailable or, due to system requirements, patching is not an option to address the vulnerability identified.
+- Threat hunting also allows for additional opportunities to proactively identify cybersecurity inadequacies that require mitigation or improvement.
+- One example of this benefit is identifying unaccounted systems that have fallen outside routine maintenance schedules needed to keep equipment functioning properly.
+
+#### Training
+- Any threat hunt that attributes observed and new TTPs of threat actors can add value to future training by maintaining documentation of those TTPs.
+
+### Targeting Strategy
+#### Network Inventory
+- The act of taking network inventory is the process of accounting for all physical assets, network connections, and traffic within a mission partner’s ownership in order to gain situational awareness of the Operational Environment (OE).
+- Having an accurate understanding of the mission partner’s network is critical in the success of any CPT mission.
+- This is especially the case regarding vulnerability-based hunting, as any missing information causes gaps in situational awareness to accurately assess KT-C and conduct full-coverage vulnerability scanning.
+
+#### Identifying KT-C
+- Key terrain associated with cyberspace may be considered a physical node or data that is essential for mission accomplishment.
+- Determining KT-C may be achieved by overlapping the mission partner’s critical assets, business functions, and key network infrastructure for both operational continuity and security.
+
+#### Threat Assessment Reports
+- Detailed threat assessment reports are commonly used in CPT operations.
+- Intelligence, operations, and mission partners provide detailed information that allows CPTs to be brought up to speed on a particular network, adversary, and terrain.
+- A critical component of analyzing a detailed threat assessment report is identifying what information is useful for the mission and how that information is optimally applied.
+- If possible, it is beneficial to gain historical information, as activity found may be attributed to past threats.
+
+#### Vulnerability Scanning
+- Vulnerability scanning is the act of collecting system information and identifying whether that system is possibly susceptible to exploitation.
+- The methods of identifying whether a system is potentially vulnerable ranges from simply identifying the version of a service to partially executing an exploit and identifying if the attempt was successful.
+- The methods of scanning for vulnerabilities range from leveraging frameworks such as Nessus to more specialized tools such as Nikto or applying tools designed for a specific vulnerability.
+- This lesson discusses the use of Nessus. However, it is beneficial to remember that more specialized vulnerability scanning tools exist.
+- Accurate and full-coverage vulnerability scanning is dependent on an accurate network inventory.
+- Whenever possible, review past vulnerability assessments and scans, as any threat activity observed may have leveraged a vulnerability that no longer exists due to the continuous changes of a live environment.
+
+#### The Big Picture
+- All the factors mentioned above should be considered when planning an approach for each vulnerability-based hunt.
+- Complete network accountability is required to identify KT-C and gain an accurate assessment of which areas are vulnerable and which are more resilient within the mission partner’s network.
+- Combining the information gathered with threat assessment reports helps in deciding how to prioritize the effort spent conducting analysis around vulnerable systems.
+- Consider which threats are most likely and their TTPs, and then factor in how each threat’s TTPs match up with KT-C and which systems are vulnerable.
+- Ultimately, no golden ratio of the factors mentioned exists, as one analyst may have a different opinion from another, so it is important to work with the team to develop a strategy.
+
+### Identifying Indicators
+- Hunt analysts must have a solid understanding of the numerous technical aspects they encounter on a mission.
+- This knowledge serves as a foundation to build on with further needed research as an analyst encounters unfamiliar information during a mission.
+- This section discusses strategies that aid in identifying malicious activity from network metadata.
+
+#### Having Strong Fundamental Skills
+- Arguably, the most important tool a hunt analyst has is an understanding of networking and protocol fundamentals.
+- That foundation is required to gain a strong understanding of how data flows through a mission partner’s network.
+- For example, does the mission partner’s network contain a proxy for their web traffic? If so, what type of proxy is it? Do other points exist where web traffic is handled? If so, how is it processed?
+- Knowing how a service works, how it flows, and how it is processed within a mission partner’s network is a key factor in an analyst’s success. A few such fundamentals are described below.
+
+##### Ports and Protocols
+- What protocol, or set of protocols, does a service use?
+- For instance, mail, at its core, may use SMTP. However, DNS is also used, and although the primary protocol is SMTP, a user may access their mail through a browser-based web client.
+- Understanding the function and supporting mechanics behind a service that exists is needed to understand the mission partner’s network. 
+
+##### Data Flow
+- It is important to be able to identify at which points within a network data is **switched**, **routed**, **collected**, and **transformed**.
+- Nodes that perform NAT and proxying change how data appears as it is collected and sent to a Security Information and Event Management (SIEM) suite.
+- These nuances in how data changes as it traverses a network need to be accounted for by an analyst as they operate. 
+
+##### Collection Points
+- Depending on the situation (for example, limited storage capacity), it may be impossible to have all collection points feed into a SIEM.
+- During such scenarios, an analyst may need to separately review data from individual collection points to account for any gaps in their analysis.
+- Having an understanding of how service data is processed in a network aids in accounting for these gaps.
+- Consider the example of how web traffic can be analyzed at any point data is collected within its flow, however, one of the best locations for web specific data analysis will be a web proxy, as it specializes in the analysis and handling of web protocols.
+- This is a broad topic, and an analyst’s success is dependent on their understanding of the mission partner’s network, how data is handled within it, and which collection points handle the different services.
+- An analyst should know this information to understand how activity on the mission partner’s network should look in order to identify anything unusual.
+
+### Exploitation Indicators
+- Vulnerabilities may be broken down into two main categories:
+  - those that can be exploited locally
+  - those that can be exploited remotely.
+- An analyst must know what to look for regarding both types of exploitation categories when conducting a vulnerability-based hunt.
+
+#### Local Exploits and Their Indicators
+- Local exploits, as the name suggests, are exploits that can be triggered only from within the system being exploited.
+- One of the most common examples of a local exploit is the variety of privilege escalation attacks that target Operating System (OS) mechanisms.
+- Indicators of local exploitation are likely observed from endpoint detection solutions and system logs as long as the detection capabilities are sufficiently configured.
+- This means that indicators from network metadata will be follow-on activity, such as Command-and-Control (C2) traffic, pivoting, reconnaissance, and exfiltration. 
+
+#### Remote Exploits and Their Indicators
+- Remote exploitation is not to be confused with remote code execution, although remote code execution exploits provide the most obvious example of remote exploitation.
+- Remote exploitation is one method threat actors may leverage to gain a foothold or move laterally.
+- Many IPS/IDS signatures focus on identifying this type of activity, as triggering these types of exploits requires some type of sequence or amount of data to be sent through a network in a predictable manner.
+- Although network signatures are the easiest method of detecting remote exploits, they should not be relied on, as signatures need to be tuned, it is not feasible to have a signature for every exploit variant, the signature databases must be kept up to date, and the appliances that use them must be implemented correctly.
+- Finally, in many instances, signatures are incapable of inspecting a remote exploit’s payload as threat actors use encryption to obfuscate their activity. 
+
+#### Combining Exploits
+- One assumption analysts may make is that vulnerabilities not labeled as critical or high are less likely to be harmful and therefore are less likely to be used by threat actors.
+- Analysts should consider how the vulnerabilities uncovered on an operation may be leveraged in combination to cumulatively pose a larger risk.
+- This use of several “lesser” vulnerabilities in succession is more likely to occur when an adversary is acting against a mature environment. 
+
+- One example of combining vulnerabilities is an attack that leverages an information disclosure vulnerability combined with a file inclusion vulnerability.
+- In this example, an information disclosure vulnerability is used to access path information to gain information on where uploaded files are stored.
+- The location information is then used to exploit a file inclusion vulnerability to execute a previously uploaded file.
+- That file contains malicious code that executes when accessed.
+- The uploaded malicious file would have remained in an unknown location without the information disclosure vulnerability.
+
+#### Observation of Exploitation Alerts
+- Although vulnerability-based hunting uses vulnerability reports to identify which systems are likely to be targeted, finding evidence of direct exploitation is unlikely.
+- Understanding how different types of exploits can be used to identify malicious activity not directly determined by a signature's alerts is also critical.
+- Additionally, the key to gaining insight into a threat's attack path is to ask if exploitation of observed vulnerabilities is beneficial to a threat actor and how successful exploits can be used to advance their goals.
+
+### Open-Source Research (OSR)
+- Analysts should supplement their current understanding of any given situation with further research.
+- Research regarding vulnerability-based hunting commonly deals with given vulnerabilities and potential indicators of malicious activity. 
+
+#### Research on Publicly Available Exploits
+- Vulnerability reports almost universally provide some type of reference to related Common Vulnerabilities and Exposures (CVEs), and such references are a great starting point for searching for publicly available exploits.
+- Both code and tutorials on how to exploit vulnerabilities are highly accessible with a simple query through any search engine, using such keywords as the specific CVE and exploit or tutorial.
+- Some resources are more reputable than others; the Exploit Database is a good choice. The ability to review exploit source code is beneficial in identifying what data is being sent to trigger the exploit and providing insight into what an analyst should look for during a hunt.
+
+#### The C2 Matrix
+- Understanding the tools and techniques available to adversaries is critical to an analyst’s success.
+- Adversaries use some form of a C2 framework to efficiently orchestrate their efforts.
+- Although more advanced adversaries use customized frameworks for this, it is important to understand how these frameworks are designed.
+- To accomplish this, the C2 Matrix is a useful tool.
+- The C2 Matrix catalogs many C2 frameworks and summarizes their features in a matrix.
+
+#### Security Product Vendors and Social Media
+- Many larger security product vendors have blogs that provide a reputable source of information about current topics in cybersecurity, often with varying levels of technical detail.
+- Additionally, these vendors’ employees may use social media platforms to promote themselves and their companies by sharing information on their personal research in cybersecurity.
+- It is beneficial for analysts to follow these sources of information to stay current with the constantly evolving battlefield of cyberspace.
+
+### Anomaly-Based Detection
+- The key to anomaly-based detection is identifying anything outside well-defined patterns.
+- An observed baseline of network behavior, the defined rules of a protocol, inventoried devices, system and service uptime, and even documented problems are all well-defined patterns with regard to threat hunts.
+- The following are items to consider when using an anomaly-based detection strategy.
+
+#### Traffic Volume
+- The fluctuation of traffic volume normally falls within a predictable pattern in any given 24-hour period.
+- Any deviation from that pattern is of interest and can indicate a range of things, including **C2 traffic**, **reconnaissance**, **lateral movement**, **data staging for exfiltration**, **data exfiltration**, or **tool staging**.
+- Much of the context is **dependent on such factors** as whether an **established baseline exists**, **how current that baseline is**, **network accountability**, and **perspective of the statistical information**, such as **ingress/egress or internal/external** traffic.
+
+#### Data Flow
+- The direction of communication and context of data flow may be an indicator of abnormal activity.
+- Is a server acting as a client for a system that is identified as a workstation? Is peer-to-peer traffic standard or unusual?
+- Abnormal flow of communications may indicate **lateral movement**, **pivoting**, Man-in-the-Middle (**MitM**) or **spoofing attacks**, or **C2 chains**.
+
+#### Protocol Standards
+- Protocol standards are documented through Requests for Comments (**RFC**).
+- However, their implementation in practice is left to the application designer.
+- Typically, application designers adhere to the standards defined for the protocol they are working with.
+- However, threats have found that certain definitions within a given protocol may be ignored in order to carry control data within them.
+- Common examples of this are C2 frameworks that use (**HTTPS**) request fields to transfer data.
+- Additionally, malformed protocol data may be used to trigger remote exploits.
+
+#### Endpoint Accountability
+- Although servers within an organization’s environment are fairly easy to maintain inventory of, network accountability of workstations within an organization may be challenging.
+- Many security vendors provide some type of solution that tracks systems and attempts to identify any systems unaccounted for.
+- However, the effectiveness of those solutions may vary.
+- An unaccounted-for system may be **unpatched**, **provide an obsolete service**, **miss a mandated security solution**, or even be a **malicious device** on the network.
+- Effort must be taken to identify the purpose and ownership of any unaccounted system.
+
+#### Change Management
+- Any changes outside the change management chain should be questioned.
+- Attackers may make any changes they deem necessary to better enable their success.
+- These changes may actually include **fixes to avoid unwanted attention of a key system**, **modifications of networking equipment** to allow access to a network, **log erasure**, or **service configuration changes** to support an effort such as an MitM attack.
+
+#### Errors and Crashes
+- Service downtime and errors may be an indication of a direct exploitation attempt, as many exploits leverage application flaws to create a preferred state of execution.
+- The conditions that cause these desired flaws to be leveraged normally cause an application to crash or throw errors.
+- If a device has a history of crashing or a short period of throwing errors unexpectedly, those may be indicators of exploitation attempts.
 
 
 
