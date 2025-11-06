@@ -2077,8 +2077,114 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
 - When CDAs are alerted to the presence of malware, all data and devices must be recorded.
 - The information will then be passed to response teams within the organization's cybersecurity enterprise to properly resolve the issue.
 
+## Validating Inventory
+### Validating by Scanning
+#### Overview
+- Network map/inventory validation may be accomplished in many ways.
+- Both active and passive methods are useful and have applications, depending on the network or mission partner requirements.
+- Methods used to enumerate networks may be separated into active or passive execution.
+- Active methods are covered first, as they may be more accurate and faster than passive methods when targeting active hosts directly.
+- Hosts may be validated using various active measures, such as the following:
+  - Pinging (Nmap, ping)
+  - Port scanning (Nmap)
+  - DNS lookups
+  - NetBIOS queries
 
+- In larger networks or networks with Operational Technology (OT) equipment, ensure that requests do not flood the network too quickly.
+- More passive methods may be required for some networks or to comply with mission partner requirements. Especially for OT networks, any outside traffic is generally not allowed and may even cause disruption or downtime.
 
+#### Pinging and Port Scanning
+- Such utilities as Nmap or the standard ping utility may be used to actively scan a network.
+- Although scanning a network as a whole using Nmap is a straightforward way to map out a network to validate inventories, Network Analysts must be careful when interacting with mission partner networks using the tool.
+- This is because active scanning with Nmap may trigger rules and alerts or, in extreme cases, interfere with operation.
+- Even so, the effectiveness and utility of Nmap to quickly scan a network make the utility a valuable tool.
+- Both Nmap and the ping utility use Internet Control Message Protocol (**ICMP**) packets to determine if a system is online and reachable.
+- A simple ping request may glean some information. For example, Unix-like Operating Systems (OS) typically respond with a Total Time to Live (TTL) of 64, whereas Windows hosts typically respond with a TTL of 128.
+- However, many hosts — especially Windows hosts — block or drop traffic, which can make using only ICMP traffic insufficient, or exceptions to this firewall rule may be requested.
+- In addition to using ICMP traffic, Nmap can use connection attempts to various common ports to determine if a particular host is online, such as those used for Secure Shell (SSH) or Server Message Block (SMB)
+- RedSeal, as demonstrated in previous lessons, is capable of importing the results of Nmap scans.
+- RedSeal can help in mapping out networks by providing not only a visualization layer but also a useful utility to centralize data collection and analysis.
+
+#### DNS Queries and NetBIOS Queries
+- Queries may be used to validate network inventory entries.
+- Active Directory (AD) may contain a wealth of knowledge about networks that use Windows domains, although this information may be stale if AD entries are not actively maintained, given that entries are often not automatically removed when inactive.
+- Although Lightweight Directory Access Protocol (LDAP) queries may be more efficient, a simpler way to interact with AD using commonly available tools is to perform DNS queries against a DNS server configured in the AD domain.
+- DNS or other name lookup services may be assumed to exist on modern AD domains.
+- This is because a basic requirement of a Windows AD network is to have DNS or other name lookup services available.
+- Notably, this information may be stale (disconnected hosts may appear in AD domains) or incomplete (only devices configured to use AD assets may appear).
+- AD configurations vary from mission partner to mission partner.
+- Although AD domain controllers tend to host DNS in addition to other directory services, DNS may be delegated to other hosts.
+- The nslookup tool may be used to perform DNS queries once the DNS servers have been identified, through either mission partner documentation or traffic analysis.
+- If configured correctly, nslookup may be used to query for the hostname for a particular IP address. See the example code below.
+
+  ```
+  C:\Users\trainee>nslookup 172.16.2.4
+  Server:  dc01.energy.lan
+  Address:  172.16.2.5
+  
+  Name:    sql.energy.lan
+  Address:  172.16.2.4
+  ```
+
+- In the example, the IP address being queried for is 172.16.2.4 and the server being queried against is 172.16.2.5.
+  - The server returns a name of sql.energy.lan for this IP address.
+  - This lookup is done via reverse DNS lookup; the tables that enable this are not a requirement for networks to function correctly and may not always be defined or available.
+
+- Aside from querying AD (via LDAP or DNS queries), various protocols (such as NetBIOS) may be used to query remote machines directly.
+- NetBIOS may be used to perform many functions, such as NetBIOS Name Service, which has the ability to query remote machines for the NetBIOS name associated with a specific IP.
+- The nmblookup tool is available on Windows machines to perform such a query.
+- Due to security concerns with this protocol (it is used by attackers to spoof or perform Man-in-the-Middle [MitM] attacks), it may not always be enabled as a fallback for DNS queries.
+- In addition, the wmic command line utility may be used to perform the lookup via Windows Management Instrumentation (WMI), and PowerShell has cmdlets that may be used to perform host lookups.
+
+### Validation Using Connection Logs
+#### Overview
+- Because scanning tools may overwhelm some types of devices (especially OT devices) or networks, more passive methods may be used.
+- NetFlow, connection logs, and other connection-based information sources may be used to perform inventory validation in a low-impact way.
+- These sources can determine active hosts as well as services in active use.
+- For example, if traffic on port 22 is indicated, then SSH traffic may be assumed to be accessible on the host.
+- Parsing this data may be used to complete and validate network maps and to help identify anomalies in actual practice (for example, services being accessed that should not be accessible or enabled).
+
+#### NetFlow
+- NetFlow is a feature, originally a proprietary protocol used by Cisco devices, for tracking flows and data associated with these flows, such as bytes transferred or number of packets.
+- This data, typically captured by Layer 3 devices, may be used to build out network maps by demonstrating actual connections between hosts on different subnets.
+- This allows for tracking of active hosts on a network as well as services in use that are exposed (and used) across subnets.
+- Layer 3 devices with this feature enabled can store the data in memory, store the data to disk, or forward data to a NetFlow collector.
+- NetFlow collectors store and aggregate data from one or more NetFlow-enabled devices.
+- NetFlow considers the following seven values to uniquely identify a flow:
+  - Interface: The ingress interface, on the recording device, for this flow.
+  - Source IP address: Source IP from the IP header.
+  - Destination IP address: Destination IP from the IP header.
+  - IP protocol: Such as Transmission Control Protocol (TCP) or User Datagram Protocol (UDP).
+  - Source port: For TCP and UDP only. Value of 0 is stored for all other protocols.
+  - Destination port: For TCP and UDP. Type and code stored here for ICMP; value of 0 is stored for all other protocols.
+  - Type of service: Eight-bit field that maps to the same value in IP datagrams. The exact nature of this field is beyond the scope of this lesson.
+- Any packet that matches on all seven values increments counters (such as bytes transferred and number of packets) for that particular flow.
+- NetFlow is covered in more detail in subsequent lessons and is introduced here only to illustrate a potential data source to be used in mapping networks.
+
+#### Connection Logs
+- Zeek stores and aggregates data about connections in a log known as the connection log (or conn.log).
+- Similar to NetFlow, this data includes connection metadata, such as IP addresses, port numbers, and protocols.
+- Connection logs differ from NetFlow flows in several ways, including the following:
+  - Source of data. (Unlike NetFlow, connection logs are generally generated by sensors.)
+  - Amount of metadata stored. (Connection logs include such information as application protocols.)
+  - Granularity. (Zeek stores data about each session or connection rather than just aggregating the data based on the seven criteria identified above.)
+- In Security Onion, these logs are forwarded to Elastic Search. This allows for easy querying of this data by the user. 
+
+### Validating Using Packet Capture Analysis
+- Network Packet Captures (PCAP) provide valuable insight into networks without directly interacting with any hosts on the network.
+- This can be vital for OT networks, where low-powered devices might be overwhelmed by even minor active-scanning techniques.
+- As with connection log analysis, there may be gaps in coverage, and only hosts that are active and services that are used during that time period can be seen.
+- Although Wireshark can be used to manually map out a network, more programmatic methods should be used whenever possible to save time and effort.
+- For example, importing the data into Security Onion can allow the data to be queried to more easily consume the data.
+- This can be combined with other tools to either focus the research paths or enhance or enrich the data, such as using RedSeal to import device configurations to generate a map containing each subnet before querying Kibana.
+- The following is an example of how to analyze a network by combining tools to produce a network map completely offline:
+  - Import network device configurations into RedSeal.
+  - Import data, such as customer-supplied packet captures, into Security Onion using so-import-pcap.
+  - Use RedSeal to identify subnets of interest.
+  - Use Kibana in Security Onion to determine hosts and services in use for each subnet.
+- NOTE: The behavior of so-import-pcap depends on the version of Security Onion being used.
+- In older versions, this command would make changes to the configuration of a system that would impact data collection.
+- The following workflow makes use of this command; however, it should not be used lightly or without research.
 
 
 
