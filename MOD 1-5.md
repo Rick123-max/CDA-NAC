@@ -1929,3 +1929,168 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
 - The HIPAA Administrative Simplification Regulation Text provides additional details regarding data retention.
 - The Sarbanes-Oxley Act, Section 802, describes retention policies for data that can be audited, which includes access logs to relevant digital information.  
 
+## Outlining Defensive Perimeters
+### Defining Defensive Area of Operations
+- Combat operations provide great insight into understanding cyber warfare.
+- As in combat operations, one of the keys to success in DCO is understanding the AoO and defensive perimeters.
+- The first step in defining defensive perimeters is to gather a firm picture of the organizational AoO.
+- Organizational mission and policies dictate the network environment that requires protection.
+- This environment may be used to define the foundation of the defensive AoO and begins the map of the defensive perimeters.
+- Using the aforementioned documentation combined with a thorough network map, CDAs can build an in-depth topology of the network as shown in previous lessons.
+- Within this topology, Key Terrain in Cyberspace (KT-C) needs to be identified, thus establishing the need to set up defenses around the network environment and critical devices.
+- These defenses around the network are the defensive perimeter.
+- After the topology has been gathered, identification of the network boundaries and all devices on the network borders is crucial.
+- The network topology is used to define all systems within the AoO and can be used to identify these boundaries and devices.
+- Boundaries are identified as connections that leave the network environment.
+- Boundary connections can connect to the internet, external entities, or other organizational networks.
+- A thorough analysis of the network, a detailed network map, and well-defined network boundaries are crucial to proper establishment of a defensive perimeter.
+
+#### Defensive Perimeters
+- Generally, multiple perimeters, both internal and external, exist within any network.
+- Internal perimeters exist within individual sections of the network and impose additional security controls to help protect and segregate network sections.
+- External perimeters exist along the edge of the network enterprise and generally reach out toward the internet or external entities.
+- Internal perimeters allow for another layer of defense to network segments, whereas the external perimeter generally has the highest number of security controls to protect the entirety of the network.
+
+- The first key step in identifying these defensive perimeters is to identify all devices along the network boundaries.
+- The network gateways directly connect the network edge and devices.
+- These devices typically include the gateway router, a firewall, and a proxy server.
+- Other devices may be included, depending on the requirements of the network.
+- A common high-level security control for the external perimeter is the Demilitarized Zone (DMZ), which is a network segment that includes external-facing services and acts as a layer between the internal network and external entities.
+- The edge network boundary and all the devices identified along this boundary form the defensive external perimeter.
+
+- Internal defensive perimeters may be more difficult to identify but typically can be identified by separate router connections, unique subnets, or unique Virtual Local Area Networks (VLAN).
+- Some internal perimeters may appear similar to a typical external perimeter to ensure critical infrastructure has increased security levels, but they will not have any external connections.
+- Devices that provide the separation and protections between these network segments are the key defensive perimeter devices to identify.
+- Devices usually include switches and routers but may include firewalls and other controls as well.
+
+### Identify Boundary and Edge Devices
+- Identification of all systems within the organizational AoO outlines critical systems to protect, which enforces the need for a strong defensive perimeter.
+- One key concept to apply to a defensive perimeter is defense-in-depth, which is critical to the proper defense of a network.
+- This concept means to apply multiple layers of security devices and controls between the internal systems and external connections.
+- To ensure this concept is in place, one must understand and identify numerous devices along defensive perimeters to protect internal systems.
+
+- Internal systems lie within the security boundary and typically include such devices as **workstations**, **databases**, **printers**, **operational servers**, and **network devices**.
+- These devices provide the ability to perform operations and must be secured within the defensive perimeters of the network.
+- As discussed, many internal systems are segregated into their own network segments that often have their own internal perimeter.
+- This provides an additional layer of security for the defense-in-depth concept.
+- Check device configurations for networking devices that connect internal systems, as these need to include protections along these internal perimeters.
+
+- Along with internal systems and their protections, the concept of defense-in-depth is bolstered by numerous security devices along the external perimeter.
+- Security perimeter devices typically lie on or near the boundaries of the AoO and provide multiple layers of security to all devices inside the network boundary.
+- Examples include **firewalls**, **guards**, **proxy servers**, **DMZ**, **IPD/IDS**, and networking devices with additional security controls.
+- Below is a breakdown of a few common perimeter defenses.
+
+#### Firewall -Vyatta Firewall
+- Vyatta is an open-source, Linux-based virtual router and firewall.
+- Using CLI (Command Line Interface), Vyatta may be used to implement numerous firewall rules to filter, block, or restrict traffic.
+- VyOS is the Operating System (OS) used by Vyatta devices.
+  ![68f6bf2c-3001-4a0a-a1a7-96c3ea41b6f3](https://github.com/user-attachments/assets/40ba61eb-e4b4-40aa-8acb-9f8f7c0a4e07)
+
+- Figure 3.4-2 shows the output of the firewall rules.
+- The current Firewall Global Settings show that all Internet Protocol version 4 (IPv4) and Internet Protocol version 6 (IPv6) traffic will be accepted for an established and related network connection state.
+- These rules apply stateful packet inspection, which means the firewall analyzes connection state details rather than just packet header details like a stateless firewall.
+- The lack of information in the Rulesets Information section shows no firewall restrictions are applied to any interfaces.
+- This means the firewall is allowing all traffic and contains no restrictions of addresses allowed to traverse through the firewall.
+- Typically, Rulesets are populated with various firewall rules for devices within the network and prevent traffic from entering organizational networks from external connections.
+  ![e460a945-3239-4c46-aeed-8b2b4792adcc](https://github.com/user-attachments/assets/dea7acd2-6d75-454f-bcaf-5bab6b732e4c)
+
+#### Edge Router - Cisco OS
+- Cisco IOS (Internetwork Operating System) is the proprietary OS used on all Cisco networking devices.
+- Cisco IOS uses CLI to administer secure networking configurations through **routing**, **access control lists**, Port Address Translation (**PAT**), Network Address Translation (**NAT**), and more.
+- For secure settings on an edge router, restrictions for accessing the device remotely should exist.
+- Figure 3.4-4 lists some common configurations for how to secure Secure Shell (SSH) connections to a Cisco router.
+  ![a50a159e-0013-4cbf-8d82-a1b5ccc4dee5](https://github.com/user-attachments/assets/db2038d4-24f8-4f6b-b0c3-e504687c6be5)
+
+- Access Control Lists (ACL) are another major security control for networks.
+- Figure 3.4-5 shows commands for a common configuration for two ACLs on a Cisco router to permit only (**IP**)–routing traffic from an authorized subnet and Virtual Teletype (**VTY**) traffic from known authorized source devices.
+- **VTY lines** are a command line interface (CLI) created in a router and used to facilitate a connection to the daemon via Telnet or SSH.
+- ACLs on Cisco devices have a feature called implicit deny, meaning that if no specific rule exists permitting traffic on the ACL list, then the traffic is denied.
+- Based upon the list in Figure 3.4-5, devices from 64.210.18.131 would be allowed to establish a Telnet connection with the router, but a device from 192.168.1.1 would be denied.
+  ![ec580923-a611-4abc-b9b4-67f8039ff326](https://github.com/user-attachments/assets/79d64fef-bb55-4819-9dc4-ec3e958373f8)
+
+#### DMZ
+- The DMZ is a secure area for forward-facing devices, typically isolated from the internal network with its own network segment and firewall rules.
+- The DMZ is the front ground for providing forward-facing services but also monitoring the network.
+- The DMZ becomes an ideal spot for generating alerts for potentially malicious activity.
+  ![0edf6c1e-dc55-4961-b026-f6ccd8b7a294](https://github.com/user-attachments/assets/b7968990-78d5-4ff5-bb78-20fb82c3f75c)
+
+- This DMZ includes all the devices that provide forward-facing services, such as email, domain name services, and web traffic.
+- These devices are separated from the internal network but also provide an area to initially detect possible malicious activity.
+- The separation from internal traffic means all external requests are routed to the DMZ network.
+- This prevents enumeration of internal network devices from threat actors through routine external requests.
+- Other security devices may also exist within the DMZ to provide additional security controls.
+- The firewall is the first security device in the DMZ, used to route and protect external traffic only to the DMZ and prevent unauthorized access to the internal network of the organization.
+- Additionally, DMZ security controls often include such devices as a proxy server, honeypot, or additional routers or switches.
+- A proxy server is used to establish more secure external connections from the internal network.
+- A honeypot may be used to masquerade as a real device with fictitious information to draw in adversaries.
+- The device is used to create alerts and discover adversary activity without compromising damaging services within the network.
+- **NOTE**: Some DMZs are set up with a dual-firewall topology.
+  - The **first firewall** sits **between the DMZ and the edge router** and has rules to **allow the external services to send and receive external communications**.
+  - The **second firewall** sits **between the DMZ and the internal network** and has rules to **prevent any unauthorized access back into the internal network**.
+
+#### Data Malipulation from Security Controls
+- Security devices and controls can manipulate data as it travels through the perimeter of the network they operate on.
+- This can occur in the following ways.
+  - Encryption/Decryption of Traffic: Packets are encrypted with a cryptographic algorithm before transmission to secure traffic from being intercepted in a readable format.
+    - Messages can then be decrypted by the recipient.
+  - Filtering Content of Data and Proxy Connections: Proxy servers act like a gateway to external entities.
+    - The proxy server translates traffic between networks or protocols and acts as an intermediary server separating end-user clients from the destinations they browse.
+    - Traffic flows through the proxy server instead of directly out of the network to the external entity.
+    - The request comes back through that same proxy server, and the proxy server forwards the data received from the external entity to the original requestor.
+    - This prevents any direct connections to internal systems and also masquerades the device information of internal systems from being exposed on the internet or external networks.
+    - Proxy servers can also filter certain content.
+      - This occurs by configuring the device to restrict or block specific web content based on specific criteria, such as inappropriate content or non-work-related websites.
+  - NAT or PAT:
+    - NAT and PAT provide another way of masking the internal addresses of the network.
+    - NAT and PAT are generally configured on an edge router or firewall.
+    - NAT, when configured on a networking device, takes any internal addresses that are attempting to send network traffic outside the internal network and translates them to a different IP address as it leaves the network.
+    - PAT works in a similar way but allows for multiple connections for each IP address by altering the port established for the connection.
+    - Each connection is given a unique port that allows for the connections to be sourced back to the proper internal destination.
+  - Blocking/Restricting Traffic: Firewall rules and ACLs are the primary function for blocking traffic and are found on routers and firewalls.
+    - Additionally, blocking or restricting traffic may be from a blocklist or allowlist.
+    - This takes specific device information, such as a Media Access Control (MAC) address or an IP address, and creates a list of only allowed addresses (allowlist) or banned addresses (blocklist).
+  - Duplication of Data: Some security devices ingest all network data possible.
+    - In some instances, these devices may require a complete copy of network data.
+    - Physical network taps or logical span ports may be used to duplicate this network data to be ingested by security devices, such as a Security Information and Event Manager (SIEM).
+
+### Ensuring Defenses on the Perimeter
+- Network security controls are critical along all boundaries of a network.
+- Devices need to be configured with numerous security controls, including access control, allowlisting/blocklisting, content filtering, and malicious activity prevention, where possible.
+- These secure configurations are key to implementing a strong defensive boundary.
+- Additionally, monitoring the perimeter of the network is a key function of securing a network.
+- Sensors, forwarders, or other centralized logging methods can be used to provide timely data to such security tools as a SIEM.
+- A SIEM can provide CDAs with a focused area to monitor the defensive boundaries and other portions of the network.
+- Alerts can also be created to detect anomalous behavior.
+- The perimeter devices are configured for a log stash or SIEM tool that makes the logging able to be easily parsed and allows for the generation of alerts based on potentially malicious activity that occurs on those devices. 
+
+- Kibana alerts are generated by the various modules listed on the Security Onion - Alerts page: Playbook, Suricata, Wazuh, and Zeek.
+- These modules come with various signatures that trigger if an event relates to potentially malicious or anomalous activity
+- Ensuring that alerts are set up to closely monitor the activity of devices on the defensive perimeter is critical.
+- For example, if an unauthorized IP attempts to connect directly to the edge router of an enterprise network, an alert could be generated.
+- This alert could include key details about the attempted connector, such as its IP address, MAC address, or the port or protocol attempted to be used.
+- This information can be used to search for additional activity from the unauthorized connection source or to build a potential list of known malicious addresses.
+- Proper setup of these monitoring devices is critical.
+- Individual logs generally do not provide enough information, as the logs are granular and can take many man-hours to analyze individually.
+- Dashboards like the ones built into Kibana can help to quickly review large amounts of logs and get a better picture of what is actually occurring on the network.
+- An issue arises when handling encrypted traffic since Kibana and other security tools are unable to read logs from encrypted network traffic.
+- Additionally, monitoring the perimeter can provide early detection of malware on the network, which is key to preventing the spread of the malware across the environment.
+- When CDAs are alerted to the presence of malware, all data and devices must be recorded.
+- The information will then be passed to response teams within the organization's cybersecurity enterprise to properly resolve the issue.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
