@@ -2476,4 +2476,213 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
 - If a device has a history of crashing or a short period of throwing errors unexpectedly, those may be indicators of exploitation attempts.
 
 
+## Unauthorized Changes
+### Authentication, Authorization, and Accounting
+- Authentication, Authorization, and Accounting (**AAA**) is a framework for controlling and monitoring access to information systems.
+- Although each component of AAA can stand on its own, implementation of all parts of the framework is vital for an effective security strategy.
 
+#### Authentication
+﻿- Authentication is the first pillar of the AAA framework.
+- Authentication is the process of identifying a user, person, or other entity and validating that they are who they say they are.
+- Authentication is most commonly accomplished by an entity’s possession of an assigned set of credentials that is unique to them (for example, a username and password).
+- When a system needs to validate a user’s identity, the user provides their unique credentials, and the credentials are checked against an authentication database.
+- If the provided credentials match the credentials in the database, the user is authenticated.
+- Although the use of usernames and passwords is the most common type of authentication, many other forms of authentication credentials exist.
+- Each type of authentication mechanism has its own unique characteristics and capabilities.
+
+#### Authorization
+﻿- After a user’s identity has been validated, the next part of the AAA framework is determining what actions the user is allowed to perform. 
+- Authorization is the process of determining the level of access and authority permitted for an authenticated user.
+- Numerous approaches to authorization exist, but, simply put, authorization revolves around managing the rights that specific authenticated entities possess.
+- For example, a standard user of a computer may not be authorized to install software on a computer.
+- If the user attempts to install software, authorization has the role to determine if the action is allowed and, if it is not, to prevent the action from occurring.
+
+#### Accounting
+﻿- Accounting is the final component of the AAA framework. 
+- Accounting is the process of logging and monitoring activities conducted by users.
+- Examples of logged activities include user authentications (both valid and invalid), actions taken by users, the length of time users are connected, where users are connected from, and the amount of network resources consumed.
+- The purpose of accounting is to log activities so they may be investigated from a security context if required in the future.
+- Because user activity often occurs across numerous network devices and systems, it is common to aggregate accounting logs to a central repository (such as a [SIEM] system).
+
+### Overvew of AAA Implementation
+- AAA is simple as a concept, but it is often much more difficult to implement.
+- Modern information systems and networks can be quite complex.
+- Additionally, a user’s actions can span multiple segments and devices within a network. Consider the following example:
+  - A user remotely logs in to their organization’s internal systems via a Virtual Private Network (VPN).
+  - They log in by providing their credentials and two-factor authentication code.
+  - Once the user has been authenticated and connects to the VPN, they access files on an internal file server.
+
+- Although the above example sounds routine and simple, this example becomes rather complex in the scope of AAA, including such steps as the following:
+  - The VPN gateway must be able to verify the user’s credentials against a central authentication system.
+  - Once the credentials are verified and the user is connected, the file server must determine if the user is authorized to access the files they are attempting to open.
+  - To accomplish accounting, all the disparate systems and devices must be able to forward log data to a central repository. 
+- Such complexity continues to increase with the size and sophistication of the underlying network and information systems.
+
+#### Identity and Access Management
+- Identity and Access Management (**IAM**) is a framework of policies and technologies that **establish user identities and permissions within an enterprise**.
+- An effective IAM program is crucial to an effective AAA implementation, as the following explains.
+- IAM speaks primarily to the first two tenets of AAA: authentication and authorization.
+- In an environment with a mature IAM posture, a central database typically exists that contains all identities (including authentication credentials) and roles (authorization privileges).
+- For effective AAA, all systems that require any form of authentication or authorization should verify credentials and privileges to the central database. 
+- In a mature IAM implementation, the underlying systems are typically implemented into other business and personnel processes.
+- This depends on the people, processes, and technology that are implemented within an organization; however, understanding this workflow is critical to understanding IAM.
+- In larger organizations, it is common for IAM technologies to be implemented with other business systems, such as Human Resource Management (HRM) systems.
+- In this type of configuration, accounts and resources may be automatically provisioned for users when they are onboarded by the HRM system.
+- Actions that occur in the HRM system can affect the authorization level of the user, up to and including a user’s termination.
+
+#### AAA Protocols
+- Standardized network and application protocols exist for the purposes of accomplishing AAA.
+- Two common AAA protocols are **Remote Authentication Dial-In User Service (RADIUS) and Terminal Access Controller Access Control System (TACACS)**.
+- These protocols enable centralized AAA within an environment and establish standardized communication and transport mechanisms for handling authentication and authorization requests.
+- Servers running such services as RADIUS or TACACS provide accounting by logging authentication and authorization transactions.
+- Consider the following example of the RADIUS protocol:
+  - A user wants to use their organization’s enterprise wireless network.
+  - The user finds the correct wireless network on their system and attempts to connect.
+  - Before the user is able to establish a connection to the network, they must first provide their enterprise credentials.
+  - Once the credentials are provided, the wireless access point acts as a RADIUS client by forwarding the authentication credentials to a RADIUS server.
+  - The RADIUS server compares the received credentials against a central database and, if valid, returns an Access-Accept message to the RADIUS client.
+  - This information is also logged on the RADIUS server.
+  - Upon receiving the accept message, the wireless access point allows the user to establish a connection. 
+- As illustrated above, the RADIUS server logs authentication information and requests.
+- This accomplishes accounting under the AAA umbrella.
+- Accounting logs typically contain information about authentication and authorization requests and often contain various data elements.
+- The elements contained in the log are often unique to specific devices or configurations within a network.
+- Figure 4.3-1 provides an example of an account log from a RADIUS server:
+  <img width="575" height="541" alt="9ae0d5e0-fdcf-4de2-9615-35a76dc6566f" src="https://github.com/user-attachments/assets/5b5431bc-823c-4075-bbc5-d349685bb98a" />
+
+- The RADIUS accounting log in Figure 4.3-1 indicates the start of a session for two different users.
+- Information from RADIUS accounting logs can be used in a forensic investigation when necessary.
+- For instance, the User-Name field indicates the user who is the subject of the authentication request.
+- The NAS-IP-Address field indicates the Internet Protocol (IP) address of the device that sent the authentication request (such as a router, switch, or VPN). 
+
+#### Log Aggregation
+- In the scope of AAA, accounting consists of logging session information and statistics.
+- A variety of session information exists and can be used for various purposes
+- For the purpose of security and within the scope of AAA, common accounting data points include the following:
+  - The user/identity performing the activity.
+  - How and where the user is connecting to the resource (such as internal network, VPN, or IP address).
+  - The time of access of any network resources.
+  - What network resources were accessed.
+- In complex networks, the data elements listed above often span infrastructure.
+- For effective use of this information in a security context, it needs to be readily available without having to extrapolate data from numerous endpoints.
+- This is accomplished through **log aggregation**.
+  - **Log aggregation** is the process of consolidating and standardizing log information across an environment.
+  - In an environment with log aggregation in place, in-scope systems (such as authentication services, VPN gateways, file servers, and network infrastructure) forward system log information to a central repository (such as a SIEM system).
+  - This system normalizes and stores the log data so that all log data (even data from disparate systems) can be searched and analyzed in a single location.
+  - **Log aggregation** is foundational for being able to **track changes**, **especially unauthorized ones**, within an environment.
+  - Effective log aggregation **leaves a forensic trail** when changes are executed.
+  - Having a forensic trail enables analysts to research changes after the fact and re-create the steps that led to the change.
+  - This significantly aids in investigating changes that are potentially unauthorized.
+
+### Log Aggregation Concepts
+#### Log Sources
+- Identification of the log sources to aggregate must be determined prior to configuration of the aggregation itself.
+- Determining what logs to aggregate can be a daunting task, as numerous types of logs and source devices exist, especially within complex networks.
+- Incorporating too few log sources can lead to important data being missed; incorporating too many sources can add a significant amount of noise and lead to log fatigue.
+- Determining what logs to aggregate can usually be done by answering the following questions:
+  - Which systems or devices need to forward log data?
+  - What types of log data on each system or device are important in a security context and should be forwarded?
+
+- Consider a Windows server. By default, multiple types of logs are available on a Windows server; there is a system log, an application log, and a security log.
+- Although each type of log has a distinct purpose, it does not always make sense to aggregate all these log types.
+- Based on the requirements of the network and system at hand, it may make sense to forward and aggregate only security logs.
+- Knowledge of the underlying network, as well as of its applications and services, is critical to determining the proper logs to aggregate.
+
+#### Log Aggregation Configuration
+- Once in-scope systems and logs have been identified, log aggregation itself must be configured.
+- Specific log aggregation configuration varies between environments and the tools in use, but the concepts behind the technical workings of log aggregation are consistent.
+
+##### The Log Aggregator
+- Before configuring any systems or devices to forward log data, the aggregator must be configured.
+- Although different tools work differently behind the scenes, many tools share common characteristics, and the same configuration items typically must be determined.
+- The following are common questions and configurations that must be answered for log aggregation:
+  - What platform is used for log aggregation, and what is its deployment architecture?
+  - What system or device hosts the log aggregation platform?
+  - Where are aggregated logs to be stored? Is sufficient storage in place for the desired amount of log retention?
+  - Where is the log aggregator located logically within the network? Are additional forwarding nodes required based on network requirements and controls?
+
+- Although inner workings vary between tools, many platforms consist of a central repository for log data and one or more forwarding nodes that are responsible for receiving log data from endpoints and forwarding it to the central repository.
+- **Forwarding nodes** are typically used in **complex environments** where either the **number of endpoints is very large or network security controls are strict** between different segments of a network. 
+
+- When configuring log aggregation, determination of the desired log data retention period is important.
+- Log retention periods are often dictated by policies.
+- Because the amount of disk space required for log retention relies on numerous variables (primarily the number of endpoints for which logs are being received and the quantity of log messages from those endpoints), no simple formula exists to determine this amount.
+- When log aggregation is first configured and established, the amount of disk space used by the log repository should be monitored over time and adjusted to fit the needs and requirements of the mission partner network.
+
+##### Sending and Receiving Logs
+- Once an aggregator has been established within an environment, it must be configured to receive logs from the various log sources within the target network.
+- Again, the specific configuration varies between different log aggregation platforms, but configuration concepts are typically similar.
+
+- Because log sources may come from any number of different devices and log messages are formatted differently across those devices, the aggregator must be configured for the specific log sources to be received.
+- This configuration usually includes details on how to normalize the log message (so that the data contained within a log from a specific source can be standardized with log data from other sources) and in what manner to expect the logs (what device the logs are coming from and over what protocol, such as syslog).
+
+- Once the aggregator has been configured to accept logs for a particular source, the endpoint-generating logs must be configured to forward the logs to the aggregator.
+- Different techniques are available to accomplish log forwarding, and the available techniques may vary by device, but the vast majority of devices support sending log information via the syslog protocol.
+- Regardless of the protocol being used, the endpoint in question should be configured to forward logs via a mutually available protocol or method that is present for both the endpoint and log aggregator.
+
+##### Alerting and Monitoring
+- Forwarding of log data to a central repository is important, but it is not useful or actionable when proper monitoring and alerting parameters are not configured.
+- Such sophisticated platforms as fully featured SIEMs often have built-in monitoring and alert rules that can be leveraged.
+- Other platforms may require that monitoring rules be configured from scratch. 
+
+- Although options vary, it is important to set up monitoring and alerting in a way that is practical for the environment and network in question.
+- Enabling too many alerting features can result in alert fatigue, when an overwhelming number of alerts desensitize those tasked with responding to the alerts.
+- This can cause actionable alerts to go unnoticed.
+- On the contrary, having too few alerting features enabled can cause important events to not be alerted on, allowing potential unauthorized changes, breaches, or compromises to go unnoticed.
+
+- Choosing the right alerts to configure is subjective, based on the security requirements of an environment.
+- Environments where a stricter level of control or security is required usually have a higher level of alerting and monitoring in place.
+- It is also common for policies and standards to dictate certain types of monitoring that must be in place.
+
+- Although no exact formula exists to determine what to implement in the way of monitoring, there are several considerations that should be made from a security and AAA context.
+- Examples of such considerations include the following:
+  - **Suspicious authentication behavior and patterns**.
+    - Repeated unsuccessful authentication attempts (especially if followed by successful authentication).
+    - Successful authentication from suspicious or unusual locations.
+    - Authentication attempts (successful or unsuccessful) to privileged systems or systems not typically accessed by users.
+  - **Potentially unauthorized behavior**.
+    - Attempted or unauthorized access to privileged or critical systems.
+    - Changes made to privileged or important systems.
+    - Suspicious network traffic and activity (such as unexpected activity between disparate systems).
+  - **Potentially malicious behavior**.
+
+- Having in-depth knowledge of the system or network in question can also help in determining events to alert on.
+- Given this knowledge, determining what is important on a personal level is also an effective approach to implementing sufficient monitoring. 
+
+### Identifying and Responding to Changes
+- CPTs are responsible for monitoring and responding to changes.
+- When effective AAA practices are in place with sufficient logging and alerting, CPT operators are empowered with the necessary resources to contextualize events.
+- Effectively responding to events requires critical thinking and a thorough understanding of the environment being operated in.
+- Although effective logging can help fill information gaps when investigating activity, a full understanding of the environment and the ability to ask probing questions to get to the root of an alert are critical.
+
+#### Understanding and Evaluating Changes
+- Changes occur within networks frequently.
+- Some changes may be well thought out, planned, and authorized, but others may not.
+- The ability to think critically about the change that occurred and ask probing questions can help in determining if the change in question was authorized.
+
+##### Identifying and Understanding the Change
+- When notified or alerted of a change that is occurring, the first step in responding to the change is understanding the nature and scope of the change.
+- Although some changes may seem simple on the surface, they often have higher-order consequences that are not always obvious.
+- Consider the following example:
+  - A change is requested to allow devices in subnet A to access a specific device in subnet B on TCP port 80.
+  - The change is implemented on the firewall between the two subnets to allow any device in subnet A to access any device in subnet B on TCP port 80.
+- The change request stated that devices in subnet A need to access a specific device in subnet B on TCP port 80, but the change was implemented to allow access to any device in subnet B on port 80.
+- The request was met, but the change has potentially higher-order consequences. Critical thinking in such a scenario is thus highly important.
+- It is not obvious in the above example that other devices may exist within subnet B that are outside the scope of the intended change.
+- With the change implemented as described, unintended access is being granted to other devices within subnet B on port 80.
+- If an out-of-scope device in subnet B is running a service on port 80, that service may now be unintentionally accessible to devices in subnet A.
+- This also opens up the potential for vulnerabilities and compromise, especially if systems that are not in scope are running vulnerable software that could be impacted by the change.
+
+##### Was the Change Authorized?
+- Once the change is understood, it must be determined whether the change was authorized.
+- An authorized change is a change that has been requested, planned, vetted, approved, and correctly implemented by an authorized individual.
+- In most organizations, changes are vetted through a formal change management process.
+- Change management usually follows a standardized approach and implements a common framework (such as [NIST] SP 800-128, Guide for Security-Focused Configuration Management of Information Systems).
+- In networks with formal change management in place, it must be determined if the change was properly implemented via the change management policy and process.
+- The first step of validating whether a change is authorized is to determine if the change that was implemented matches a formal request or need for the change.
+  - Change management processes often factor in potential consequences and lay out a detailed plan and strategy for how the change should be implemented.
+  - In the previous example, the intent of the requested change was met, but the implemented change was far broader than intended.
+  - In this case, the change itself may have been authorized, but it was not implemented in the correct manner.
+  - This should be brought to the appropriate team’s attention for scrutiny.
+- Changes sometimes occur outside the scope of a formal change management process.
+- This does not necessarily mean that the change was not authorized, but it does mean that the change should be examined. 
