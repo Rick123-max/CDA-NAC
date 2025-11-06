@@ -2187,13 +2187,108 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
 - The following workflow makes use of this command; however, it should not be used lightly or without research.
 
 
+# MOD 4
+## Posture Impact
+### Security-Focused Configuration Management (SecCM)
+- The configuration of a system is a representation of a system’s components, how they are arranged, and how they are connected.
+- Each component can affect the security posture of the system as a whole.
+- Configuration management represents the process in which changes to the system, which will inevitably occur over time, are handled and processed.
+- Organizations cannot control natural disasters like floods and earthquakes, hackers, and other threats.
+- However, organizations can limit vulnerabilities and reduce threats via implementation of a robust security-focused configuration management process.
+- This process is referred to as SecCM in National Institute of Standards and Technology (NIST) Special Publication (SP) 800-128, Guide for Security-Focused Configuration Management of Information Systems.
+
+#### Terminology
+- Before diving further into SecCM, it is important to define a few common configuration management terms:
+  - **Configuration item**: An identifiable component of a system (for example, hardware, software, firmware, documentation, or a combination thereof) that is a discrete element under change control.
+  - **Baseline configuration**: An approved set of specifications for a configuration item at a given point in time. The baseline is used for future builds, releases, and/or changes to the item.
+  - **Configuration management plan** (CM plan): A description of the roles, responsibilities, policies, and procedures for managing the configuration of the system or product.
+  - **Configuration Control Board** (CCB): A group of qualified people responsible for controlling and approving changes throughout the lifecycle of a system or product; also be referred to as Change Control Board (CCB).
+  - **Configuration item identification**: The methodology for selecting what items to place under configuration management and how to name them.
+  - **Configuration change control**: The process for managing updates to a baseline configuration.
+  - **Configuration monitoring**: The process for testing or assessing a configuration item against an established baseline and for reporting its compliance.
+
+### Phases of SecCM
+![5e6136ae-eb11-404d-adef-62f61c9301cb](https://github.com/user-attachments/assets/ef1a3ce0-45e1-4277-b5d4-5a45a03d20ab)
+- Typically, SecCM phases are followed sequentially, with the monitoring phase providing oversight on the overall process. Organizations should adapt the flowchart to fit their environment’s needs. 
+
+#### Planning
+- Planning for security early in an environment can have a great impact on the success of a project later on.
+- The planning phase includes developing the foundation to build a security-focused CM program, including the creation of the policy and procedures for an organization to abide by and dissemination of that information throughout the organization.
+- The policy addresses the implementation of SecCM plans, integration into existing security programs, frequency and personnel involved in CCBs, the tools and technology used in change control processes, the organization’s use of baseline configurations, and the methods for monitoring compliance to the CM plan.
+
+#### Identifying and Implementing Configurations
+- The phase of identifying and implementing configurations takes the baseline configurations approved during the planning phase and starts their implementation throughout the organization.
+- For a typical system, the baseline codifies the configuration item’s **settings**, **software versions**, **physical or logical arrangement**, and **required security controls**.
+- Where possible, a baseline configuration is applied via automation to ensure uniformity. 
+
+#### Controlling Configuration Changes
+- Change is inevitable to an organization and its systems, which makes the phase of controlling configuration changes one of the most difficult to handle.
+- This phase addresses how future changes to a baseline are managed while maintaining the security of the baseline.
+- With SecCM, organizations ensure that changes are formally identified, proposed, reviewed, analyzed for security impact, tested, and approved prior to implementation.
+- To maintain the secure integrity of a system, organizations typically enforce strict change time windows, employ access restrictions to who can implement a change, and maintain audit records to capture unauthorized and/or undocumented changes to a system.
+
+#### Monitoring
+- The monitoring phase is responsible for validating that a system is adhering to the prescribed organizational policies, procedures, and secure baselines.
+- Monitoring helps to uncover new risks to an organization by identifying unauthorized or undocumented changes.
+- SecCM monitoring is accomplished through assessment and reporting activities.
+- Where possible, automation should be used to report and possibly correct on deviations from an established baseline.
+- Monitoring can also support metrics gathering that can be used to provide quantitative evidence that a SecCM program is meeting its goals or needs to be tuned. 
+
+### Types of Changes
+- While an organization audits its systems for changes during the monitoring phase, it will likely come across changes that are determined to be unauthorized.
+
+#### Authorized Changes
+- Authorized changes refer to changes that have **gone through the prescribed change control process** and have been **implemented or are pending implementation**.
+- Examples of a change that would undergo approval include installation of new Commercial Off-the-Shelf (COTS) software, a new networking device (for example, a router, switch, firewall, or VPN gateway), and an upgrade of an existing Database Management System (DBMS).
+- It is also important for an organization to designate in its CM plan any changes that do not require change control.
+- These types of changes are deemed preapproved. Examples of preapproved changes vary from organization to organization but may include database content updates, removal of temporary files, and creation/deletion of new low-privileged users. 
+
+#### Unscheduled or Unauthorized Changes
+- Even organizations with robust and well-followed CM plans undoubtedly encounter changes not officially approved or controlled.
+- Sometimes an activity, such as installing patches outside a configuration change control process, can have a significant impact on a system’s security posture.
+- This may happen for various reasons, such as the change’s being conducted as a result of a critical vulnerability discovered on a system.
+- This would be considered an unscheduled (or emergency) change.
+- Whenever an unscheduled change occurs, it is incumbent on the system owners to document and review the change, even after the fact. 
+
+- Other times, a change activity may be deemed unauthorized.
+- Unauthorized changes may occur when a system administrator makes a change but is unaware that the change requires a prescribed change control process.
+- Unauthorized changes may also occur maliciously and may be an indicator of a compromise.
+- Examples of a malicious change are an attacker’s enabling Remote Desktop Services (RDS), modifying a system’s password policy so that passwords never expire, and disabling the antivirus on a user’s workstation.
+- All authorized changes become a part of the system’s new baseline configuration, creating a “known-good” snapshot of the system, and marking a potential rollback, or restore point, for a system to return to if the need arises. 
+
+### Security Impact Analysis
+- According to NIST SP 800-128, security impact analysis is “the analysis conducted by qualified staff within an organization to determine the extent to which changes to the system affect the security posture of the system.”
+- Within the CM plan, an organization should include the specific requirements that a change must be tested and scrutinized against in a security impact analysis.
+- Security impact analysis occurs during the “controlling configuration changes” phase of SecCM, when designated personnel in an organization analyze and evaluate changes for adverse effects and then submit the analysis to a CCB for review, preferably prior to the change’s being implemented.
+- However, security impact analysis may also occur after an unscheduled change.
+- Designated personnel should conduct a security impact analysis after any change is implemented in order to verify that the change was completed as planned, with no unanticipated impacts to the environment’s security controls.
+
+#### Conducting a Security Impact Analysis
+- Once a determination is made that a change request requires a security impact analysis, qualified staff in an organization follow the five steps listed below, according to NIST SP 800-128:
+1. Understand the change.
+   - The first step in analyzing a change is understanding it.
+   - This is accomplished best by developing a high-level overview of the change and highlighting how the change will modify the configuration item’s present state.
+   - The analysts conducting the security impact analysis should review any available documentation (for example, architectural diagrams, network maps, and audit records) and interview the change owners to gain as much insight as possible into the change.
+   - This step helps to dictate many of the activities further in the security impact analysis. 
+3. Identify vulnerabilities.
+   - To the extent possible, a security impact analysis must identify and discover any vulnerabilities that the change may introduce into the changed component.
+   - This step takes varying forms, depending on the proposed change.
+   - For example, for a change involving the installation of a COTS hardware or software product, this step likely includes a search of the National Vulnerability Database (NVD) for any known vulnerabilities related to the product.
+   - Additional vulnerability analysis may include a Dynamic Application Security Test (DAST) scan of the product and a secure source code review, if the code is available.
+   - More than just focusing on the individual component being changed, a security impact analysis should review how the change may affect the whole system.
+   - To get this holistic view, an organization may create a threat model to highlight any threats that would result after the change is implemented.
+5. Assess risk.
+   - A change may introduce a new risk to the organization, but that does not necessarily mean that the change will be rejected. However, once a vulnerability is identified, a risk assessment of the vulnerability must be conducted. This risk assessment should capture the impact of the vulnerability, based on the likelihood of the threat occurring and the criticality of the system if exploited. The organization may choose to follow a risk management framework described in detail in the Risk Mitigation Plan lesson of the Cyber Defense Analyst – Basic (CDA-B) course, such as NIST’s Risk Assessment Process (NIST SP 800-30, Guide for Conducting Risk Assessments) or the USCYBERCOM Risk Assessment Methodology (CWP 3-33.4, Cyber Protection Team Organization, Functions, and Employment) to document this risk assessment. The risk assessment should produce a rating (for example, low, medium, high, critical) based on the organization’s practices.
+7. Assess impact on existing security controls.
+   - An assessor must analyze, in particular, the impact that a change may have on existing security controls, either temporarily or permanently. For example, if a Web Application Firewall (WAF) that is responsible for filtering malicious Hypertext Transfer Protocol (HTTP) requests to a critical web server requires updating, a period may exist when the firewall cannot provide protection during the upgrade. Some permanent changes may directly impact the secure baseline configuration, such as a change in software (for example, installation of a new antivirus program). Just like during the Assess Risks step, the output of this step is to assess any new risk to the organization and develop mitigating controls as needed.
+9. Plan safeguards and countermeasures.
+    - Once an assessor has fully documented the risks for the change, it is up to the organization to determine the level of risk it is willing to accept or avoid. A change that has sufficient risk and cannot be altered or avoided undoubtedly requires development of mitigating controls, which are safeguards and countermeasures that reduce the risk to acceptable levels. The MITRE ATT&CK® framework publishes an extensive list of mitigations for an organization to consider. Two mitigations included in the list are protecting sensitive information with strong encryption (M1041: Encrypt Sensitive Information) and using network appliances to filter ingress or egress traffic (M1037: Filter Network Traffic).
+
+#### Security Impact Analysis Template
+- NIST 800-128, Appendix I, provides a sample security impact analysis template. Organizations are encouraged to modify the template to fit their needs. A copy of the template is attached.
 
 
-
-
-
-
-
+## Vulnerability Based Hunts
 
 
 
