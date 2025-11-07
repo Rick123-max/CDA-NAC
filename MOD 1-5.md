@@ -2686,3 +2686,326 @@ Discovery and Counter Infiltration (D&CI) by detecting, illuminating, and defeat
   - This should be brought to the appropriate team’s attention for scrutiny.
 - Changes sometimes occur outside the scope of a formal change management process.
 - This does not necessarily mean that the change was not authorized, but it does mean that the change should be examined. 
+
+
+# MOD 5
+## Applied Collection Framework
+### Structured Approach to Data Collection
+#### Sensible Data Collection 
+- In a modern network, virtually everything generates logs.
+- An analyst may be tempted to ingest every possible log from every possible source, without regard for the effect that it will have on later analysis efforts.
+- Such an approach results in many issues, including rapidly rotating log data, superfluous or confusing information, and increased collection plan complexity.
+
+#### Rapidly Rotating Log Data
+- When using a Security Information and Event Management (SIEM) server such as Security Onion, as log or database storage begins to fill up, old logs are deleted, moved, or archived.
+- This process is referred to as rotating logs, and it is a necessary feature to avoid crashing servers and failure to ingest new log data.
+- Ingesting unnecessary and irrelevant log information causes log data to rotate more quickly.
+- This could result in useful information being deleted in order to store useless information.
+
+#### Superfluous or Confusing Information
+- Accepting more data than necessary can result in incorrect or delayed conclusions while investigating events.
+- Shipment of too many sensors or logs can skew data analysis at scale by duplicating data or increasing the time it takes to assess which logs apply directly to defense efforts.
+- Imagine an analyst sifting through network data from two sensors that are placed in a way that captures packets twice while traversing a network.
+- Not only would this fill up data storage space, but it would also appear as though twice the amount of traffic is on the network and possibly double the alert volume from a Network Intrusion Detection System (NIDS).
+
+#### Increased Collection Plan Complexity
+- When planning for sensor deployment and log ingestion on a defended network, many factors need to be considered.
+- Such factors include configuring port mirroring on switches, installing agents on servers to ship logs to a SIEM, and physically accessing communication closets or server rooms.
+- All these things take planning, communication, and, in some cases, scheduled network outages.
+- By identifying relevant and actionable data sources prior to deploying defense assets on a network, analysts may reduce costs and time needed to properly defend a network.
+- Considering the problems caused by improper and overly ambitious data collection, it is necessary to employ a sensible approach to selecting the data to be used for defending a mission partner’s operations.
+- An analyst must determine the most severe risks not only to the network but also to the mission partner’s mission as a whole and focus the collection plan around the results of that analysis.
+
+### Applied Collection Framework
+- As stated earlier, the ACF is a _**threat-centric methodology that gives analysts a roadmap for focusing data collection efforts when defending a supported organization’s mission from threats in cyberspace**_.
+- The ACF does not focus on threats to a mission partner’s network but, rather, to the mission.
+- By determining the most likely and most dangerous threats to operations and survivability, the ACF focuses an analyst’s efforts on what is most effective.
+- The ACF comprises four phases, as follows:
+  1. Define threats
+  2. Quantify risk
+  3. Identify data feeds
+  4. Narrow focus
+- Following these phases in order results in a focused and sensible approach to collecting data.
+- It builds on efforts to identify Key Terrain in Cyberspace (KT-C) and makes that information actionable.
+  ![dba3191f-055a-48d5-8552-0033dbafea76](https://github.com/user-attachments/assets/60287b55-f1c9-4f8c-9f4c-1c9693a89de9)
+
+- The four phases consist of the following questions that build the framework for data collection:
+  - What are the threats to the mission? By defining the real threats to the mission, a clear picture of the defense landscape is possible.
+  - What are the impacts and probability of those threats? Focusing on threats that are not probable or are minimally impactful may not be worth the budget, time, or storage space needed.
+    - This is where focus on Cyber Threat Intelligence (CTI), if available, is highly important.
+    - An attacker’s most dangerous and most probable Courses of Action (COA) give an analyst a more solid estimate for threat quantification.
+  - Which data sources give actionable information related to the most impactful and probable threats?
+    - This is where an analyst identifies where to place sensors or log collection points.
+  - Which logs from these specific data sources are necessary?
+    - Finally, the collection plan’s focus is narrowed to exactly which pieces of information are relevant for an analyst to view, based on threats to the mission partner.
+
+- The end goal of the ACF is to **focus on, store, and monitor data** that is **actionable**.
+- A common pitfall of setting up data ingestion and logging before identifying threats is having a detection capability built around what is possible and not what is actionable.
+- By first identifying threats and then crafting collection strategies and ingesting data feeds, analysts can ingest actionable data from the beginning.
+- This results in a meaningful and sensible data collection strategy centered around a mission partner’s main focus: the mission.
+
+### Threats to the Mission
+- Threat in cybersecurity is often synonymous with threat actor or malicious cyber actor.
+- The **ACF** takes a much broader approach, defining a threat as something that, **if manifested**, could possibly **disrupt**, **deny**, or **destroy** the **operations or mission** of an organization.
+- Consider the following examples:
+  - A hospital is charged with keeping patients’ medical information secure and private.
+    - The leaking or exposure of this information is a major concern for the hospital. This is a threat to **confidentiality**.
+  - A Federal Aviation Administration (FAA) office requires that readings from an airport radar are correct and match what the air traffic controller sees on the monitor.
+    - Inaccuracy of the radar returns could cause airplanes to crash and, ultimately, lose lives. This is a threat to **integrity**.
+  - A manufacturer of tractors and other farm equipment relies on the proper operation of the assembly line’s mechanical track in order to stay on schedule.
+    - The malfunction of the assembly line not only delays production but also causes loss of money due to idle workers.
+    - An interruption to production is a major threat. This is a threat to **availability**.
+
+- It makes sense that in a threat-centric framework, Phase 1 would begin with defining the threats to a mission.
+- However, an analyst on a Cyber Protection Team (CPT) must first answer a more fundamental question: What is the mission?
+- Given the temporary nature of a CPT mission, it is necessary to fully understand what is being defended before properly defining threats.
+
+#### What Is the Mission?
+- Ideally, defining the mission is a process completed before ever touching a mission partner’s network.
+- The **identification of key stakeholders, important personnel to operations, and key support role players** is the best place to start.
+- The goal is to break down the mission into defensible functions or processes.
+- Another term for this process is **Mission Analysis (MA)**.
+- Such questions as the following should be answered in this stage of defining threats:
+  - **What is the stated mission for the organization?**
+    - Sometimes mission statements are vague and not helpful to mission analysis, but some organizations or military units may provide helpful information through mission statements.
+    - Such information is usually found on public websites or in business documents.
+    - For example, the U.S. Navy Fleet Logistics Support Squadron (VRC) 30 provides the following mission statement on its website:
+      - “Provide rapid daily air delivery service between ship and shore to maximize the warfighting readiness of deployed Carrier Strike Groups (CSG) and enable CSG commanders to bring maximum lethality to the enemies of the United States, wherever they may be.”
+    - From this statement, an analyst can see that this organization prioritizes “rapid” air delivery from land to aircraft carriers at sea and emphasizes flexibility (specifically with location).
+    - This is high level, but it suggests that communication systems between land and deployed carriers are essential. Also, logistics databases and scheduling systems might be important to protect.
+
+  - **What are the stakeholders’ interpretation of the mission?**
+    - Analysts may find that mission statements are too vague or do not really give useful information.
+    - Even if the mission statement is useful, analysts should interface with key stakeholders to get more perspective on the organization’s goals.
+
+  - **What are the functions needed to accomplish the mission partner’s goals or mission?**
+    - Vast possibilities exist here.
+    - Depending on the mission partner, a needed function could be anything from the ability to take payments online to the ability to accurately track fuel tank levels or access to a certain file server — anything that key stakeholders and support personnel identify as something they could not accomplish the mission without.
+
+  - **What are the systems needed to perform the essential functions?**
+    - The analysis becomes technical here. Support personnel should be able to identify systems that support the mission partner’s essential functions.
+    - Organizational resources or systems essential to maintaining operations and achieving the mission partner’s goals are critical assets.
+    - Such assets may also be referred to as Key Terrain in Cyberspace (KT-C).
+
+- Additionally, the CPT’s mission should be considered.
+- Knowing the mission partner’s mission is important, but knowing the CPT’s goals is paramount.
+- The following information drives the CPT’s collection plan:
+  - Orders and Commander’s intent give clear guidance on the definition of success for the engagement.
+  - Per Cyber Warfare Publication (CWP) 3-33.4, Cyber Protection Team (CPT) Organization, Functions, and Employment, three triggers exist for a CPT mission:
+    - **threat intelligence**
+    - **a designated campaign plan**
+    - **detected Malicious Cyber Activity (MCA)**.
+  - The reason for the operation determines how much time the CPT has for planning as well as key focus areas for collecting data.
+
+### Defining Threats
+- Now that the mission has been identified, essential functions have been listed, and critical assets (or KT-C) have been highlighted, analysts can define threats.
+- With all the information gathered from the stakeholders and users, defining threats is not a brainstorming session.
+- Analysts start with the essential functions to the mission and determine what could cause them to fail.
+- For example, if the mission partner is a retail chain whose mission is to sell goods via sales on its website, the critical functions may be the following:
+  - Accept online credit card payments.
+  - Maintain proper inventory, and represent that inventory on the website.
+  - Accurately pick order contents from the warehouse.
+  - Ship packages to correct addresses.
+
+- An analyst may break down this information into threats by starting with the function and working down to what could cause it to fail.
+- Consider the following abbreviated examples:
+  - Threats to accepting online credit card payments.
+    - The website becomes unavailable or untrustworthy (maliciously altered or defaced).
+    - The server that accepts payments becomes unavailable or is tampered with.
+  - Threats to the inventory system and website representation.
+    - The website becomes untrustworthy (maliciously altered or defaced).
+    - Database servers are tampered with.
+    - Network communication is cut off between the database back end and web front end.
+  - Accurately pick order contents from the warehouse.
+    - Database servers are tampered with.
+    - The warehouse power is cut off.
+  - Ship packages to correct addresses.
+    - Database servers are tampered with.
+- By listing operational threats and pairing them with technical counterparts, patterns may start to emerge.
+- In the above examples, two threats were repeated in multiple functions: **database tampering and website availability/integrity**.
+- This illuminates high-impact threats and, fortunately, consolidates collection efforts for those functions.
+
+#### A Note about Cyber Threat Intelligence
+- Network defense teams and CPTs can leverage CTI to define threats that may not be obvious or evident after interviewing stakeholders and reviewing network documentation.
+- (**OSINT**) found through internet research, or internal intelligence provided by embedded (**CTIA**), may come with ready-made threats to the mission partner, their industry, or otherwise-prevailing threats to critical asset software or hardware specifications.
+- CPT analysts may submit Requests for Information (**RFI**) to embedded CTIAs for intelligence specific to the mission partner.
+- Often, a CTIA may provide TTPs to focus on when crafting a collection plan based on malicious cyber actors of interest to the mission partner.
+- These TTPs, when aligned with mission partner operational threats and critical asset vulnerabilities, can assist in crafting a more targeted approach to data collection.
+
+### Quantify Risk
+#### Calculated Risk
+- The ACF allows an analyst to view the threat landscape through tradeoffs.
+- Every threat is not a major risk to mission partner operations, and resources for data analysis are always finite.
+- With these two facts in mind, the ACF’s second phase is Quantifying Risks.
+- By considering both the impact of a threat and the probability of a threat’s occurrence, analysts can prioritize data collection around the greatest risks to a mission partner.
+
+#### Determining Impact to Operations
+- At this point in the ACF process, analysts have already determined which functions the mission partner or supported organization must have to maintain operations.
+- What makes a threat more impactful than any other listed threat from Phase 1?
+- Analysts should not rely solely on judgment or intuition in determining impact.
+- A series of qualifying questions can be asked, as follows:
+  - If manifested, is the threat a complete destruction of operations?
+  - Is the threat a recoverable occurrence? In other words, is the mission partner forced to re-create services and start from scratch?
+  - Can the mission partner operate temporarily without the affected functions?
+  - Does the threat have an impact outside the mission partner? This is important for CPT analysts to consider, as military and civilian organizations often have operations with national security implications.
+  - If the threat is realized, does it affect multiple essential functions?
+  - Does current CTI indicate that the impact is high?
+- Taking all the above questions into account, a threat impact rating is assigned on a scale of 1 to 5 (**where 5 is the highest impact**).
+- Given the natural subjectivity of these ratings, it is important to maintain a standard rating scale for future calculations.
+- Many times, organizations hire third parties and develop standard criteria for what constitutes certain threat impact scores in order to maintain consistent calculations over time.
+
+#### Determining Threat Probability
+- If a threat with maximum impact has a 0% chance of occurring, is it worth considering in a collection plan?
+  - The ACF’s answer to that question is no.
+- When dealing with threats to an organization, analysts should consider only threats that have a possibility of occurring, and, more specifically, they should prioritize threats that have a high probability of occurring.
+- The same 1-to-5 rating scale is used for probability (**where 5 is the most probable**).
+- The following should be taken into account when determining probability:
+  - CTI reports and trends.
+  - The age of the vulnerability associated with the threat (if applicable). As vulnerabilities become older, the probability of their being exploited becomes higher.
+  - Attack surface (number of possible attack points or exposed area) of the critical asset associated with the threat.
+  - The amount of knowledge an attacker would need to manifest the threat.
+  - The level of access needed to exploit a vulnerability.
+- This is obviously not an exact science. However, taking the above into account and making a decision by committee result in figures worthy of crafting a collection strategy around.
+- Probability ratings should be revisited often if applied in a longer engagement.
+
+#### The Risk Equation
+- After determining impact and probability of the threats compiled in Phase 1 of the ACF, determining risk (or risk weight) is a simple equation, as follows:
+  - `Impact (I) × Probability (P) = Risk (R)`
+- For example, if a threat has an impact rating of 4 and a probability rating of 3, the risk weight is 12 (4 × 3 = 12).
+- A good rule of thumb for classifying threats is:
+  - **0 to 9: Low risk**
+  - **10 to 16: Medium risk**
+  - **17 to 25: High risk**
+- Given the natural subjectivity of these numbers, it is important that all the initial figures are determined by the same person or committee for uniformity and consistency.
+- One person might determine a risk weight of 20 when another might determine a risk weight of 10 for the same threat.
+- Having added variance in subjective numbers is something to be avoided.
+- Module 3’s Key Terrain in Cyberspace (KT-C) lesson discussed tier levels for assets on a network, where Tier 1 is the most critical and Tier 3 is the least critical.
+- Risk weight classification is a related concept, but instead of classifying terrain, it classifies actions against the terrain.
+
+#### Prioritizing Threats
+- Now that the ACF has provided categories of risk level, resource and collection plan priority may be sensibly assigned.
+- After all, analysts should be more willing to devote processing and storage heavy collection methods to a “high-risk” threat than to a “low-risk” one.
+- Conversely, if a “low-risk” threat requires a large amount of storage and manual analysis to monitor, some tradeoffs should be considered.
+- For example, if full packet capture is needed to fully determine if a low-risk threat occurred, a data retention rule to delete that information after a few days could free up space for higher-risk threat data.
+
+### Identify Data Feeds
+#### Priority Data Feeds
+- Once threats have been scored and the most severe threats are identified, an analysis of the network environment is conducted.
+- Phase 3, Identify Data Feeds, is where the realities of resource constraints and configuration limitations come into play.
+- To this point in the ACF, analysis and interviews have been mostly nontechnical, but now the analysts’ data collection needs must correlate to the tools available for collection.
+- The end goal is to identify the general data feeds that are needed to observe the identified threats’ manifestation on the network. Granularity comes in Phase 4.
+
+#### Available Data Sources
+- To identify relevant data sources, analysts need to determine what data is available for monitoring the threat and where that data can be found on the network.
+- The following is a list of characteristics to identify for each priority threat and their associated critical assets.
+
+##### Asset Architecture
+﻿- The architecture or underlying technology of the asset(s) relating to the threat must be determined to properly employ sensors or log collectors. 
+ For example, a Windows Server Operating System (OS) may output a variety of logs, and the Windows Event Log format is principal among them. 
+ Linux OSs and networking devices are more likely to output syslog data.
+- In modern networks, it is also essential to determine if the asset targeted for threat detection is **physical** or **virtual**.
+- Network analysts planning to capture horizontal Virtual Machine–to–Virtual Machine (**VM-to-VM**) traffic should use something **other than traditional network sensors**.
+
+##### Network Location/Flow
+﻿- Locating a threat’s related assets on a network map is important for identifying network flow for possible sensor capture. 
+ If full packet capture is desired, knowing where the critical network traffic flows is necessary for detecting threats.
+
+##### Log Shipping Capability
+﻿- If a log is created but cannot be delivered to the analysis platform, it is not useful for threat detection. 
+ Many devices need supplemental software to move logs from device to device. 
+ For example, Elasticsearch uses Logstash and Beats to ingest logs into its database. 
+ Many mission partners require approval for the installation of third-party applications.
+
+#### Relevant Data Sources
+- After locating the available data, analysts using the ACF determine which data is relevant.
+- Relevant data is data identified as available for collection and useful for analysis.
+- Starting with the highest-rated threat from Phase 2, at a high level, vantage points on the network need to be identified.
+- For each critical asset (and that asset’s network traffic path), ask the following questions:
+  - **What data can the analysis platform ingest?**
+    - Analysts may find that some logs simply cannot be shipped based on resources, budget, time, or approvals.
+  - **What data contains information pertaining to the related threats?**
+    - There is no need for shipping or collecting data completely unrelated to the information being captured.
+  - **Do intelligence reports suggest any extra feeds worthy of collecting?**
+    - Intelligence analysts may indicate that every attacker of interest uses a certain TTP, or there could be a companion TTP to a high-risk threat.
+    - For example, if an attacker is known to use scheduled tasks for persistence in conjunction with a specific operational threat, analysts should consider collecting for both — not just the originally identified threat from Phase 1.
+- At this stage, stay as general as possible.
+- Casting a wide net allows for close attention in Phase 4 (Narrow Focus) and may reveal vantage points that work for data collection plans of multiple threats.
+- For example, multiple critical servers on a network may use the same switch or share a common Virtual Local Area Network (VLAN), allowing for a single sensor to capture all necessary data for two critical assets.
+
+### Narrow Focus
+#### Costs vs. Benefits of Data
+- After completing the process of selecting vantage points and data feeds for data collection, analysts using the ACF start the fourth phase: Narrow Focus.
+- This is a granular process of **determining if a log or data** source provides enough value for threat detection **when compared** to the **storage**, **processing power**, and **mental effort** it requires **to analyze**.
+
+#### Behavior-Based Detection
+- When narrowing the focus of a collection plan, it may be tempting to compile a large list of atomic **IOC** for quick alerting on known bad characteristics of data.
+- After all, this would greatly reduce the amount of storage and analysis effort needed.
+- However, the Pyramid of Pain, introduced in the Cyber Defense Analyst – Basic (CDA-B) course, shows that **TTPs are the most effective criteria** to craft a plan around because they are the **most painful for attackers to change between attacks**. 
+- **NOTE**: IOC detection can be quite effective as a supplement to behavior-based detection but should not be used as the primary method.
+
+#### What is Necessary?
+- Ensure that at this point in the ACF, threats are associated with TTPs and hypotheses.
+- If data collected from an identified vantage point does not match a TTP, it should be a candidate for removal from the collection plan.
+- For example, if a defaced website is the top threat to the mission partner, develop a hypothesis for how an attacker might manifest that threat.
+- Using that hypothesis, list the TTPs and log types needed for each.
+- Once that process is completed for all threats, remove or reduce all other data collection. **MITRE DeTT&CT** is a great tool for this.
+
+- When looking at data collected from the vantage points selected during Phase 3, analysts should ask **which data is worth the effort and processing power for each threat**.
+- For example, if the CPT’s vantage point on the network is receiving full packet capture data in response to a threat that requires only session data, that collection does not match the threat.
+- However, using the same example, that sensor may be placed in the correct location but requires some further log ingest configuration tuning.
+
+- Some examples of questions an analyst might ask during this process are as follows:
+  - Is it necessary to have Server Message Block (SMB) traffic to/from all workstations?
+  - Does the targeted threat require authentication logs from the firewall?
+    - Are encrypted communications necessary to store in the analysis platform?
+    - Which Windows Event Logs pertain to the monitored threats?
+    - Will keeping 2 weeks of full packet capture information cause other, more relevant log information to be rotated more quickly than what the mission requires?
+  - These questions are just examples but illustrate the analytic process of determining the operational minimum and operational ideal for data ingestion and retention.
+
+- **Operational minimum** is the **minimum amount of data required for real-time detection**. In other words, “**What data is needed right now**?”
+- **Operational ideal** is the **amount of data needed for retrospective and forensic investigations**.
+  - CPTs need to ensure that their data ingestion does not fill their storage or require more processing power than necessary for reviewing historical logs.
+  - Luckily, CPTs operate temporarily on mission partner networks, so there is more flexibility when it comes to operational ideals.
+  - However, the size of the network and the data collected can greatly affect data retention and rotating logs, even in temporary engagements.
+  - In other words, “**What data will be needed later?**”
+- Operational ideals may be different, depending on the log for any given mission.
+- **NOTE**: Mission partner and CPT agreements may dictate data retention.
+  - Consider **(NIST) standards** for long-term data retention guidelines based on asset criticality.
+
+### Filtering Collected Data
+- Because Phase 3 requires analysts to cast a wide net when selecting data feeds, this mass of information needs to be tuned and tailored to the mission partner’s threat environment.
+- The (JDMSS) and associated tools, such as those described below, have built-in functionality that Network Technicians may configure for better log and data analysis effectiveness.
+
+#### Berkeley Packet Filters (BPF)
+- Using a simple query language, technicians can configure sensors to only accept and process traffic to or from certain IP addresses, ports, and/or VLAN identifiers.
+- This is an extremely flexible solution, as it can be applied to specific processes.
+- For example, if an analysis requires full Zeek data but only full packet capture from a certain IP, BPF is granular enough to apply to only the packet capture process.
+
+#### Elasticsearch Ingest Pipelines
+- Elasticsearch has a built-in feature to modify or filter database records before they are ingested.
+- This can be used to exclude all logs that do not meet a certain criterion.
+- For example, if an analyst requires only proxy logs that do not contain example.com in the message, an ingest pipeline can perform that function during log collection.
+
+#### Network Intrusion Detection System (NIDS) Rule Files
+- NIDS applications, such as Snort and Suricata, can produce much alert noise that does not pertain to a threat identified in the ACF process.
+- Technicians may comment out certain rules from the source files used for alerts.
+- Additionally, in configuration files, it may be possible to exclude entire categories of alerts.
+
+#### Preventing Log Shipment
+- This option is the **least preferable** of all methods.
+- By limiting the logs being shipped from devices preemptively, an analyst can remove superfluous logs from entering the analysis platform altogether.
+- However, this **requires configuration of mission partner devices** past the initial log shipping configuration.
+- Also, these logs may prove useful later in the mission, requiring technicians to schedule more time to configure mission partner-owned assets.
+
+- **Phase 4 is the most technical of the ACF phases** and **requires analysts to be intimately familiar** with both the **threats** they are attempting to detect and the **data** available for that detection. 
+
+
+
+## ACF Case Study: City Energy
+
+
+
+
+
+
+
