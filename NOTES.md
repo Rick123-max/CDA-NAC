@@ -1,6 +1,6 @@
 - TSHARK SYNTAX:
 - Display all traffic containing a key work in a PCAP file: tshark -r sensoroni_onion-fn2_1023.pcap -Y "frame contains tradetracker"
-- Create a targeted PCAP containing only traffic from an IP address: tshark -r sensoroni_onion-fn2_1023.pcap -Y "ip.addr == 104.53.222.103" -w exported_objects/evidence_1.pcap
+- Create a targeted PCAP containing only traffic from an IP address: `tshark -r sensoroni_onion-fn2_1023.pcap -Y "ip.addr == 104.53.222.103" -w exported_objects/evidence_1.pcap`
 - Display contents of the 2nd TCP stream in HEX Format tshark -z "follow,tcp,hex,1"
 - Applying Display Filters
 - In tshark, run the following commands:
@@ -12,6 +12,7 @@
 - In the above, -r is the file to be read, -w is the file to be written to, -Y is the filter to be applied.
 - Adding only traffic to and from a different IP: tshark -r maliciousip443.pcap -w output.pcap -Y "ip.addr == 172.16.3.3"
 - To quickly analyze statistics of newly created PCAP: capinfos maliciousip443.pcap
+
 
 - Arkime:
 - Open Arkime
@@ -112,5 +113,5 @@
 
 
 - Parse out only PROTOCOL comms from a specified source IP: `tshark -r OldPcap -w NewPcap.pcap -Y "ip.src == <IP> and <protcol>"`
-- BPF Filter for conversations between host <IP> and port <port> and host <ip> and port <port>: tcpdump -r <FilePath> host <ip> and port <port> and host <ip> and port <port> -w <newPcap>`
+- BPF Filter for conversations between host <IP> and port <port> and host <ip> and port <port>: `tcpdump -r <FilePath> host <ip> and port <port> and host <ip> and port <port> -w <newPcap>`
 - 
