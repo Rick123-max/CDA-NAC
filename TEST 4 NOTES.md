@@ -14,6 +14,8 @@
 <img width="380" height="199" alt="image" src="https://github.com/user-attachments/assets/b939b28a-f7ac-482c-9cc5-aa005577eeba" />
 #### GROK Filter
 <img width="381" height="170" alt="image" src="https://github.com/user-attachments/assets/196184fe-08a3-42cd-a498-8da01498eac5" />
+#### Mutate 
+<img width="224" height="190" alt="image" src="https://github.com/user-attachments/assets/ea35cdfe-613f-4fd5-88c5-c46e56b5d7d9" />
 
 
 
