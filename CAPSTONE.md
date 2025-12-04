@@ -1,6 +1,21 @@
+# SURVEY
+## Identify a Device 1
+<img width="648" height="296" alt="image" src="https://github.com/user-attachments/assets/8372e498-277b-4344-a0ff-9aeaf7e07627" />
+
+## Identify a Port
+<img width="483" height="773" alt="image" src="https://github.com/user-attachments/assets/fac846bc-ea6f-4b7d-a49a-5336eb38c4d0" />
+
+## Identify a Device 2
+<img width="721" height="506" alt="image" src="https://github.com/user-attachments/assets/9b72c890-c28b-4d1f-872b-10b43e799763" />
+
+## Identify a Baseline Deviation
 <img width="708" height="697" alt="image" src="https://github.com/user-attachments/assets/5c5925a9-2226-48fb-a559-c9566a7eb01d" />
+
+## Architecture Configuration
 <img width="703" height="385" alt="image" src="https://github.com/user-attachments/assets/b9dbfaac-b037-4049-96bb-876425f12562" />
 
+## Prioritize a Log Source
+- Look at the Table provided and determine based on which device has the lowest retention time.
 
 # HUNT
 ## PHISHING EMAIL
