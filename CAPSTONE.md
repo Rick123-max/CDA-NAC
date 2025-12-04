@@ -2,6 +2,19 @@
 <img width="703" height="385" alt="image" src="https://github.com/user-attachments/assets/b9dbfaac-b037-4049-96bb-876425f12562" />
 
 
+# HUNT
+## PHISHING EMAIL
+1. Go to SMTP Dashboard
+2. Filter on your "EMAIL HEADER"
+3. Go down and filter for the id_community_uid
+4. find the file.target
+5. go to the Dashboard it needs and Filter for the file.target: <FILE NAME>
+
+## Domain Names
+
+
+
+
 
 # REFINE
 ## Detect Beaconing
